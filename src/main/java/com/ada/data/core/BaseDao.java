@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 
-public interface BaseDao<T, ID extends Serializable> {
+public interface BaseDao<T , ID extends Serializable> {
 
 	public abstract T add(T t);
 
