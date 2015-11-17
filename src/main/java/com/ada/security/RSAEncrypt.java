@@ -272,9 +272,10 @@ public class RSAEncrypt {
 		    
 		    public static void main(String[] args){    
 		        RSAEncrypt rsaEncrypt= new RSAEncrypt();    
-		        //rsaEncrypt.genKeyPair();    
+		        rsaEncrypt.genKeyPair();    
 		         
-		    
+		   String p=     RSAEncrypt.byteArrayToString( rsaEncrypt.getPrivateKey().getEncoded()); 
+		    System.out.println(p);
 		        //加载公钥    
 		        try {    
 		            rsaEncrypt.loadPublicKey(RSAEncrypt.DEFAULT_PUBLIC_KEY);    

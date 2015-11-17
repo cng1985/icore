@@ -18,7 +18,8 @@ import com.ada.data.core.Updater;
 public class ArticleCatalogServiceImpl implements ArticleCatalogService {
 	@Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
-		Pagination page = dao.getPage(pageNo, pageSize);
+		Finder finder=Finder.create("from ArticleCatalog a order by a.id desc");
+		Pagination page = dao.find(finder,pageNo, pageSize);
 		return page;
 	}
 
@@ -30,6 +31,19 @@ public class ArticleCatalogServiceImpl implements ArticleCatalogService {
 
     @Transactional
 	public ArticleCatalog save(ArticleCatalog bean) {
+    	if(bean.getParentId()!=null){
+    		ArticleCatalog parent=dao.findById(bean.getParentId());
+    		if (parent!=null) {
+				if (parent.getLevelinfo()!=null) {
+					bean.setLevelinfo(parent.getLevelinfo()+1);
+				}else{
+					bean.setLevelinfo(1);
+				}
+			}else{
+				bean.setLevelinfo(1);
+			}
+    	}
+    	
 		dao.save(bean);
 		return bean;
 	}
