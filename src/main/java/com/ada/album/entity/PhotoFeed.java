@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,7 +28,7 @@ public class PhotoFeed implements Serializable{
 	private UserInfo user;
 	
 	
-	@OneToMany
+	@ManyToMany
 	@JoinTable(name="album_photo_feeds")
 	private Set<Photo> photos=new HashSet<Photo>();
 	
