@@ -11,14 +11,14 @@ import com.ada.album.dao.PhotoDao;
 import com.ada.album.entity.Photo;
 
 @Repository
-public class PhotoDaoImpl extends BaseDaoImpl<Photo, Long> implements PhotoDao {
+public class PhotoDaoImpl extends BaseDaoImpl<Photo, String> implements PhotoDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
 
-	public Photo findById(Long id) {
+	public Photo findById(String id) {
 		Photo entity = get(id);
 		return entity;
 	}
@@ -28,7 +28,7 @@ public class PhotoDaoImpl extends BaseDaoImpl<Photo, Long> implements PhotoDao {
 		return bean;
 	}
 
-	public Photo deleteById(Long id) {
+	public Photo deleteById(String id) {
 		Photo entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

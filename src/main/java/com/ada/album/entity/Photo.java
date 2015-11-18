@@ -43,8 +43,7 @@ public class Photo implements Serializable{
 	private Date lastDate;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private String id;
 	
 	private String url;
 	
@@ -112,11 +111,11 @@ public class Photo implements Serializable{
 		this.lastDate = lastDate;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

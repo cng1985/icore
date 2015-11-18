@@ -18,7 +18,7 @@ public class PhotoServiceImpl implements PhotoService {
 	
 
 	@Transactional(readOnly = true)
-	public Photo findById(Long id) {
+	public Photo findById(String id) {
 		Photo entity = dao.findById(id);
 		return entity;
 	}
@@ -37,13 +37,13 @@ public class PhotoServiceImpl implements PhotoService {
 	}
 
     @Transactional
-	public Photo deleteById(Long id) {
+	public Photo deleteById(String id) {
 		Photo bean = dao.deleteById(id);
 		return bean;
 	}
 
     @Transactional	
-	public Photo[] deleteByIds(Long[] ids) {
+	public Photo[] deleteByIds(String[] ids) {
 		Photo[] beans = new Photo[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);

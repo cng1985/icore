@@ -1,12 +1,14 @@
 package com.ada.album.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "album_category")
-public class Category {
+public class Category implements Serializable{
 
 	@Id
 	private String id;
