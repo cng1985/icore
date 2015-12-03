@@ -112,7 +112,7 @@ public class ModuleGenerator2 {
 		actionFile = new File(actionFilePath);
 		log.debug("actionFile:" + actionFile.getAbsolutePath());
 
-		String pagePath = "WebContent/WEB-INF/"
+		String pagePath = "src/main/webapp/WEB-INF/"
 				+ prop.getProperty("config_sys") + "/"
 				+ prop.getProperty("config_entity") + "/";
 		pageListFile = new File(pagePath + "list.html");
@@ -120,7 +120,7 @@ public class ModuleGenerator2 {
 		pageEditFile = new File(pagePath + "edit.html");
 		log.debug("pageEditFile:" + pageEditFile.getAbsolutePath());
 		pageAddFile = new File(pagePath + "add.html");
-		log.debug("pageAddFile:" + pageAddFile.getAbsolutePath());
+		log.info("pageAddFile:" + pageAddFile.getAbsolutePath());
 	}
 
 	private void prepareTemplate() {
@@ -138,6 +138,9 @@ public class ModuleGenerator2 {
 	}
 
 	private static void stringToFile(File file, String s) throws IOException {
+		if (!file.getParentFile().exists()) {
+			file.getParentFile().mkdirs();
+		}
 		FileUtils.writeStringToFile(file, s, ENCODING);
 	}
 
