@@ -12,10 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class ModuleGenerator2 {
+public class ModuleMavenGenerator {
 
 	private static final Logger log = LoggerFactory
-			.getLogger(ModuleGenerator2.class);
+			.getLogger(ModuleMavenGenerator.class);
 	public static final String SPT = File.separator;
 
 	public static final String ENCODING = "UTF-8";
@@ -44,7 +44,7 @@ public class ModuleGenerator2 {
 	private File pageTpl;
 	private File pageFile;
 
-	public ModuleGenerator2(String packName, String fileName) {
+	public ModuleMavenGenerator(String packName, String fileName) {
 		this.packName = packName;
 		this.fileName = fileName;
 	}
@@ -213,6 +213,6 @@ public class ModuleGenerator2 {
 	public static void main(String[] args) {
 		String packName = "com.jeecms.common.developer.template";
 		String fileName = "template.properties";
-		new ModuleGenerator2(packName, fileName).generate();
+		new ModuleMavenGenerator(packName, fileName).generate();
 	}
 }
