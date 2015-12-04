@@ -28,29 +28,52 @@ public class MenuServiceImpl implements MenuService {
 		return entity;
 	}
 
-    @Transactional
+	@Transactional
 	public Menu save(Menu bean) {
 		dao.save(bean);
+		if (bean.getParentId() != null) {
+			Menu parent = dao.findById(bean.getParentId());
+			if (parent != null) {
+				if (parent.getLevelinfo() != null) {
+					bean.setLevelinfo(parent.getLevelinfo() + 1);
+				} else {
+					bean.setLevelinfo(2);
+				}
+				if (parent.getIds()!=null) {
+					bean.setIds(parent.getIds()+","+bean.getId());
+
+				}else{
+					bean.setIds(parent.getId()+","+bean.getId());
+				}
+				
+			} else {
+				bean.setLevelinfo(1);
+				bean.setIds(""+bean.getId());
+			}
+		} else {
+			bean.setLevelinfo(1);
+			bean.setIds(""+bean.getId());
+		}
 		return bean;
 	}
 
-    @Transactional
+	@Transactional
 	public Menu update(Menu bean) {
 		Updater<Menu> updater = new Updater<Menu>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-    @Transactional
+	@Transactional
 	public Menu deleteById(Integer id) {
 		Menu bean = dao.deleteById(id);
 		return bean;
 	}
 
-    @Transactional	
+	@Transactional
 	public Menu[] deleteByIds(Integer[] ids) {
 		Menu[] beans = new Menu[ids.length];
-		for (int i = 0,len = ids.length; i < len; i++) {
+		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
 		}
 		return beans;
@@ -62,14 +85,14 @@ public class MenuServiceImpl implements MenuService {
 	public void setDao(MenuDao dao) {
 		this.dao = dao;
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Menu> findChild(int id) {
 		Finder finder = Finder.create("from Menu t where t.parent.id=" + id);
 		finder.append(" order by t.sortnum asc");
 		finder.setCacheable(true);
-		List ms=	dao.find(finder);
+		List ms = dao.find(finder);
 		return ms;
 	}
 }
