@@ -122,10 +122,12 @@ public final class SettingUtils {
 	 */
 	public static Setting get() {
 		Ehcache cache = cacheManager.getEhcache(Setting.CACHE_NAME);
-		net.sf.ehcache.Element cacheElement = cache.get(Setting.CACHE_KEY);
-		Setting setting;
-		if (cacheElement != null) {
-			setting = (Setting) cacheElement.getObjectValue();
+		Setting setting = null;
+		if (cache != null) {
+			net.sf.ehcache.Element cacheElement = cache.get(Setting.CACHE_KEY);
+			if (cacheElement!=null) {
+				setting = (Setting) cacheElement.getObjectValue();
+			}
 		} else {
 			setting = new Setting();
 			try {
