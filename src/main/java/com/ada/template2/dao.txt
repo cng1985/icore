@@ -1,12 +1,12 @@
 package #{dao_p};
 
 
-import  com.ada.data.core.BaseDao;
+import  com.ada.data.core.CriteriaDao;
 import  com.ada.data.core.Updater;
 import com.ada.data.core.Pagination;
 import  #{entity_p}.#{Entity};
 
-public interface #{Entity}Dao extends BaseDao<#{Entity}, #{idtype}>{
+public interface #{Entity}Dao extends CriteriaDao<#{Entity}, #{idtype}>{
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public #{Entity} findById(#{idtype} id);
