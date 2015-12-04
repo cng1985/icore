@@ -16,15 +16,17 @@ import #{page_p}.#{Entity}Page;
 import #{manager_p}.#{Entity}Service;
 @Controller
 public class #{Entity}Action {
-	private static final Logger log = LoggerFactory.getLogger(TeacherAction.class);
+	private static final Logger log = LoggerFactory.getLogger(#{Entity}Action.class);
 
 	@RequestMapping("/#{config_entity}/view_list")
 	public String list(@RequestParam(value = "curpage", required = true, defaultValue = "1") int curpage,
 			@RequestParam(value = "pagesize", required = true, defaultValue = "20") int pagesize,
 			HttpServletRequest request, ModelMap model) {
 		#{Entity}Page pagination = manager.getPage(curpage, pagesize);
-		model.addAttribute("pagination", pagination);
-		model.addAttribute("pageNo", pagination.getPageNo());
+		model.addAttribute("list", pagination.getList());
+		model.addAttribute("page", pagination);
+		model.addAttribute("curpage", curpage);
+		model.addAttribute("pagesize", pagesize);
 		return "#{config_entity}/list";
 	}
 
