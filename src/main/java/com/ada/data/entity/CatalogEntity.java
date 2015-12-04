@@ -1,16 +1,11 @@
 package com.ada.data.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 
 import com.ada.common.hibernate.HibernateTree;
 
@@ -21,46 +16,45 @@ import com.ada.common.hibernate.HibernateTree;
  *
  */
 @MappedSuperclass
-public class CatalogEntity implements HibernateTree<Integer>, Serializable {
+public  abstract class CatalogEntity implements HibernateTree<Integer>, Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	/**
+	 * 名称
+	 */
 	private java.lang.String name;
 
+	
+	/**
+	 * 排序号
+	 */
 	private Integer sortnum;
 
-	private java.lang.String path;
 
-	private java.lang.String icon;
-
+	/**
+	 * ids
+	 */
 	private java.lang.String ids;
 
+	/**
+	 * 左节点
+	 */
 	private java.lang.Integer lft;
 
+	/**
+	 * 右节点
+	 */
 	private java.lang.Integer rgt;
 
+	/**
+	 * 等级
+	 */
 	private Integer levelinfo;
-	@JoinColumn(name = "pid")
-	@ManyToOne
-	private CatalogEntity parent;
-	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
-	private List<CatalogEntity> childrens;
+	
 
-	public List<CatalogEntity> getChildrens() {
-		if (childrens != null && childrens.size() > 0) {
-			return childrens;
-
-		} else {
-			return null;
-
-		}
-	}
-
-	public java.lang.String getIcon() {
-		return icon;
-	}
 
 	@Override
 	public Integer getId() {
@@ -91,18 +85,7 @@ public class CatalogEntity implements HibernateTree<Integer>, Serializable {
 		return name;
 	}
 
-	public CatalogEntity getParent() {
-		return parent;
-	}
 
-	public Integer getParentId() {
-		CatalogEntity parent = getParent();
-		if (parent != null) {
-			return parent.getId();
-		} else {
-			return null;
-		}
-	}
 
 	/**
 	 * @see HibernateTree#getParentName()
@@ -111,9 +94,6 @@ public class CatalogEntity implements HibernateTree<Integer>, Serializable {
 		return DEF_PARENT_NAME;
 	}
 
-	public java.lang.String getPath() {
-		return path;
-	}
 
 	public java.lang.Integer getRgt() {
 		return rgt;
@@ -136,14 +116,6 @@ public class CatalogEntity implements HibernateTree<Integer>, Serializable {
 		return null;
 	}
 
-	public void setChildrens(List<CatalogEntity> childrens) {
-		this.childrens = childrens;
-	}
-
-	public void setIcon(java.lang.String icon) {
-		this.icon = icon;
-	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -164,13 +136,7 @@ public class CatalogEntity implements HibernateTree<Integer>, Serializable {
 		this.name = name;
 	}
 
-	public void setParent(CatalogEntity parent) {
-		this.parent = parent;
-	}
 
-	public void setPath(java.lang.String path) {
-		this.path = path;
-	}
 
 	public void setRgt(java.lang.Integer rgt) {
 		this.rgt = rgt;
