@@ -39,6 +39,7 @@ public class Setting implements Serializable {
 		/** 左上 */
 		topLeft,
 
+		
 		/** 右上 */
 		topRight,
 
