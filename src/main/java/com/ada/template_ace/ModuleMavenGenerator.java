@@ -1,4 +1,4 @@
-package com.ada.template2;
+package com.ada.template_ace;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -124,7 +124,7 @@ public class ModuleMavenGenerator {
 	}
 
 	private void prepareTemplate() {
-		String tplPack = getClass().getResource("/com/ada/template2").getFile();
+		String tplPack = getClass().getResource("/com/ada/template_ace").getFile();
 		log.info("tplPack:" + tplPack);
 		daoImplTpl = new File(getFilePath2(tplPack, "dao_impl.txt"));
 		daoTpl = new File(getFilePath2(tplPack, "dao.txt"));

@@ -105,7 +105,7 @@
 									[#if list??]
 									[#list list as item]
 									<tr id="trr${item.id!''}">
-										<td>${item.username!""}</td>
+										<td>${item.name!""}</td>
 										<td class="text-center">${item.lastDate!""}</td>
 										<td class="text-center">${item.logintimes!"0"}</td>
 										
@@ -113,12 +113,17 @@
 											<div
 												class="visible-md visible-lg hidden-sm hidden-xs btn-group">
 
-												<a 
-													href="${siteurl}/admin/users/model_delete.htm?id=${item.id!''}">
-													<button class="btn btn-xs btn-danger">
-														<i class="icon-trash bigger-120">删除</i>
-													</button>
-												</a>
+												<a href="${siteurl}#{config_entity}/view_edit.htm?id=${item.id!''}">
+												<button class="btn btn-xs btn-info">
+													<i class="icon-trash bigger-120">更新</i>
+												</button>
+											   </a>
+											 <a onclick="return confirm('删除后无法恢复,确定要删除吗')"
+												href="${siteurl}#{config_entity}/model_delete.htm?id=${item.id!''}">
+												<button class="btn btn-xs btn-danger">
+													<i class="icon-trash bigger-120">删除</i>
+												</button>
+											</a>
 											</div>
 										</td>
 									</tr>
