@@ -37,7 +37,7 @@ public class #{Entity}Action {
 
 	@RequestMapping("/#{config_entity}/view_edit")
 	public String edit(#{idtype} id, Integer pageNo, HttpServletRequest request, ModelMap model) {
-		model.addAttribute("teacher", manager.findById(id));
+		model.addAttribute("model", manager.findById(id));
 		model.addAttribute("pageNo", pageNo);
 		return "#{config_entity}/edit";
 	}
@@ -60,11 +60,22 @@ public class #{Entity}Action {
 
 	@RequestMapping("/#{config_entity}/model_delete")
 	public String delete(@RequestParam(value = "curpage", required = true, defaultValue = "1") int curpage,
-			@RequestParam(value = "pagesize", required = true, defaultValue = "20") int pagesize, #{idtype}[] ids,
+			@RequestParam(value = "pagesize", required = true, defaultValue = "20") int pagesize, #{idtype} id,
 			 HttpServletRequest request, ModelMap model) {
+			 
+				manager.deleteById(id);
+			 
 		return list(curpage,pagesize, request, model);
 	}
-
+	@RequestMapping("/#{config_entity}/model_deletes")
+	public String deletes(@RequestParam(value = "curpage", required = true, defaultValue = "1") int curpage,
+			@RequestParam(value = "pagesize", required = true, defaultValue = "20") int pagesize, #{idtype}[] ids,
+			 HttpServletRequest request, ModelMap model) {
+			 
+				manager.deleteByIds(ids);
+			 
+		return list(curpage,pagesize, request, model);
+	}
 	@Autowired
 	private #{Entity}Service manager;
 }

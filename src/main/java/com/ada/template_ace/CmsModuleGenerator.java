@@ -1,6 +1,6 @@
-package com.ada.template2;
+package com.ada.template_ace;
 
-import com.ada.template2.ModuleMavenGenerator;
+import com.ada.template_ace.ModuleMavenGenerator;
 
 public class CmsModuleGenerator {
 	private static String packName = "com.ada.template2";

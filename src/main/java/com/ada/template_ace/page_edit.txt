@@ -4,17 +4,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
-<title>数据添加</title> [#include
-"/admin/common/commonurl.html"]
-
-<link rel="stylesheet"
-	href="${siteurl}/assets/plugs/kindeditor/themes/default/default.css" />
-<script charset="utf-8"
-	src="${siteurl}/assets/plugs/kindeditor/kindeditor-all-min.js"></script>
-<script charset="utf-8"
-	src="${siteurl}/assets/plugs/kindeditor/lang/zh_CN.js"></script>
-<link rel="stylesheet"
-	href="${siteurl}/assets/plugs/tagsinput/jquery.tagsinput.css">
+<title>数据添加</title> [#include "/admin/common/commonurl.html"]
 
 
 </head>
@@ -54,7 +44,7 @@
 			<!-- .nav-list -->
 			[#include "/admin/common/commonmenu.html"]
 			<ul class="nav nav-list">[@menustag id=1] [#list list as item]
-				[@menu item "1,49,50"] [/@menu] [/#list] [/@menustag]
+				[@menu item "1,61"] [/@menu] [/#list] [/@menustag]
 			</ul>
 			<!-- /.nav-list -->
 
@@ -92,7 +82,7 @@
 					<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a>
 					</li>
 
-					<li class="active">添加文章</li>
+					<li class="active">更新</li>
 				</ul>
 				<!-- /.breadcrumb -->
 
@@ -117,70 +107,35 @@
 					<div class="col-xs-12">
 
 						<form role="form" method="post" class="form-horizontal"
-							action="${siteurl}/admin/article/model_add.htm">
+							action="${siteurl}#{config_entity}/model_update.htm">
+							<input type="hidden" name="id" value="${model.id}" />
 							<div class="form-group">
 								<label for="form-field-1"
-									class="col-sm-3 control-label no-padding-right"> 名称</label>
+									class="col-sm-3 control-label no-padding-right"> 姓名</label>
 
 								<div class="col-sm-9">
-									<input type="text" name="title" class="col-xs-10 col-sm-10"
-										placeholder="文章名称" id="form-field-1">
+									<input type="text" value="${(model.name)!''}" name="name" class="col-xs-10 col-sm-10"
+										placeholder=" 姓名" id="form-field-1">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="form-field-1"
-									class="col-sm-3 control-label no-padding-right"> 名称</label>
+									class="col-sm-3 control-label no-padding-right"> 性别</label>
 
 								<div class="col-sm-9">
-									<input id="img" type="text" name="img" class="col-xs-10 col-sm-10"
-										placeholder="封面" id="form-field-1">
-										<input type="button" id="image1" value="选择图片" />
-									<br/>
-									<img alt="" src="" id="showimg" style="width:200px;display: none;">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="form-field-1"
-									class="col-sm-3 control-label no-padding-right"> 分类</label>
-
-								<div class="col-sm-9">
-									<select name="catalog.id" class="col-xs-10 col-sm-10">
-									    [#if list??]
-									    [#list list as item]
-										<option value="${item.id}">${item.name!""}</option>
-										[/#list]
-										[/#if]
+									<select name="sex" class="col-xs-10 col-sm-10">
+										<option value="男">男</option>
+										<option value="女">女</option>
 									</select>
 								</div>
 							</div>
-						<div class="form-group">
-								<label
-									class="col-sm-3 control-label no-padding-right">摘要</label>
-
-								<div class="col-sm-9">
-									<textarea style="height: 60px;" type="text" name="introduction"
-										class="col-xs-10 col-sm-10" placeholder=" 摘要"
-										></textarea>
-								</div>
-							</div>
 							<div class="form-group">
 								<label for="form-field-1"
-									class="col-sm-3 control-label no-padding-right">描述</label>
+									class="col-sm-3 control-label no-padding-right">地址</label>
 
 								<div class="col-sm-9">
-									<textarea style="height: 500px;" type="text" name="contents"
-										class="col-xs-10 col-sm-10" placeholder=" 描述"
-										id="form-field-1"></textarea>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="form-field-1"
-									class="col-sm-3 control-label no-padding-right"> 标签</label>
-
-								<div class="col-sm-9">
-									<input id="tag" type="text" name="tag"
-										class="col-xs-10 col-sm-10" placeholder="标签" id="form-field-1">
+									<input value="${(model.address)!''}" type="text" name="address" class="col-xs-10 col-sm-10"
+										placeholder="地址" id="form-field-1">
 								</div>
 							</div>
 							<div class="clearfix form-actions">
@@ -221,44 +176,5 @@
 
 	[#include "/admin/common/scripts.html"]
 
-	<script type="text/javascript"
-		src="${siteurl}/assets/plugs/tagsinput/jquery.tagsinput.js"></script>
-
-	<script type="text/javascript">
-		var editor = KindEditor.create('textarea[name="contents"]', {
-			themeType : 'simple',
-			width : '680px',
-			minWidth : '680px',
-			uploadJson : '${siteurl}/image/upmendaoimgwork.htm',
-			fileManagerJson : '${siteurl}/image/listimages.htm',
-			allowFileManager : true
-		});
-		KindEditor('#image1').click(function() {
-			editor.loadPlugin('image', function() {
-				editor.plugin.imageDialog({
-					imageUrl : $('#img').val(),
-					clickFn : function(url, title, width, height, border, align) {
-						$('#img').val(url);
-						editor.hideDialog();
-						$("#showimg").attr("src",url);
-						$("#showimg").show();
-					}
-				});
-			});
-		});
-		
-		
-		function showtext() {
-
-		}
-		$(document).ready(function() {
-			$('#tag').tagsInput({
-				height : '20',
-				width : '577',
-				defaultText : "标签"
-			});
-
-		});
-	</script>
 </body>
 </html>
