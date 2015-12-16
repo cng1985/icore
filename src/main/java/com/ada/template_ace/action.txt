@@ -11,22 +11,20 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import #{entity_p}.#{Entity};
-import #{page_p}.#{Entity}Page;
 import #{manager_p}.#{Entity}Service;
 @Controller
 public class #{Entity}Action {
 	private static final Logger log = LoggerFactory.getLogger(#{Entity}Action.class);
 
 	@RequestMapping("/#{config_entity}/view_list")
-	public String list(@RequestParam(value = "curpage", required = true, defaultValue = "1") int curpage,
-			@RequestParam(value = "pagesize", required = true, defaultValue = "20") int pagesize,
-			HttpServletRequest request, ModelMap model) {
-		#{Entity}Page pagination = manager.getPage(curpage, pagesize);
-		model.addAttribute("list", pagination.getList());
+	public String list(Pageable pageable, HttpServletRequest request, ModelMap model) {
+		Page<#{Entity}> pagination = manager.findPage(pageable);
+		model.addAttribute("list", pagination.getContent());
 		model.addAttribute("page", pagination);
-		model.addAttribute("curpage", curpage);
-		model.addAttribute("pagesize", pagesize);
 		return "#{config_entity}/list";
 	}
 
@@ -50,31 +48,25 @@ public class #{Entity}Action {
 	}
 
 	@RequestMapping("/#{config_entity}/model_update")
-	public String update(@RequestParam(value = "curpage", required = true, defaultValue = "1") int curpage,
-			@RequestParam(value = "pagesize", required = true, defaultValue = "20") int pagesize, #{Entity} bean,
-			HttpServletRequest request, ModelMap model) {
+	public String update(Pageable pageable, #{Entity} bean,HttpServletRequest request, ModelMap model) {
 		bean = manager.update(bean);
 		log.info("update Teacher id={}.", bean.getId());
-		return list(curpage, pagesize, request, model);
+		return list(pageable, request, model);
 	}
 
 	@RequestMapping("/#{config_entity}/model_delete")
-	public String delete(@RequestParam(value = "curpage", required = true, defaultValue = "1") int curpage,
-			@RequestParam(value = "pagesize", required = true, defaultValue = "20") int pagesize, #{idtype} id,
-			 HttpServletRequest request, ModelMap model) {
+	public String delete(Pageable pageable, #{idtype} id, HttpServletRequest request, ModelMap model) {
 			 
 				manager.deleteById(id);
 			 
-		return list(curpage,pagesize, request, model);
+		return list(pageable, request, model);
 	}
 	@RequestMapping("/#{config_entity}/model_deletes")
-	public String deletes(@RequestParam(value = "curpage", required = true, defaultValue = "1") int curpage,
-			@RequestParam(value = "pagesize", required = true, defaultValue = "20") int pagesize, #{idtype}[] ids,
-			 HttpServletRequest request, ModelMap model) {
+	public String deletes(Pageable pageable, #{idtype}[] ids, HttpServletRequest request, ModelMap model) {
 			 
 				manager.deleteByIds(ids);
 			 
-		return list(curpage,pagesize, request, model);
+		return list(pageable, request, model);
 	}
 	@Autowired
 	private #{Entity}Service manager;

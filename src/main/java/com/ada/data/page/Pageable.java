@@ -29,7 +29,7 @@ public class Pageable implements Serializable {
 	private static final int DEFAULT_PAGE_NUMBER = 1;
 
 	/** 默认每页记录数 */
-	private static final int DEFAULT_PAGE_SIZE = 20;
+	private static final int DEFAULT_PAGE_SIZE = 10;
 
 	/** 最大每页记录数 */
 	private static final int MAX_PAGE_SIZE = 1000;
@@ -219,7 +219,7 @@ public class Pageable implements Serializable {
 	public void setFilters(List<Filter> filters) {
 		this.filters = filters;
 	}
-
+	
 	/**
 	 * 获取排序
 	 * 

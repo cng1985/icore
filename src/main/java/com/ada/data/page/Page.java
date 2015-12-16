@@ -160,5 +160,49 @@ public class Page<T> implements Serializable {
 	public Pageable getPageable() {
 		return pageable;
 	}
+	
+	
+	
+	/**
+	 * 第一条数据位置
+	 * 
+	 * @return
+	 */
+	public int getFirstNo() {
+		int result=1;
+		result=getPageNumber()-size;
+		
+		int t=getEndNo()-result;
+		int num=size*2;
+		if(t<num){
+			result=result-(num-t);
+		}
+		if(result<=0){
+			result=1;
+		}
+		return result;
+	}
+	int size=3;
+	/**
+	 * 第一条数据位置
+	 * 
+	 * @return
+	 */
+	public int getEndNo() {
+		int result=1;
+		result=getPageNumber()+size;
+		
+		if(getPageNumber()<=size){
+			result=result+size-getPageNumber();
+			result++;
+		}else{
+		}
+		
+		
+		if(result>getTotalPages()){
+			result=getTotalPages();
+		}
+		return result;
+	}
 
 }
