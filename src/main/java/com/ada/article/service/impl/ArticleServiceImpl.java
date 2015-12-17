@@ -19,7 +19,8 @@ import com.ada.data.core.Updater;
 public class ArticleServiceImpl implements ArticleService {
 	@Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
-		Pagination page = dao.getPage(pageNo, pageSize);
+		Finder finder=Finder.create("from Article a order by a.id desc ");
+		Pagination page = dao.find(finder, pageNo, pageSize);
 		return page;
 	}
 
