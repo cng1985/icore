@@ -1,20 +1,15 @@
 package com.ada.article.entity;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
 import com.openyelp.annotation.NoGson;
 
@@ -26,9 +21,8 @@ import com.openyelp.annotation.NoGson;
  */
 @Entity
 @Table(name = "article")
-public class Article implements Serializable {
+public class Article extends AbstractEntity {
 
-	private Date addDate;
 
 	@NoGson
 	@ManyToOne
@@ -42,17 +36,12 @@ public class Article implements Serializable {
 	private String contents;
 	
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
 	
 
 	private String img;
 	
 	private String introduction;
 	
-	private Date lastDate;
 
 	@NoGson
 	@JoinTable(name = "article_link_tag")
@@ -69,9 +58,6 @@ public class Article implements Serializable {
 
 	private Integer comments;
 	
-	public Date getAddDate() {
-		return addDate;
-	}
 	
 	public ArticleCatalog getCatalog() {
 		return catalog;
@@ -89,9 +75,6 @@ public class Article implements Serializable {
 	public String getExts() {
 		return exts;
 	}
-	public Long getId() {
-		return id;
-	}
 	public String getImages() {
 		return images;
 	}
@@ -100,9 +83,6 @@ public class Article implements Serializable {
 	}
 	public String getIntroduction() {
 		return introduction;
-	}
-	public Date getLastDate() {
-		return lastDate;
 	}
 	public Set<ArticleTag> getTags() {
 		if(tags==null){
@@ -125,9 +105,6 @@ public class Article implements Serializable {
 		return user;
 	}
 
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
-	}
 
 	public void setCatalog(ArticleCatalog catalog) {
 		this.catalog = catalog;
@@ -145,9 +122,6 @@ public class Article implements Serializable {
 		this.exts = exts;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public void setImages(String images) {
 		this.images = images;
@@ -161,9 +135,6 @@ public class Article implements Serializable {
 		this.introduction = introduction;
 	}
 
-	public void setLastDate(Date lastDate) {
-		this.lastDate = lastDate;
-	}
 
 	public void setTags(Set<ArticleTag> tags) {
 		this.tags = tags;

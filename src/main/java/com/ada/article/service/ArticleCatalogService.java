@@ -23,5 +23,8 @@ public interface ArticleCatalogService {
 	public ArticleCatalog[] deleteByIds(Integer[] ids);
 	
 	List<ArticleCatalog> findChild(int id);
+	
+	List<ArticleCatalog> all();
+
 
 }

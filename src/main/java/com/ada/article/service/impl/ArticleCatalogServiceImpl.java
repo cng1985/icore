@@ -85,4 +85,11 @@ public class ArticleCatalogServiceImpl implements ArticleCatalogService {
 		finder.setCacheable(true);
 		return dao.find(finder);
 	}
+	@Transactional(readOnly = true)
+	@Override
+	public List<ArticleCatalog> all() {
+		Finder finder=Finder.create("from ArticleCatalog a order by a.sortnum asc");
+		// TODO Auto-generated method stub
+		return dao.find(finder);
+	}
 }
