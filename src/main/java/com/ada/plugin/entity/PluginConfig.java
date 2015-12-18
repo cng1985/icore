@@ -14,11 +14,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.ada.data.entity.OrderEntity;
+import com.ada.data.entity.SortEntity;
 
 /**
  * Entity - 插件配置
@@ -28,8 +26,7 @@ import com.ada.data.entity.OrderEntity;
  */
 @Entity
 @Table(name = "plugin_config")
-@SequenceGenerator(name = "sequenceGenerator", sequenceName = "xx_plugin_config_sequence")
-public class PluginConfig extends OrderEntity {
+public class PluginConfig extends SortEntity {
 
 	private static final long serialVersionUID = -4357367409438384806L;
 
@@ -43,7 +40,7 @@ public class PluginConfig extends OrderEntity {
 
 	/** 属性 */
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "xx_plugin_config_attribute")
+	@CollectionTable(name = "plugin_config_attribute")
 	@MapKeyColumn(name = "name", length = 100)
 	private Map<String, String> attributes = new HashMap<String, String>();
 
