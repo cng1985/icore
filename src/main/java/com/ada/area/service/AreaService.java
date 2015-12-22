@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.ada.area.entity.Area;
 import com.ada.area.page.AreaPage;
-
-
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.openyelp.annotation.RestFul;
 
 @RestFul(api=AreaService.class,value="AreaService")
@@ -33,5 +33,7 @@ public interface AreaService {
 	public List<Area> findByTops(Integer id);
 
 	public List<Area> findByHot(Integer id);
+
+	public Page<Area> findPage(Pageable pageable);
 	
 }

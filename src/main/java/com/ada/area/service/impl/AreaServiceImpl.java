@@ -14,11 +14,12 @@ import com.ada.area.service.AreaService;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 
 @Service
 @Transactional
 public class AreaServiceImpl implements AreaService {
-	
 
 	@Transactional(readOnly = true)
 	public Area findById(Integer id) {
@@ -26,29 +27,29 @@ public class AreaServiceImpl implements AreaService {
 		return entity;
 	}
 
-    @Transactional
+	@Transactional
 	public Area save(Area bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-    @Transactional
+	@Transactional
 	public Area update(Area bean) {
 		Updater<Area> updater = new Updater<Area>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-    @Transactional
+	@Transactional
 	public Area deleteById(Integer id) {
 		Area bean = dao.deleteById(id);
 		return bean;
 	}
 
-    @Transactional	
+	@Transactional
 	public Area[] deleteByIds(Integer[] ids) {
 		Area[] beans = new Area[ids.length];
-		for (int i = 0,len = ids.length; i < len; i++) {
+		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
 		}
 		return beans;
@@ -60,16 +61,15 @@ public class AreaServiceImpl implements AreaService {
 	public void setDao(AreaDao dao) {
 		this.dao = dao;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public AreaPage getPage(int pageNo, int pageSize) {
-	    AreaPage result=null;
+		AreaPage result = null;
 		Pagination<Area> page = dao.getPage(pageNo, pageSize);
-		result=new AreaPage(page);
+		result = new AreaPage(page);
 		return result;
 	}
-	
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Area> findByLevel(Integer id) {
@@ -141,11 +141,16 @@ public class AreaServiceImpl implements AreaService {
 		LinkedList<Area> areas = new LinkedList<Area>();
 		int areaid = id;
 		Area area = dao.findById(id);
-		while (area.getParent()!=null&&area.getParent().getId() > 1) {
+		while (area.getParent() != null && area.getParent().getId() > 1) {
 			areas.addFirst(area);
-			area=dao.findById(area.getParentId());
+			area = dao.findById(area.getParentId());
 		}
 
 		return areas;
+	}
+
+	@Override
+	public Page<Area> findPage(Pageable pageable) {
+		return dao.findPage(pageable);
 	}
 }

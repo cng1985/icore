@@ -1,12 +1,12 @@
 package com.ada.area.dao;
 
 
-import  com.ada.data.core.BaseDao;
-import  com.ada.data.core.Updater;
-import com.ada.data.core.Pagination;
 import  com.ada.area.entity.Area;
+import com.ada.data.core.CriteriaDao;
+import com.ada.data.core.Pagination;
+import  com.ada.data.core.Updater;
 
-public interface AreaDao extends BaseDao<Area, Integer>{
+public interface AreaDao extends CriteriaDao<Area, Integer>{
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public Area findById(Integer id);

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.ada.area.dao.AreaDao;
 import com.ada.area.entity.Area;
-import com.ada.data.core.BaseDaoImpl;
+import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Pagination;
 
 @Repository
-public class AreaDaoImpl extends BaseDaoImpl<Area, Integer> implements AreaDao {
+public class AreaDaoImpl extends CriteriaDaoImpl<Area, Integer> implements AreaDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
