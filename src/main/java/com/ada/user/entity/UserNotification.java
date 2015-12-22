@@ -42,7 +42,7 @@ public class UserNotification implements Serializable {
 	private Long id;
 
 	/**
-	 * 用户
+	 * 接收消息用户
 	 */
 	@JoinColumn(name = "userid")
 	@ManyToOne()
@@ -56,6 +56,12 @@ public class UserNotification implements Serializable {
 	 * 通知内容
 	 */
 	private String note;
+	
+	
+	/**
+	 * 通知标题
+	 */
+	private String title;
 
 	/**
 	 * 用户
