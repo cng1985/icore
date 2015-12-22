@@ -32,11 +32,6 @@ import javax.persistence.Table;
 @Table(name = "user_notification")
 public class UserNotification implements Serializable {
 
-	public UserNotification() {
-		addDate = new Date();
-		lastDate = new Date();
-	}
-
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -56,13 +51,13 @@ public class UserNotification implements Serializable {
 	 * 通知内容
 	 */
 	private String note;
-	
-	
+
 	/**
 	 * 通知标题
 	 */
 	private String title;
-
+	
+	
 	/**
 	 * 用户
 	 */
@@ -79,82 +74,95 @@ public class UserNotification implements Serializable {
 	 * 状态 1为已阅读 0为未阅读
 	 */
 	private Integer state;
-	
+
 	/**
 	 * 来源id
 	 */
 	private Long fromid;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UserInfo getUser() {
-		return user;
-	}
-
-	public void setUser(UserInfo user) {
-		this.user = user;
+	
+	public UserNotification() {
+		addDate = new Date();
+		lastDate = new Date();
 	}
 
 	public Date getAddDate() {
 		return addDate;
 	}
 
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
-	}
-
-	public Date getLastDate() {
-		return lastDate;
-	}
-
-	public void setLastDate(Date lastDate) {
-		this.lastDate = lastDate;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
 	public UserInfo getAuthor() {
 		return author;
-	}
-
-	public void setAuthor(UserInfo author) {
-		this.author = author;
 	}
 
 	public Integer getCategory() {
 		return category;
 	}
 
-	public void setCategory(Integer category) {
-		this.category = category;
+	public Long getFromid() {
+		return fromid;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Date getLastDate() {
+		return lastDate;
+	}
+
+	public String getNote() {
+		return note;
 	}
 
 	public Integer getState() {
 		return state;
 	}
 
-	public void setState(Integer state) {
-		this.state = state;
+	public String getTitle() {
+		return title;
 	}
 
-	public Long getFromid() {
-		return fromid;
+	public UserInfo getUser() {
+		return user;
+	}
+
+	public void setAddDate(Date addDate) {
+		this.addDate = addDate;
+	}
+
+	public void setAuthor(UserInfo author) {
+		this.author = author;
+	}
+
+	public void setCategory(Integer category) {
+		this.category = category;
 	}
 
 	public void setFromid(Long fromid) {
 		this.fromid = fromid;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setLastDate(Date lastDate) {
+		this.lastDate = lastDate;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
 	}
 	
 	
