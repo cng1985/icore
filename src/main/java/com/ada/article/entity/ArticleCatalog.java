@@ -21,12 +21,19 @@ import com.ada.data.entity.CatalogEntity;
 @Table(name = "article_catalog")
 public class ArticleCatalog extends CatalogEntity {
 
+	/**
+	 * 父节点
+	 */
 	@JoinColumn(name = "pid")
 	@ManyToOne
 	private ArticleCatalog parent;
-	
-	
-	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+
+	/**
+	 * 数量
+	 */
+	private Long nums;
+
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
 	private List<ArticleCatalog> childrens;
 
 	@Override
@@ -52,7 +59,13 @@ public class ArticleCatalog extends CatalogEntity {
 	public void setChildrens(List<ArticleCatalog> childrens) {
 		this.childrens = childrens;
 	}
-	
-	
+
+	public Long getNums() {
+		return nums;
+	}
+
+	public void setNums(Long nums) {
+		this.nums = nums;
+	}
 
 }

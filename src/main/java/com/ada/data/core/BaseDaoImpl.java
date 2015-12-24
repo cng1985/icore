@@ -414,7 +414,27 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 		}
 		return result;
 	}
-
+	/**
+	 * 获得Finder的记录总数
+	 * 
+	 * @param finder
+	 * @return
+	 */
+	public Long countQuery(Finder finder) {
+		Long result = 0l;
+		try {
+			Query query = getSessionFactory().getCurrentSession().createQuery(
+					finder.getRowCountHql());
+			finder.setParamsToQuery(query);
+			if (finder.isCacheable()) {
+				query.setCacheable(true);
+			}
+			result = ((Number) query.iterate().next()).longValue();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	/**
 	 * 获得Finder的记录总数
 	 * 

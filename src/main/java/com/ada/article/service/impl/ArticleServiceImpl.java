@@ -17,6 +17,8 @@ import com.ada.data.core.Updater;
 @Service
 @Transactional
 public class ArticleServiceImpl implements ArticleService {
+	
+	
 	@Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Finder finder=Finder.create("from Article a order by a.id desc ");
@@ -33,6 +35,13 @@ public class ArticleServiceImpl implements ArticleService {
 	@Transactional
 	public Article save(Article bean) {
 		dao.save(bean);
+		Integer cid=-1;
+		if (bean.getCatalog()!=null) {
+			 cid=bean.getCatalog().getId();
+		}
+		if (cid>0) {
+			catalogDao.updateNumsAndTime(cid);
+		}
 		return bean;
 	}
 
@@ -45,7 +54,17 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Transactional
 	public Article deleteById(Long id) {
-		Article bean = dao.deleteById(id);
+		
+		
+		Article bean = dao.findById(id);
+		Integer cid=-1;
+		if (bean.getCatalog()!=null) {
+			 cid=bean.getCatalog().getId();
+		}
+		dao.delete(bean);
+		if (cid>0) {
+			catalogDao.updateNumsAndTime(cid);
+		}
 		return bean;
 	}
 

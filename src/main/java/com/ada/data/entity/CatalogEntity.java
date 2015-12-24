@@ -1,6 +1,7 @@
 package com.ada.data.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -55,6 +56,36 @@ public  abstract class CatalogEntity implements HibernateTree<Integer>, Serializ
 	private Integer levelinfo;
 	
 
+	/**
+	 * 添加时间
+	 */
+	private Date addDate;
+
+	/**
+	 * 最新修改时间
+	 */
+	private Date lastDate;
+	
+	public CatalogEntity(){
+		addDate=new Date();
+		lastDate=new Date();
+	}
+	
+	public Date getAddDate() {
+		return addDate;
+	}
+
+	public void setAddDate(Date addDate) {
+		this.addDate = addDate;
+	}
+
+	public Date getLastDate() {
+		return lastDate;
+	}
+
+	public void setLastDate(Date lastDate) {
+		this.lastDate = lastDate;
+	}
 
 	@Override
 	public Integer getId() {
