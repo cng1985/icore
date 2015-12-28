@@ -237,15 +237,23 @@ public class UserInfo implements Serializable {
 	}
 
 
+	public String getPhone() {
+		return phone;
+	}
+
 	public String getPlainPassword() {
 		return plainPassword;
 	}
+
+	// 不持久化到数据库，也不显示在Restful接口的属性.
 
 	public String getQq() {
 		return qq;
 	}
 
-	// 不持久化到数据库，也不显示在Restful接口的属性.
+	public String getRealName() {
+		return realName;
+	}
 
 	public Set<UserRole> getRoles() {
 		if (roles == null) {
@@ -331,25 +339,13 @@ public class UserInfo implements Serializable {
 		this.macaddress = macaddress;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-
-	public String getRealName() {
-		return realName;
-	}
-
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
-
-	public String getPhone() {
-		return phone;
 	}
 
 	public void setPhone(String phone) {
@@ -362,6 +358,10 @@ public class UserInfo implements Serializable {
 
 	public void setQq(String qq) {
 		this.qq = qq;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
 	}
 
 	public void setRoles(Set<UserRole> roles) {
