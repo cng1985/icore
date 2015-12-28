@@ -1,13 +1,17 @@
 package com.ada.article.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ada.article.dao.ArticleCatalogDao;
 import com.ada.article.dao.ArticleDao;
+import com.ada.article.dao.ArticleTagDao;
 import com.ada.article.entity.Article;
 import com.ada.article.entity.ArticleCatalog;
+import com.ada.article.entity.ArticleTag;
 import com.ada.article.page.ArticlePage;
 import com.ada.article.service.ArticleService;
 import com.ada.data.core.Finder;
@@ -17,11 +21,10 @@ import com.ada.data.core.Updater;
 @Service
 @Transactional
 public class ArticleServiceImpl implements ArticleService {
-	
-	
+
 	@Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
-		Finder finder=Finder.create("from Article a order by a.id desc ");
+		Finder finder = Finder.create("from Article a order by a.id desc ");
 		Pagination page = dao.find(finder, pageNo, pageSize);
 		return page;
 	}
@@ -35,11 +38,11 @@ public class ArticleServiceImpl implements ArticleService {
 	@Transactional
 	public Article save(Article bean) {
 		dao.save(bean);
-		Integer cid=-1;
-		if (bean.getCatalog()!=null) {
-			 cid=bean.getCatalog().getId();
+		Integer cid = -1;
+		if (bean.getCatalog() != null) {
+			cid = bean.getCatalog().getId();
 		}
-		if (cid>0) {
+		if (cid > 0) {
 			catalogDao.updateNumsAndTime(cid);
 		}
 		return bean;
@@ -54,15 +57,14 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Transactional
 	public Article deleteById(Long id) {
-		
-		
+
 		Article bean = dao.findById(id);
-		Integer cid=-1;
-		if (bean.getCatalog()!=null) {
-			 cid=bean.getCatalog().getId();
+		Integer cid = -1;
+		if (bean.getCatalog() != null) {
+			cid = bean.getCatalog().getId();
 		}
 		dao.delete(bean);
-		if (cid>0) {
+		if (cid > 0) {
 			catalogDao.updateNumsAndTime(cid);
 		}
 		return bean;
@@ -76,8 +78,12 @@ public class ArticleServiceImpl implements ArticleService {
 		}
 		return beans;
 	}
+
 	private ArticleDao dao;
 	
+	@Autowired
+	private ArticleTagDao tagDao;
+
 	@Autowired
 	private ArticleCatalogDao catalogDao;
 
@@ -106,8 +112,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public ArticlePage pageByCatalog(long uid, int catalog, int pageNo,
-			int pageSize) {
+	public ArticlePage pageByCatalog(long uid, int catalog, int pageNo, int pageSize) {
 		ArticlePage result = null;
 
 		ArticleCatalog catalogs = catalogDao.findById(catalog);
@@ -124,5 +129,45 @@ public class ArticleServiceImpl implements ArticleService {
 			result = new ArticlePage(page);
 		}
 		return result;
+	}
+
+	@Transactional
+	@Override
+	public Article addTag(Long id, String tag) {
+		Article article = dao.findById(id);
+		if (article!=null) {
+			addTag(tag, article);
+		}
+		return article;
+	}
+
+	private void addTag(String tag, Article article) {
+		ArticleTag e=tagDao.tag(tag);
+		article.getTags().add(e);
+	}
+
+	@Transactional
+	@Override
+	public Article addTagS(Long id, List<String> tags) {
+		Article article = dao.findById(id);
+		if (article!=null) {
+			for (String string : tags) {
+				addTag(string, article);
+			}
+		}
+		return article;
+	}
+
+	@Transactional
+	@Override
+	public Article resetTagS(Long id, List<String> tags) {
+		Article article = dao.findById(id);
+		if (article!=null) {
+			article.getTags().clear();
+			for (String string : tags) {
+				addTag(string, article);
+			}
+		}
+		return article;
 	}
 }

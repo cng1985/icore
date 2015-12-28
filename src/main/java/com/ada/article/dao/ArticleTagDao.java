@@ -10,6 +10,9 @@ public interface ArticleTagDao extends CriteriaDao<ArticleTag, Long>{
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public ArticleTag findById(Long id);
+	
+	public ArticleTag tag(String tag);
+
 
 	public ArticleTag save(ArticleTag bean);
 
