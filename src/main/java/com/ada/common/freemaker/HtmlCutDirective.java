@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
-import com.ada.web.utils.DirectiveUtils;
-import com.ada.web.utils.StrUtils;
+import com.young.web.utils.DirectiveUtils;
+import com.young.web.utils.StrUtils;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;

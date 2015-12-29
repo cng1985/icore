@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
-import com.ada.security.Digests;
-import com.ada.security.Encodes;
 import com.ada.user.dao.UserInfoDao;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserRole;
 import com.ada.user.service.UserInfoService;
+import com.young.security.Digests;
+import com.young.security.Encodes;
 
 @Service
 @Transactional

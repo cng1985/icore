@@ -22,12 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
-import com.ada.security.Encodes;
 import com.ada.shiro.utils.UserUtil;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserRole;
 import com.ada.user.service.UserInfoService;
 import com.google.common.base.Objects;
+import com.young.security.Encodes;
 
 /**
  * 用户登录授权service(shrioRealm)

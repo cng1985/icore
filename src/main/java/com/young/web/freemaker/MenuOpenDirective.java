@@ -1,11 +1,10 @@
-package com.ada.common.freemaker;
+package com.young.web.freemaker;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
 import com.young.web.utils.DirectiveUtils;
-import com.young.web.utils.StrUtils;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
@@ -14,28 +13,34 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
 /**
- * 文本字符串截断
+ * HTML文本提取并截断
  * 
  * 需要拦截器com.jeecms.common.web.ProcessTimeFilter支持
  */
-public class TextCutDirective implements TemplateDirectiveModel {
-	public static final String PARAM_S = "s";
-	public static final String PARAM_LEN = "len";
-	public static final String PARAM_APPEND = "append";
+public class MenuOpenDirective implements TemplateDirectiveModel {
 
 	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
-		String s = DirectiveUtils.getString(PARAM_S, params);
-		Integer len = DirectiveUtils.getInt(PARAM_LEN, params);
-		String append = DirectiveUtils.getString(PARAM_APPEND, params);
-		if (s != null) {
+		String ids = DirectiveUtils.getString("ids", params);
+		String id = DirectiveUtils.getString("id", params);
+		if (ids != null) {
 			Writer out = env.getOut();
-			if (len != null) {
-				out.append(StrUtils.textCut(s, len, append));
+			String did = "," + id;
+			if (ids.endsWith(did)) {
+				out.append("active");
+			} else if (ids.indexOf(id) > 0) {
+				String[] idss = ids.split(",");
+				for (String string : idss) {
+					if (string.trim().equals(id.trim())) {
+						out.append("active open hsub");
+						break;
+					}
+				}
+
 			} else {
-				out.append(s);
 			}
 		}
+
 	}
 }

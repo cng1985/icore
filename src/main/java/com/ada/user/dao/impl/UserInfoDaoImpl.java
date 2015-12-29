@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 import com.ada.data.core.BaseDaoImpl;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
-import com.ada.security.Digests;
-import com.ada.security.Encodes;
 import com.ada.user.dao.UserInfoDao;
 import com.ada.user.entity.UserInfo;
+import com.young.security.Digests;
+import com.young.security.Encodes;
 
 @Repository
 public class UserInfoDaoImpl extends BaseDaoImpl<UserInfo, Long> implements UserInfoDao {

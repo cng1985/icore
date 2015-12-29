@@ -1,4 +1,4 @@
-package com.ada.admin.freemaker;
+package com.young.web.freemaker;
 
 import static freemarker.template.ObjectWrapper.DEFAULT_WRAPPER;
 

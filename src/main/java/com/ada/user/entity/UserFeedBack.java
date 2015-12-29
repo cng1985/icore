@@ -33,10 +33,18 @@ public class UserFeedBack extends AbstractEntity {
 	private String contents;
 
 	/**
+	 * 扩展信息
+	 */
+	@Column(length = 50000)
+	private String exts;
+	
+	
+
+	/**
 	 * 反馈系统中的用户
 	 */
 	@JoinColumn(name = "userid")
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo user;
 
 	/**
@@ -113,6 +121,14 @@ public class UserFeedBack extends AbstractEntity {
 
 	public void setUser(UserInfo user) {
 		this.user = user;
+	}
+
+	public String getExts() {
+		return exts;
+	}
+
+	public void setExts(String exts) {
+		this.exts = exts;
 	}
 
 }
