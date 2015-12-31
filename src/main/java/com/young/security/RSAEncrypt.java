@@ -87,7 +87,7 @@ public class RSAEncrypt {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		keyPairGen.initialize(1024, new SecureRandom());
+		keyPairGen.initialize(512, new SecureRandom());
 		KeyPair keyPair = keyPairGen.generateKeyPair();
 		this.privateKey = (RSAPrivateKey) keyPair.getPrivate();
 		this.publicKey = (RSAPublicKey) keyPair.getPublic();
@@ -292,6 +292,7 @@ public class RSAEncrypt {
 		rsaEncrypt.genKeyPair();
 
 		String p = RSAEncrypt.byteArrayToString(rsaEncrypt.getPrivateKey().getEncoded());
+		
 		System.out.println(p);
 		// 加载公钥
 		try {

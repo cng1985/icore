@@ -68,4 +68,16 @@ public class PhotoServiceImpl implements PhotoService {
 		result = new PhotoPage(page);
 		return result;
 	}
+	@Transactional(readOnly = true)
+	@Override
+	public PhotoPage pageByCatalog(String id, int curpage, int pagesize) {
+		PhotoPage result=null;
+		Finder finder=Finder.create();
+		finder.append("from Photo f where f.category.id =:cid");
+		finder.setParam("cid", id);
+		finder.append(" order by f.id desc  ");
+		Pagination<Photo> page = dao.find(finder,curpage, pagesize);
+		result = new PhotoPage(page);
+		return result;
+	}
 }

@@ -1,9 +1,9 @@
 package com.ada.album.service;
 
+import com.ada.album.entity.Album;
 import com.ada.album.entity.Photo;
 import com.ada.album.page.PhotoPage;
-
-
+import com.ada.data.dto.PageRpc;
 import com.openyelp.annotation.RestFul;
 
 @RestFul(api=PhotoService.class,value="PhotoService")
@@ -20,5 +20,7 @@ public interface PhotoService {
 	public Photo[] deleteByIds(String[] ids);
 	
 	public PhotoPage getPage(int pageNo, int pageSize);
+
+	public PhotoPage pageByCatalog(String id, int curpage, int pagesize);
 	
 }
