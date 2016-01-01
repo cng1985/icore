@@ -18,6 +18,9 @@ public interface UserInfoService {
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public UserInfo findById(Long id);
+	
+	public UserInfo update(String username,String phone,String email);
+
 
 	public UserInfo save(UserInfo bean);
 

@@ -272,4 +272,28 @@ public class UserInfoServiceImpl implements UserInfoService {
 		entity.getRoles().add(bean);
 		return entity;
 	}
+	@Transactional
+	@Override
+	public UserInfo update(String username, String phone, String email) {
+		UserInfo result=null;
+		Finder finder = Finder.create("from UserInfo u where u.username =:username ");
+		finder.setParam("username", username);
+		finder.append(" and u.phone =:phone");
+		finder.setParam("phone", phone);
+		List<UserInfo> users = dao.find(finder);
+		if (users != null && users.size() > 0) {
+			result=users.get(0);
+			result.setEmail(email);
+		}else{
+			result=new UserInfo();
+			result.setUsername(username);
+			result.setPhone(phone);
+			result.setEmail(email);
+			result.setPlainPassword("123456");
+			entryptPassword(result);
+			result=save(result);
+		}
+		
+		return result;
+	}
 }
