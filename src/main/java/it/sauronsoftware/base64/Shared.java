@@ -31,8 +31,20 @@ class Shared {
 	static char pad = '=';
 	
 	public static void main(String[] args) {
-		System.out.println(Base64.encode("ada","utf-8"));
-		System.out.println(Base64.decode("YWRh"));
+		System.out.println(Base64.encode("ada.young","utf-8"));
+		System.out.println(Base64.decode("YWRhLnlvdW5n"));
+		String a="刘德华a";
+		byte[] bs=	a.getBytes();
+		for (byte b : bs) {
+			System.out.println(b);
+		}
+		System.out.println(new String(bs));
+		
+		byte[] bss=	{-27,-120,-104};
+		System.out.println(new String(bss));
+		for (int i = 0; i < 65526; i++) {
+			System.out.println((char)i);
+		}
 	}
 
 }

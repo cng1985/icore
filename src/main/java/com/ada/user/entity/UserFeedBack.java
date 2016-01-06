@@ -35,7 +35,7 @@ public class UserFeedBack extends AbstractEntity {
 	/**
 	 * 扩展信息
 	 */
-	@Column(length = 50000)
+	@Column(length = 5000)
 	private String exts;
 	
 	
