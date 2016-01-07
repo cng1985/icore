@@ -5,13 +5,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ada.data.core.BaseDaoImpl;
+import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Pagination;
 import com.ada.user.dao.UserRoleDao;
 import com.ada.user.entity.UserRole;
 
 @Repository
-public class UserRoleDaoImpl extends BaseDaoImpl<UserRole, Long> implements UserRoleDao {
+public class UserRoleDaoImpl extends CriteriaDaoImpl<UserRole, Long> implements UserRoleDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);

@@ -1,12 +1,12 @@
 package com.ada.user.dao;
 
 
-import  com.ada.data.core.BaseDao;
+import  com.ada.data.core.CriteriaDao;
 import  com.ada.data.core.Updater;
 import com.ada.data.core.Pagination;
 import  com.ada.user.entity.UserRole;
 
-public interface UserRoleDao extends BaseDao<UserRole, Long>{
+public interface UserRoleDao extends CriteriaDao<UserRole, Long>{
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public UserRole findById(Long id);
