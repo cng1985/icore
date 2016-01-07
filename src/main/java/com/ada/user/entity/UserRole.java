@@ -19,9 +19,13 @@
 package com.ada.user.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -46,12 +50,38 @@ public class UserRole implements Serializable {
 	 * 角色描述
 	 */
 	private String description;
+	
+	/** 是否内置 */
+	private Boolean isSystem;
+
+
+	/** 权限 */
+	
+	@ElementCollection
+	@CollectionTable(name = "role_authority")
+	private List<String> authorities = new ArrayList<String>();
 
 	public UserRole() {
 	}
 
 	public UserRole(String name) {
 		this.name = name;
+	}
+
+	public Boolean getIsSystem() {
+		return isSystem;
+	}
+
+	public void setIsSystem(Boolean isSystem) {
+		this.isSystem = isSystem;
+	}
+
+	public List<String> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(List<String> authorities) {
+		this.authorities = authorities;
 	}
 
 	@Id
