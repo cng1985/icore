@@ -16,7 +16,7 @@ import com.ada.data.entity.CatalogEntity;
 public class Menu extends CatalogEntity {
 
 	@JoinColumn(name = "pid")
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Menu parent;
 
 	/**
@@ -29,7 +29,7 @@ public class Menu extends CatalogEntity {
 	 */
 	private String path;
 
-	@OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
 	private List<Menu> childrens;
 
 	public List<Menu> getChildrens() {

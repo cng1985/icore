@@ -1,5 +1,6 @@
 package com.ada.user.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -295,5 +296,18 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 		
 		return result;
+	}
+	
+	
+	@Transactional(readOnly = true)
+	public List<String> findAuthorities(Long id) {
+		List<String> authorities = new ArrayList<String>();
+		UserInfo admin = dao.findById(id);
+		if (admin != null) {
+			for (UserRole role : admin.getRoles()) {
+				authorities.addAll(role.getAuthorities());
+			}
+		}
+		return authorities;
 	}
 }

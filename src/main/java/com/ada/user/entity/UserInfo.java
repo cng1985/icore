@@ -131,7 +131,7 @@ public class UserInfo implements Serializable {
 	 * 用户角色
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "users_role_links")
+	@JoinTable(name = "user_role_links")
 	private Set<UserRole> roles = new HashSet<UserRole>();
 
 	/**

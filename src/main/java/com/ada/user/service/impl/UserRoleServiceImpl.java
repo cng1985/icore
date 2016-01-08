@@ -76,17 +76,24 @@ public class UserRoleServiceImpl implements UserRoleService {
 		return result;
 	}
 	
-	
+	@Transactional(readOnly = true)
 	public Page<UserRole> findPage(Pageable pageable){
-	     return dao.findPage(pageable);
+		Page<UserRole>  us= dao.findPage(pageable);
+//		List<UserRole>  uss=	us.getContent();
+//		for (UserRole userRole : uss) {
+//			userRole.getAuthorities();
+//		}
+		return us;
 	}
 
+	@Transactional(readOnly = true)
 	public long count(Filter... filters){
 	     
 	     return dao.count(filters);
 	     
 	}
 
+	@Transactional(readOnly = true)
 	public List<UserRole> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders){
 	
 		     return dao.findList(first,count,filters,orders);

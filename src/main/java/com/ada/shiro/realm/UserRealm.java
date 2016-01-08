@@ -1,6 +1,9 @@
 package com.ada.shiro.realm;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
@@ -31,17 +34,17 @@ import com.young.security.Encodes;
 
 /**
  * 用户登录授权service(shrioRealm)
+ * 
  * @author ty
  * @date 2015年1月14日
  */
 @Service
-@DependsOn({"userDao","permissionDao","rolePermissionDao"})
+@DependsOn({ "userDao", "permissionDao", "rolePermissionDao" })
 public class UserRealm extends AuthorizingRealm {
 
 	@Autowired
 	private UserInfoService userService;
-	Logger logger=LoggerFactory.getLogger("ada");
-
+	Logger logger = LoggerFactory.getLogger("ada");
 
 	/**
 	 * 认证回调函数,登录时调用.
@@ -50,21 +53,23 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		UserInfo user = userService.findByUsername(token.getUsername());
-		logger.info("user:"+token.getUsername());
+		logger.info("user:" + token.getUsername());
 		if (user != null) {
 			byte[] salt = Encodes.decodeHex(user.getSalt());
-			ShiroUser shiroUser=new ShiroUser(user.getId(), user.getUsername(), user.getUsername());
-			//设置用户session
-			Session session =UserUtil.getSession();
+			ShiroUser shiroUser = new ShiroUser(user.getId(), user.getUsername(), user.getUsername());
+			// 设置用户session
+			Session session = UserUtil.getSession();
 			session.setAttribute("user", user);
 			try {
-				SimpleAuthenticationInfo aa= new SimpleAuthenticationInfo(shiroUser,user.getPassword(), ByteSource.Util.bytes(salt), getName());
-			   return aa;
+				SimpleAuthenticationInfo aa = new SimpleAuthenticationInfo(shiroUser, user.getPassword(),
+						ByteSource.Util.bytes(salt), getName());
+				return aa;
 			} catch (Exception e) {
-				   return null;
+				return null;
 			}
 
-			//return new SimpleAuthenticationInfo(shiroUser,user.getPassword(), ByteSource.Util.bytes(salt), getName());
+			// return new SimpleAuthenticationInfo(shiroUser,user.getPassword(),
+			// ByteSource.Util.bytes(salt), getName());
 		} else {
 			return null;
 		}
@@ -77,24 +82,31 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
 		UserInfo user = userService.findByUsername(shiroUser.loginName);
-		logger.info("doGetAuthorizationInfo:"+shiroUser.getName());
-		//把principals放session中
-		UserUtil.getSession().setAttribute(String.valueOf(user.getId()),SecurityUtils.getSubject().getPrincipals());
-		
+		logger.info("doGetAuthorizationInfo:" + shiroUser.getName());
+		// 把principals放session中
+		UserUtil.getSession().setAttribute(String.valueOf(user.getId()), SecurityUtils.getSubject().getPrincipals());
+
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		//赋予角色
-		for(UserRole userRole:user.getRoles()){
+
+		Set<String> authorities = new HashSet<String>();
+
+		// 赋予角色
+		for (UserRole userRole : user.getRoles()) {
 			info.addRole(userRole.getName());
-			
-			logger.info("role:"+userRole.getName());
+			logger.info("role:" + userRole.getName());
 		}
-//		//赋予权限
-//		for(Permission permission:permissionService.getPermissions(user.getId())){
-//			if(StringUtils.isNotBlank(permission.getPermCode()))
-//			info.addStringPermission(permission.getPermCode());
-//		}
-//		
-//		//设置登录次数、时间
+		if (user!=null) {
+			authorities.addAll(userService.findAuthorities(user.getId()));
+		}
+		// //赋予权限
+		// for(Permission
+		// permission:permissionService.getPermissions(user.getId())){
+		// if(StringUtils.isNotBlank(permission.getPermCode()))
+		// info.addStringPermission(permission.getPermCode());
+		// }
+		//
+		// //设置登录次数、时间
+		info.addStringPermissions(authorities);
 		userService.updateUserLogin(user);
 		return info;
 	}
@@ -125,7 +137,7 @@ public class UserRealm extends AuthorizingRealm {
 			this.name = name;
 		}
 
-		public Long getId(){
+		public Long getId() {
 			return id;
 		}
 
@@ -174,33 +186,33 @@ public class UserRealm extends AuthorizingRealm {
 			return true;
 		}
 	}
-	
+
 	@Override
-    public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
-        super.clearCachedAuthorizationInfo(principals);
-    }
+	public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
+		super.clearCachedAuthorizationInfo(principals);
+	}
 
-    @Override
-    public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
-        super.clearCachedAuthenticationInfo(principals);
-    }
+	@Override
+	public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
+		super.clearCachedAuthenticationInfo(principals);
+	}
 
-    @Override
-    public void clearCache(PrincipalCollection principals) {
-        super.clearCache(principals);
-    }
+	@Override
+	public void clearCache(PrincipalCollection principals) {
+		super.clearCache(principals);
+	}
 
-    public void clearAllCachedAuthorizationInfo() {
-        getAuthorizationCache().clear();
-    }
+	public void clearAllCachedAuthorizationInfo() {
+		getAuthorizationCache().clear();
+	}
 
-    public void clearAllCachedAuthenticationInfo() {
-        getAuthenticationCache().clear();
-    }
+	public void clearAllCachedAuthenticationInfo() {
+		getAuthenticationCache().clear();
+	}
 
-    public void clearAllCache() {
-        clearAllCachedAuthenticationInfo();
-        clearAllCachedAuthorizationInfo();
-    }
- 
+	public void clearAllCache() {
+		clearAllCachedAuthenticationInfo();
+		clearAllCachedAuthorizationInfo();
+	}
+
 }

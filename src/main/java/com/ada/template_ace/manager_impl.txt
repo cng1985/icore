@@ -77,16 +77,19 @@ public class #{Entity}ServiceImpl implements #{Entity}Service {
 	}
 	
 	
+	@Transactional(readOnly = true)
 	public Page<#{Entity}> findPage(Pageable pageable){
 	     return dao.findPage(pageable);
 	}
 
+	@Transactional(readOnly = true)
 	public long count(Filter... filters){
 	     
 	     return dao.count(filters);
 	     
 	}
 
+	@Transactional(readOnly = true)
 	public List<#{Entity}> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders){
 	
 		     return dao.findList(first,count,filters,orders);
