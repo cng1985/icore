@@ -27,6 +27,8 @@
 * com.ada.shiro shiro权限功能依赖用户模块
 * com.ada.template* 各种代码生成工具
 * com.ada.user 用户模块
+* com.young.word 验证码生成
+* com.young.security 各种安全工具
 
 ### 开源协议
 
