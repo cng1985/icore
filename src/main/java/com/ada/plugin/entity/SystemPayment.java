@@ -22,8 +22,8 @@ import com.ada.user.entity.UserInfo;
  * 
  */
 @Entity
-@Table(name = "plugin_payment")
-public class Payment extends AbstractEntity {
+@Table(name = "plugin_payment_system")
+public class SystemPayment extends AbstractEntity {
 
 	private static final long serialVersionUID = -5052430116564638634L;
 

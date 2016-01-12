@@ -7,29 +7,29 @@ import org.springframework.stereotype.Repository;
 
 import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Pagination;
-import com.ada.plugin.dao.PaymentDao;
-import com.ada.plugin.entity.Payment;
+import com.ada.plugin.dao.SystemPaymentDao;
+import com.ada.plugin.entity.SystemPayment;
 
 @Repository
-public class PaymentDaoImpl extends CriteriaDaoImpl<Payment, Long> implements PaymentDao {
+public class SystemPaymentDaoImpl extends CriteriaDaoImpl<SystemPayment, Long> implements SystemPaymentDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
 
-	public Payment findById(Long id) {
-		Payment entity = get(id);
+	public SystemPayment findById(Long id) {
+		SystemPayment entity = get(id);
 		return entity;
 	}
 
-	public Payment save(Payment bean) {
+	public SystemPayment save(SystemPayment bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public Payment deleteById(Long id) {
-		Payment entity = super.get(id);
+	public SystemPayment deleteById(Long id) {
+		SystemPayment entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
 		}
@@ -37,8 +37,8 @@ public class PaymentDaoImpl extends CriteriaDaoImpl<Payment, Long> implements Pa
 	}
 	
 	@Override
-	protected Class<Payment> getEntityClass() {
-		return Payment.class;
+	protected Class<SystemPayment> getEntityClass() {
+		return SystemPayment.class;
 	}
 	
 	@Autowired

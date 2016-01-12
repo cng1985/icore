@@ -16,7 +16,6 @@ import java.util.Map.Entry;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,10 +36,10 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import com.ada.plugin.entity.Payment;
 import com.ada.plugin.entity.PluginConfig;
-import com.ada.plugin.service.PaymentService;
+import com.ada.plugin.entity.SystemPayment;
 import com.ada.plugin.service.PluginConfigService;
+import com.ada.plugin.service.SystemPaymentService;
 
 /**
  * Plugin - 支付
@@ -108,8 +107,8 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 	private PluginConfigService pluginConfigService;
 	
 	
-	@Resource(name = "paymentServiceImpl")
-	private PaymentService paymentService;
+	@Resource(name = "systemPaymentServiceImpl")
+	private SystemPaymentService paymentService;
 
 	/**
 	 * 获取ID
@@ -371,7 +370,7 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 	 *            编号(忽略大小写)
 	 * @return 收款单，若不存在则返回null
 	 */
-	protected Payment getPayment(String sn) {
+	protected SystemPayment getPayment(String sn) {
 		return paymentService.findBySn(sn);
 	}
 
