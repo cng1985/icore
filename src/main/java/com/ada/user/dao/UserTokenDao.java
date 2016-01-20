@@ -10,6 +10,7 @@ public interface UserTokenDao extends CriteriaDao<UserToken, Long>{
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public UserToken findById(Long id);
+	public UserToken findById(Long uid,Integer catalog);
 
 	public UserToken save(UserToken bean);
 
