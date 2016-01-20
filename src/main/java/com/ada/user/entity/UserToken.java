@@ -23,8 +23,13 @@ public class UserToken extends AbstractEntity {
 	 * 用户
 	 */
 	@ManyToOne
-	@JoinColumn(name="userid")
+	@JoinColumn(name = "userid")
 	private UserInfo user;
+
+	/**
+	 * 令牌类型
+	 */
+	private Integer catalog;
 
 	public String getCode() {
 		return code;
@@ -41,6 +46,13 @@ public class UserToken extends AbstractEntity {
 	public void setUser(UserInfo user) {
 		this.user = user;
 	}
-	
+
+	public Integer getCatalog() {
+		return catalog;
+	}
+
+	public void setCatalog(Integer catalog) {
+		this.catalog = catalog;
+	}
 
 }

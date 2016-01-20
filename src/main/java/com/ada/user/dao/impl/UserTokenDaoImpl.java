@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ada.data.core.CriteriaDaoImpl;
+import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.user.dao.UserTokenDao;
 import com.ada.user.entity.UserToken;
@@ -44,5 +45,14 @@ public class UserTokenDaoImpl extends CriteriaDaoImpl<UserToken, Long> implement
 	@Autowired
 	public void setSuperSessionFactory(SessionFactory sessionFactory){
 	    super.setSessionFactory(sessionFactory);
+	}
+
+	@Override
+	public UserToken findById(Long uid, Integer catalog) {
+		Finder finder=Finder.create();
+		finder.append("from UserToken u where u.user.id =:uid u.catalog = :catalog");
+		finder.setParam("uid", uid);
+		finder.setParam("catalog", catalog);
+		return findOne(finder);
 	}
 }
