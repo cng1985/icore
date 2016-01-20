@@ -11,5 +11,5 @@ public enum TokenCatalog {
 	/**
 	 * 
 	 */
-	rongyun, app
+	rongyun, app,others
 }
