@@ -1,6 +1,9 @@
 package com.ada.user.service;
 
+import java.util.List;
+
 import com.ada.data.core.Pagination;
+import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserNotification;
 import com.ada.user.page.UserNotificationPage;
 import com.openyelp.annotation.RestFul;
@@ -12,6 +15,10 @@ public interface UserNotificationService {
 	public UserNotification findById(Long id);
 
 	public UserNotification save(UserNotification bean);
+	
+	public UserNotification send(UserNotification bean,List<UserInfo> users);
+
+	public UserNotification send(Long nid,List<UserInfo> users);
 
 	public UserNotification update(UserNotification bean);
 

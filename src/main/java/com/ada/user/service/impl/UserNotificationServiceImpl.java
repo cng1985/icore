@@ -1,5 +1,7 @@
 package com.ada.user.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,13 +10,23 @@ import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
 import com.ada.user.dao.UserNotificationDao;
+import com.ada.user.dao.UserNotificationMemberDao;
+import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserNotification;
+import com.ada.user.entity.UserNotificationMember;
 import com.ada.user.page.UserNotificationPage;
 import com.ada.user.service.UserNotificationService;
 
 @Service
 @Transactional
 public class UserNotificationServiceImpl implements UserNotificationService {
+	
+	
+	@Autowired
+	private UserNotificationMemberDao userNotificationMemberDao;
+	
+
+	
 	@Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
@@ -93,5 +105,39 @@ public class UserNotificationServiceImpl implements UserNotificationService {
 
 		result = new UserNotificationPage(page);
 		return result;
+	}
+	@Transactional
+	@Override
+	public UserNotification send(UserNotification bean, List<UserInfo> users) {
+		dao.save(bean);
+		if (users!=null) {
+			for (UserInfo userInfo : users) {
+				UserNotificationMember nm = new UserNotificationMember();
+				nm.setNotification(bean);
+				nm.setUser(userInfo);
+				nm.setState(1);
+				userNotificationMemberDao.save(nm);
+			}
+			bean.setNums(users.size());
+		}
+		
+		return bean;
+	}
+
+	@Transactional
+	@Override
+	public UserNotification send(Long nid, List<UserInfo> users) {
+		UserNotification bean=dao.findById(nid);
+		if (users!=null&&bean!=null) {
+			for (UserInfo userInfo : users) {
+				UserNotificationMember nm = new UserNotificationMember();
+				nm.setNotification(bean);
+				nm.setUser(userInfo);
+				nm.setState(1);
+				userNotificationMemberDao.save(nm);
+			}
+			bean.setNums(users.size());
+		}
+		return bean;
 	}
 }

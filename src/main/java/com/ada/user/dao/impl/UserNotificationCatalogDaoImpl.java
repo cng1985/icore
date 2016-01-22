@@ -5,31 +5,31 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ada.data.core.BaseDaoImpl;
+import com.ada.data.core.CriteriaCatalogDaoImpl;
 import com.ada.data.core.Pagination;
-import com.ada.user.dao.UserFollowDao;
-import com.ada.user.entity.UserFollow;
+import com.ada.user.dao.UserNotificationCatalogDao;
+import com.ada.user.entity.UserNotificationCatalog;
 
 @Repository
-public class UserFollowDaoImpl extends BaseDaoImpl<UserFollow, Long> implements UserFollowDao {
+public class UserNotificationCatalogDaoImpl extends CriteriaCatalogDaoImpl<UserNotificationCatalog, Integer> implements UserNotificationCatalogDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
 
-	public UserFollow findById(Long id) {
-		UserFollow entity = get(id);
+	public UserNotificationCatalog findById(Integer id) {
+		UserNotificationCatalog entity = get(id);
 		return entity;
 	}
 
-	public UserFollow save(UserFollow bean) {
+	public UserNotificationCatalog save(UserNotificationCatalog bean) {
 		add(bean);
 		return bean;
 	}
 
-	public UserFollow deleteById(Long id) {
-		UserFollow entity = super.get(id);
+	public UserNotificationCatalog deleteById(Integer id) {
+		UserNotificationCatalog entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
 		}
@@ -37,8 +37,8 @@ public class UserFollowDaoImpl extends BaseDaoImpl<UserFollow, Long> implements 
 	}
 	
 	@Override
-	protected Class<UserFollow> getEntityClass() {
-		return UserFollow.class;
+	protected Class<UserNotificationCatalog> getEntityClass() {
+		return UserNotificationCatalog.class;
 	}
 	
 	@Autowired

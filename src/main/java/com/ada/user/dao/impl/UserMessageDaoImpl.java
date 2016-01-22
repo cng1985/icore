@@ -5,31 +5,31 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ada.data.core.BaseDaoImpl;
+import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Pagination;
-import com.ada.user.dao.UserFollowDao;
-import com.ada.user.entity.UserFollow;
+import com.ada.user.dao.UserMessageDao;
+import com.ada.user.entity.UserMessage;
 
 @Repository
-public class UserFollowDaoImpl extends BaseDaoImpl<UserFollow, Long> implements UserFollowDao {
+public class UserMessageDaoImpl extends CriteriaDaoImpl<UserMessage, Long> implements UserMessageDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
 
-	public UserFollow findById(Long id) {
-		UserFollow entity = get(id);
+	public UserMessage findById(Long id) {
+		UserMessage entity = get(id);
 		return entity;
 	}
 
-	public UserFollow save(UserFollow bean) {
-		add(bean);
+	public UserMessage save(UserMessage bean) {
+		getSession().save(bean);
 		return bean;
 	}
 
-	public UserFollow deleteById(Long id) {
-		UserFollow entity = super.get(id);
+	public UserMessage deleteById(Long id) {
+		UserMessage entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
 		}
@@ -37,8 +37,8 @@ public class UserFollowDaoImpl extends BaseDaoImpl<UserFollow, Long> implements 
 	}
 	
 	@Override
-	protected Class<UserFollow> getEntityClass() {
-		return UserFollow.class;
+	protected Class<UserMessage> getEntityClass() {
+		return UserMessage.class;
 	}
 	
 	@Autowired

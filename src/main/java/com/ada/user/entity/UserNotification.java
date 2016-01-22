@@ -43,9 +43,26 @@ public class UserNotification implements Serializable {
 	@ManyToOne()
 	private UserInfo user;
 
+	@JoinColumn(name = "catalogid")
+	@ManyToOne()
+	private UserNotificationCatalog catalog;
+
 	private Date addDate;
 
 	private Date lastDate;
+
+	/**
+	 * 发送数量
+	 */
+	private Integer nums;
+
+	public Integer getNums() {
+		return nums;
+	}
+
+	public void setNums(Integer nums) {
+		this.nums = nums;
+	}
 
 	/**
 	 * 通知内容
@@ -56,8 +73,7 @@ public class UserNotification implements Serializable {
 	 * 通知标题
 	 */
 	private String title;
-	
-	
+
 	/**
 	 * 用户
 	 */
@@ -66,7 +82,9 @@ public class UserNotification implements Serializable {
 	private UserInfo author;
 
 	/**
-	 * 分类
+	 * 分类<br/>
+	 * 0为普通,普通的是发送个一个人的或者多个人 <br/>
+	 * 1为全局，全局是给每个人发送
 	 */
 	private Integer category;
 
@@ -79,7 +97,7 @@ public class UserNotification implements Serializable {
 	 * 来源id
 	 */
 	private Long fromid;
-	
+
 	public UserNotification() {
 		addDate = new Date();
 		lastDate = new Date();
@@ -164,7 +182,13 @@ public class UserNotification implements Serializable {
 	public void setUser(UserInfo user) {
 		this.user = user;
 	}
-	
-	
+
+	public UserNotificationCatalog getCatalog() {
+		return catalog;
+	}
+
+	public void setCatalog(UserNotificationCatalog catalog) {
+		this.catalog = catalog;
+	}
 
 }

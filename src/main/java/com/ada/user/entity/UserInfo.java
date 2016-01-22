@@ -41,11 +41,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.ada.data.entity.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user_info")
-public class UserInfo implements Serializable {
+public class UserInfo extends AbstractEntity {
 
 	public static UserInfo fromId(Long id) {
 		UserInfo result = new UserInfo();
@@ -53,9 +54,6 @@ public class UserInfo implements Serializable {
 		return result;
 	}
 
-	private Date addDate;
-
-	private String address;
 
 	private String age;
 
@@ -71,9 +69,6 @@ public class UserInfo implements Serializable {
 	private String email;
 	private String headimg;
 
-	@Id
-	@GeneratedValue
-	private Long id;
 
 	private String introduction;
 
@@ -81,7 +76,6 @@ public class UserInfo implements Serializable {
 
 	private String exts;
 
-	private Date lastDate;
 
 	private Integer logintimes;
 
@@ -152,13 +146,6 @@ public class UserInfo implements Serializable {
 	@Column(unique = true)
 	private String username;
 
-	public Date getAddDate() {
-		return addDate;
-	}
-
-	public String getAddress() {
-		return address;
-	}
 
 	public String getAge() {
 		return age;
@@ -198,9 +185,6 @@ public class UserInfo implements Serializable {
 		return headimg;
 	}
 
-	public Long getId() {
-		return id;
-	}
 
 	public String getIntroduction() {
 		return introduction;
@@ -210,9 +194,6 @@ public class UserInfo implements Serializable {
 		return job;
 	}
 
-	public Date getLastDate() {
-		return lastDate;
-	}
 
 	public Integer getLogintimes() {
 		return logintimes;
@@ -275,13 +256,6 @@ public class UserInfo implements Serializable {
 		return username;
 	}
 
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 	public void setAge(String age) {
 		this.age = age;
@@ -315,9 +289,6 @@ public class UserInfo implements Serializable {
 		this.headimg = headimg;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
@@ -325,10 +296,6 @@ public class UserInfo implements Serializable {
 
 	public void setJob(String job) {
 		this.job = job;
-	}
-
-	public void setLastDate(Date lastDate) {
-		this.lastDate = lastDate;
 	}
 
 	public void setLogintimes(Integer logintimes) {
