@@ -2,7 +2,6 @@ package com.ada.shiro.realm;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -29,7 +28,6 @@ import com.ada.shiro.utils.UserUtil;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserRole;
 import com.ada.user.service.UserInfoService;
-import com.google.common.base.Objects;
 import com.young.security.Encodes;
 
 /**
@@ -95,7 +93,7 @@ public class UserRealm extends AuthorizingRealm {
 			info.addRole(userRole.getName());
 			logger.info("role:" + userRole.getName());
 		}
-		if (user!=null) {
+		if (user != null) {
 			authorities.addAll(userService.findAuthorities(user.getId()));
 		}
 		// //赋予权限
@@ -158,7 +156,11 @@ public class UserRealm extends AuthorizingRealm {
 		 */
 		@Override
 		public int hashCode() {
-			return Objects.hashCode(loginName);
+			if (loginName != null) {
+				return loginName.hashCode();
+			} else {
+				return 0;
+			}
 		}
 
 		/**

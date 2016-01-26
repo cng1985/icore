@@ -18,8 +18,6 @@
  */
 package com.ada.user.entity;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -31,18 +29,13 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.ada.data.entity.AbstractEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user_info")
@@ -98,7 +91,6 @@ public class UserInfo extends AbstractEntity {
 	 */
 	@Basic(optional = false)
 	@Column(length = 255)
-	@JsonIgnore
 	private String password;
 
 	
@@ -112,7 +104,6 @@ public class UserInfo extends AbstractEntity {
 	 * 传递时候的密码
 	 */
 	@Transient
-	@JsonIgnore
 	private String plainPassword;
 
 	
@@ -131,7 +122,6 @@ public class UserInfo extends AbstractEntity {
 	/**
 	 * 加密密码的盐
 	 */
-	@JsonIgnore
 	private String salt;
 
 	/** 属性 */
@@ -167,7 +157,6 @@ public class UserInfo extends AbstractEntity {
 		return company;
 	}
 
-	@JsonIgnore
 	@Transient
 	public String getCredentialsSalt() {
 		return username + salt;

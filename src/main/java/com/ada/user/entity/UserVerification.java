@@ -25,9 +25,10 @@ public class UserVerification extends AbstractEntity {
 	/**
 	 * 用户
 	 */
-	@ManyToOne
-	@JoinColumn(name = "userid")
-	private UserInfo user;
+	private String  name;
+
+	private Integer catalog;
+	
 
 	public String getCode() {
 		return code;
@@ -37,12 +38,21 @@ public class UserVerification extends AbstractEntity {
 		this.code = code;
 	}
 
-	public UserInfo getUser() {
-		return user;
+
+	public Integer getCatalog() {
+		return catalog;
 	}
 
-	public void setUser(UserInfo user) {
-		this.user = user;
+	public void setCatalog(Integer catalog) {
+		this.catalog = catalog;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
