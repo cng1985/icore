@@ -73,28 +73,8 @@
 			<artifactId>hibernate-validator-cdi</artifactId>
 			<version>5.1.3.Final</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>javax.el-api</artifactId>
-			<version>2.2.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.web</groupId>
-			<artifactId>javax.el</artifactId>
-			<version>2.2.4</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-			<version>3.3.0</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-spring</artifactId>
-			<version>1.2.0</version>
-		</dependency>
 
 
 		<dependency>
@@ -230,11 +210,7 @@
 			<version>4.3.6</version>
 		</dependency>
 
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.0.1</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>com.openyelp</groupId>
 			<artifactId>jsonrpc</artifactId>
@@ -252,10 +228,5 @@
 			<version>1.6</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-			<version>1.7.0.RELEASE</version>
-		</dependency>
 	</dependencies>
 </project>
