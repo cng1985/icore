@@ -64,8 +64,6 @@
 			</exclusions>
 		</dependency>
 
-
-
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -103,6 +101,7 @@
 			<artifactId>shiro-web</artifactId>
 			<version>1.2.3</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>com.openyelp</groupId>
