@@ -18,61 +18,16 @@
  */
 package com.ada.user.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ada.data.entity.AbstractEntity;
+
 @Entity
 @Table(name = "user_notification")
-public class UserNotification implements Serializable {
-
-	@Id
-	@GeneratedValue
-	private Long id;
-
-	/**
-	 * 接收消息用户
-	 */
-	@JoinColumn(name = "userid")
-	@ManyToOne()
-	private UserInfo user;
-
-	@JoinColumn(name = "catalogid")
-	@ManyToOne()
-	private UserNotificationCatalog catalog;
-
-	private Date addDate;
-
-	private Date lastDate;
-
-	/**
-	 * 发送数量
-	 */
-	private Integer nums;
-
-	public Integer getNums() {
-		return nums;
-	}
-
-	public void setNums(Integer nums) {
-		this.nums = nums;
-	}
-
-	/**
-	 * 通知内容
-	 */
-	private String note;
-
-	/**
-	 * 通知标题
-	 */
-	private String title;
+public class UserNotification extends AbstractEntity {
 
 	/**
 	 * 用户
@@ -80,6 +35,10 @@ public class UserNotification implements Serializable {
 	@JoinColumn(name = "authorid")
 	@ManyToOne()
 	private UserInfo author;
+
+	@JoinColumn(name = "catalogid")
+	@ManyToOne()
+	private UserNotificationCatalog catalog;
 
 	/**
 	 * 分类<br/>
@@ -89,50 +48,60 @@ public class UserNotification implements Serializable {
 	private Integer category;
 
 	/**
-	 * 状态 1为已阅读 0为未阅读
+	 * 通知内容
 	 */
-	private Integer state;
+	private String note;
 
 	/**
-	 * 来源id
+	 * 发送数量
 	 */
-	private Long fromid;
+	private Integer nums;
 
-	public UserNotification() {
-		addDate = new Date();
-		lastDate = new Date();
+	/**
+	 * 通知标题
+	 */
+	private String title;
+
+	/**
+	 * 接收消息用户
+	 */
+	@JoinColumn(name = "userid")
+	@ManyToOne()
+	private UserInfo user;
+
+	/**
+	 * 封面
+	 */
+	private String image;
+
+	
+	
+	public String getImage() {
+		return image;
 	}
 
-	public Date getAddDate() {
-		return addDate;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public UserInfo getAuthor() {
 		return author;
 	}
 
+	public UserNotificationCatalog getCatalog() {
+		return catalog;
+	}
+
 	public Integer getCategory() {
 		return category;
-	}
-
-	public Long getFromid() {
-		return fromid;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public Date getLastDate() {
-		return lastDate;
 	}
 
 	public String getNote() {
 		return note;
 	}
 
-	public Integer getState() {
-		return state;
+	public Integer getNums() {
+		return nums;
 	}
 
 	public String getTitle() {
@@ -143,36 +112,24 @@ public class UserNotification implements Serializable {
 		return user;
 	}
 
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
-	}
-
 	public void setAuthor(UserInfo author) {
 		this.author = author;
+	}
+
+	public void setCatalog(UserNotificationCatalog catalog) {
+		this.catalog = catalog;
 	}
 
 	public void setCategory(Integer category) {
 		this.category = category;
 	}
 
-	public void setFromid(Long fromid) {
-		this.fromid = fromid;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setLastDate(Date lastDate) {
-		this.lastDate = lastDate;
-	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
 
-	public void setState(Integer state) {
-		this.state = state;
+	public void setNums(Integer nums) {
+		this.nums = nums;
 	}
 
 	public void setTitle(String title) {
@@ -181,14 +138,6 @@ public class UserNotification implements Serializable {
 
 	public void setUser(UserInfo user) {
 		this.user = user;
-	}
-
-	public UserNotificationCatalog getCatalog() {
-		return catalog;
-	}
-
-	public void setCatalog(UserNotificationCatalog catalog) {
-		this.catalog = catalog;
 	}
 
 }
