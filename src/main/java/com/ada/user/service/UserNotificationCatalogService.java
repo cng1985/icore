@@ -1,19 +1,23 @@
 package com.ada.user.service;
 
-import com.ada.user.entity.UserNotificationCatalog;
-import com.ada.user.page.UserNotificationCatalogPage;
+import java.util.List;
+
 import com.ada.data.page.Filter;
 import com.ada.data.page.Order;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
-import java.util.List;
-
+import com.ada.user.entity.UserNotificationCatalog;
+import com.ada.user.page.UserNotificationCatalogPage;
 import com.openyelp.annotation.RestFul;
 
 @RestFul(api=UserNotificationCatalogService.class,value="UserNotificationCatalogService")
 public interface UserNotificationCatalogService {
 
 	public UserNotificationCatalog findById(Integer id);
+	
+	
+	public List<UserNotificationCatalog> findByPid(Integer id);
+
 
 	public UserNotificationCatalog save(UserNotificationCatalog bean);
 

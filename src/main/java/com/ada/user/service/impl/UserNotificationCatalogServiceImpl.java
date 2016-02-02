@@ -95,4 +95,11 @@ public class UserNotificationCatalogServiceImpl implements UserNotificationCatal
 		     return dao.findList(first,count,filters,orders);
 	
 	}
+	
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<UserNotificationCatalog> findByPid(Integer id) {
+		return dao.findByProperty("parent.id", id);
+	}
 }

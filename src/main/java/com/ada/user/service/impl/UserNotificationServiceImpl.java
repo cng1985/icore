@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.ada.user.dao.UserNotificationDao;
 import com.ada.user.dao.UserNotificationMemberDao;
 import com.ada.user.entity.UserInfo;
@@ -139,5 +141,11 @@ public class UserNotificationServiceImpl implements UserNotificationService {
 			bean.setNums(users.size());
 		}
 		return bean;
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Page<UserNotification> findPage(Pageable pageable) {
+		 return dao.findPage(pageable);
 	}
 }

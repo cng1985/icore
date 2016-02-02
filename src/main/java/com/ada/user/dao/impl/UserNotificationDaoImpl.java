@@ -5,13 +5,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ada.data.core.BaseDaoImpl;
+import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Pagination;
 import com.ada.user.dao.UserNotificationDao;
 import com.ada.user.entity.UserNotification;
 
 @Repository
-public class UserNotificationDaoImpl extends BaseDaoImpl<UserNotification, Long> implements UserNotificationDao {
+public class UserNotificationDaoImpl extends CriteriaDaoImpl<UserNotification, Long> implements UserNotificationDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);

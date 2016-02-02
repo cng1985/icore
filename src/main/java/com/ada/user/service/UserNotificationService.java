@@ -3,6 +3,8 @@ package com.ada.user.service;
 import java.util.List;
 
 import com.ada.data.core.Pagination;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserNotification;
 import com.ada.user.page.UserNotificationPage;
@@ -29,5 +31,7 @@ public interface UserNotificationService {
 	
 	public	UserNotificationPage pageByUser(Long userid,int pageNo, int pageSize);
 	public	UserNotificationPage pageByUserUnRead(Long userid,int pageNo, int pageSize);
+
+	public Page<UserNotification> findPage(Pageable pageable);
 
 }

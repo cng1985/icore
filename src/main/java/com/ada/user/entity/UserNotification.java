@@ -62,6 +62,18 @@ public class UserNotification extends AbstractEntity {
 	 */
 	private String title;
 
+	
+	private String introduction;
+
+	
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
 	/**
 	 * 接收消息用户
 	 */

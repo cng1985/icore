@@ -351,7 +351,7 @@ public class Finder {
 	public static final String FROM = "from";
 	public static final String DISTINCT = "distinct";
 	public static final String HQL_FETCH = "fetch";
-	public static final String ORDER_BY = "order";
+	public static final String ORDER_BY = "order ";
 
 	public static void main(String[] args) {
 		Finder find = Finder
