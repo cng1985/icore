@@ -4,7 +4,7 @@ import com.ada.template_ace.ModuleMavenGenerator;
 
 public class CmsModuleGenerator {
 	private static String packName = "com.ada.templatecore";
-private static String fileName = "p_user.properties"; 
+private static String fileName = "p_ablum.properties"; 
 
 	public static void main(String[] args) {
 		new ModuleMavenGenerator(packName, fileName).generate();

@@ -5,13 +5,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ada.data.core.BaseDaoImpl;
+import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Pagination;
 import com.ada.album.dao.PhotoDao;
 import com.ada.album.entity.Photo;
 
 @Repository
-public class PhotoDaoImpl extends BaseDaoImpl<Photo, String> implements PhotoDao {
+public class PhotoDaoImpl extends CriteriaDaoImpl<Photo, String> implements PhotoDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);

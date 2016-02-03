@@ -59,7 +59,10 @@ public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDa
 		if (pageable == null) {
 			pageable = new Pageable();
 		}
-		long total = count(createCriteria(), pageable.getFilters());
+		Long total = count(createCriteria(), pageable.getFilters());
+		if (total==null) {
+			total=0l;
+		}
 		int totalPages = (int) Math.ceil((double) total / (double) pageable.getPageSize());
 		if (totalPages < pageable.getPageNumber()) {
 			pageable.setPageNumber(totalPages);

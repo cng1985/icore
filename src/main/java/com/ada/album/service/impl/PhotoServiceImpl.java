@@ -12,6 +12,13 @@ import com.ada.album.entity.Photo;
 import com.ada.album.service.PhotoService;
 import com.ada.album.page.PhotoPage;
 
+import com.ada.data.page.Filter;
+import com.ada.data.page.Order;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
+import java.util.List;
+
+
 @Service
 @Transactional
 public class PhotoServiceImpl implements PhotoService {
@@ -68,16 +75,24 @@ public class PhotoServiceImpl implements PhotoService {
 		result = new PhotoPage(page);
 		return result;
 	}
+	
+	
 	@Transactional(readOnly = true)
-	@Override
-	public PhotoPage pageByCatalog(String id, int curpage, int pagesize) {
-		PhotoPage result=null;
-		Finder finder=Finder.create();
-		finder.append("from Photo f where f.category.id =:cid");
-		finder.setParam("cid", id);
-		finder.append(" order by f.id desc  ");
-		Pagination<Photo> page = dao.find(finder,curpage, pagesize);
-		result = new PhotoPage(page);
-		return result;
+	public Page<Photo> findPage(Pageable pageable){
+	     return dao.findPage(pageable);
+	}
+
+	@Transactional(readOnly = true)
+	public long count(Filter... filters){
+	     
+	     return dao.count(filters);
+	     
+	}
+
+	@Transactional(readOnly = true)
+	public List<Photo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders){
+	
+		     return dao.findList(first,count,filters,orders);
+	
 	}
 }

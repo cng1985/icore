@@ -16,18 +16,18 @@ import com.ada.user.entity.UserInfo;
 @Table(name = "album_album")
 public class Album implements Serializable {
 
-	@ManyToOne()
-	private UserInfo user;
-
-	private String name;
-
 	private Date addDate;
-
-	private Date lastDate;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	private Date lastDate;
+
+	private String name;
+
+	@ManyToOne()
+	private UserInfo user;
 
 	public Album() {
 		addDate = new Date();
