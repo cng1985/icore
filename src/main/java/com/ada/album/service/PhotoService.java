@@ -31,5 +31,7 @@ public interface PhotoService {
 	public long count(Filter... filters);
 
 	public List<Photo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+
+	public PhotoPage pageByCatalog(String id, int curpage, int pagesize);
 	
 }
