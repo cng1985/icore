@@ -19,8 +19,10 @@ public interface QuestionService {
 	public Question[] deleteByIds(Long[] ids);
 	
 	public QuestionPage pageByCatalog(int catalog,int pageNo, int pageSize);
+	
 	public QuestionPage pageByUser(long uid,int pageNo, int pageSize);
 
 	public QuestionPage getPageByPid(Long id, int pageNo, int pageSize);
+
 
 }

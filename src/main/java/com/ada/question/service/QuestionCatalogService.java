@@ -1,14 +1,15 @@
 package com.ada.question.service;
 
-import com.ada.data.core.Pagination;
+import java.util.List;
+
 import com.ada.question.entity.QuestionCatalog;
 import com.ada.question.page.QuestionCatalogPage;
-
-
 import com.openyelp.annotation.RestFul;
 
 @RestFul(api=QuestionCatalogService.class,value="QuestionCatalogService")
 public interface QuestionCatalogService {
+	
+	
 	public QuestionCatalogPage getPage(int pageNo, int pageSize);
 
 	public QuestionCatalog findById(Integer id);
@@ -20,4 +21,6 @@ public interface QuestionCatalogService {
 	public QuestionCatalog deleteById(Integer id);
 	
 	public QuestionCatalog[] deleteByIds(Integer[] ids);
+
+	public List<QuestionCatalog> findChild(int pid);
 }

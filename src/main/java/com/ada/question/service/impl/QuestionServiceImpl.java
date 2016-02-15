@@ -112,4 +112,5 @@ public class QuestionServiceImpl implements QuestionService {
 		result = new QuestionPage(page);
 		return result;
 	}
+	
 }
