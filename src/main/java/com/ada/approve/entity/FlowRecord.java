@@ -33,6 +33,21 @@ public class FlowRecord extends AbstractEntity {
 	 * 审批意见
 	 */
 	private String note;
+	
+	
+	/**
+	 * 流程
+	 */
+	@ManyToOne
+	private Flow flow;
+
+	public Flow getFlow() {
+		return flow;
+	}
+
+	public void setFlow(Flow flow) {
+		this.flow = flow;
+	}
 
 	public UserInfo getUser() {
 		return user;

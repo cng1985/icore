@@ -56,6 +56,7 @@ public class FlowApprovalDaoImpl extends CriteriaDaoImpl<FlowApproval, Long> imp
 		finder.setParam("fid", id);
 		finder.append(" and f.hierarchy =:hierarchy");
 		finder.setParam("hierarchy", hierarchy+1);
+		finder.append(" order by f.hierarchy asc");
 		List<FlowApproval> as = find(finder);
 		if (as!=null&&as.size()>0) {
 			return as.get(0);
