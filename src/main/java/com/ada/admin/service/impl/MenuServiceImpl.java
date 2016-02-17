@@ -25,7 +25,6 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	
-    @Cacheable(value="menucache")
 	@Transactional(readOnly = true)
 	public Menu findById(Integer id) {
 		Menu entity = dao.findById(id);
@@ -92,7 +91,6 @@ public class MenuServiceImpl implements MenuService {
 		this.dao = dao;
 	}
 
-    @Cacheable(value="menucache")
 	@Transactional(readOnly = true)
 	@Override
 	public List<Menu> findChild(int id) {
