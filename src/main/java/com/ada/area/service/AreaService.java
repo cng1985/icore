@@ -36,4 +36,7 @@ public interface AreaService {
 
 	public Page<Area> findPage(Pageable pageable);
 	
+	List<Area> findByPids();
+
+	
 }

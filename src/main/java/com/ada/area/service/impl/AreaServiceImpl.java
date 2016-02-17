@@ -153,4 +153,16 @@ public class AreaServiceImpl implements AreaService {
 	public Page<Area> findPage(Pageable pageable) {
 		return dao.findPage(pageable);
 	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public List<Area> findByPids() {
+
+		List<Area> result = null;
+		Finder finder = Finder.create();
+		finder.append(" from Area a  where a.parent is null");
+		result = dao.find(finder);
+		
+		return result;
+	}
 }
