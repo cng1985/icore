@@ -95,7 +95,24 @@ public class UserNotificationCatalogServiceImpl implements UserNotificationCatal
 		     return dao.findList(first,count,filters,orders);
 	
 	}
-	
+	@Transactional(readOnly = true)
+	@Override
+	public UserNotificationCatalogPage searchPage(String name) {
+		UserNotificationCatalogPage result = null;
+		Finder finder=Finder.create();
+		Pagination<UserNotificationCatalog> page = null;
+		finder.append("from UserNotificationCatalog u ");
+		if(null != name && !"".equals(name)){
+			finder.append("where u.name like:name");
+			finder.setParam("name", "%"+name+"%");
+			page = dao.find(finder,1, 10);
+			result = new UserNotificationCatalogPage(page);
+		}else{
+			page = dao.find(finder,1, 10);
+			result = new UserNotificationCatalogPage(page);
+		}
+		return result;
+	}
 	
 	@Transactional(readOnly = true)
 	@Override

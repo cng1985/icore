@@ -1,11 +1,14 @@
 package com.ada.approve.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ada.data.core.CriteriaDaoImpl;
+import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.approve.dao.FlowRecordDao;
 import com.ada.approve.entity.FlowRecord;
@@ -44,5 +47,15 @@ public class FlowRecordDaoImpl extends CriteriaDaoImpl<FlowRecord, Long> impleme
 	@Autowired
 	public void setSuperSessionFactory(SessionFactory sessionFactory){
 	    super.setSessionFactory(sessionFactory);
+	}
+
+	@Override
+	public List<FlowRecord> findByFlow(Long id) {
+		Finder finder=Finder.create();
+		finder.append("from FlowRecord f where f.flow.id =:fid");
+		finder.setParam("fid", id);
+		finder.append(" order by f.id asc");
+		
+		return find(finder);
 	}
 }

@@ -74,12 +74,6 @@ public class UserNotification extends AbstractEntity {
 		this.introduction = introduction;
 	}
 
-	/**
-	 * 接收消息用户
-	 */
-	@JoinColumn(name = "userid")
-	@ManyToOne()
-	private UserInfo user;
 
 	/**
 	 * 封面
@@ -120,9 +114,6 @@ public class UserNotification extends AbstractEntity {
 		return title;
 	}
 
-	public UserInfo getUser() {
-		return user;
-	}
 
 	public void setAuthor(UserInfo author) {
 		this.author = author;
@@ -146,10 +137,6 @@ public class UserNotification extends AbstractEntity {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public void setUser(UserInfo user) {
-		this.user = user;
 	}
 
 }

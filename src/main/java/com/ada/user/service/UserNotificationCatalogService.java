@@ -35,5 +35,8 @@ public interface UserNotificationCatalogService {
 	public long count(Filter... filters);
 
 	public List<UserNotificationCatalog> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+
+
+	public UserNotificationCatalogPage searchPage(String name);
 	
 }
