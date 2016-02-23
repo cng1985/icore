@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ada.data.core.CriteriaDaoImpl;
+import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.approve.dao.FlowDao;
 import com.ada.approve.entity.Flow;
@@ -44,5 +45,13 @@ public class FlowDaoImpl extends CriteriaDaoImpl<Flow, Long> implements FlowDao 
 	@Autowired
 	public void setSuperSessionFactory(SessionFactory sessionFactory){
 	    super.setSessionFactory(sessionFactory);
+	}
+
+	@Override
+	public Flow findByOId(Long id) {
+		Finder finder=Finder.create();
+		finder.append("from Flow f where f.oid =:oid");
+		finder.setParam("oid", id);
+		return findOne(finder);
 	}
 }

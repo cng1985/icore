@@ -10,6 +10,9 @@ public interface FlowDao extends CriteriaDao<Flow, Long>{
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public Flow findById(Long id);
+	
+	public Flow findByOId(Long id);
+
 
 	public Flow save(Flow bean);
 
