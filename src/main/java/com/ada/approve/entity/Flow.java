@@ -28,7 +28,7 @@ public class Flow extends AbstractEntity {
 	private Integer hierarchy;
 
 	/**
-	 * 审核状态 0为未审核1为审核中2审核完成
+	 * 审核状态 0为未审核1为审核中2审核完成 -1审批失败
 	 */
 	private Integer state;
 

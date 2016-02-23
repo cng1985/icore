@@ -12,6 +12,7 @@ import com.ada.approve.entity.FlowApproval;
 import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
+import com.sun.org.apache.regexp.internal.recompile;
 
 @Repository
 public class FlowApprovalDaoImpl extends CriteriaDaoImpl<FlowApproval, Long> implements FlowApprovalDao {
@@ -78,5 +79,14 @@ public class FlowApprovalDaoImpl extends CriteriaDaoImpl<FlowApproval, Long> imp
 		}else{
 			return null;
 		}
+	}
+
+	@Override
+	public List<FlowApproval> findByFlow(Long id) {
+		Finder finder = Finder.create();
+		finder.append("from FlowApproval f where f.flow.id =:fid");
+		finder.setParam("fid", id);
+		finder.append(" order by f.id asc ");
+		return find(finder);
 	}
 }

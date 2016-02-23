@@ -4,6 +4,9 @@ package com.ada.approve.dao;
 import  com.ada.data.core.CriteriaDao;
 import  com.ada.data.core.Updater;
 import com.ada.data.core.Pagination;
+
+import java.util.List;
+
 import  com.ada.approve.entity.FlowApproval;
 
 public interface FlowApprovalDao extends CriteriaDao<FlowApproval, Long>{
@@ -20,4 +23,6 @@ public interface FlowApprovalDao extends CriteriaDao<FlowApproval, Long>{
 	public FlowApproval findNext(Long id, Integer hierarchy);
 
 	public FlowApproval findPre(Long id, Integer hierarchy);
+
+	public List<FlowApproval> findByFlow(Long id);
 }
