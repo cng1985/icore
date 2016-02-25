@@ -89,4 +89,19 @@ public class FlowApprovalDaoImpl extends CriteriaDaoImpl<FlowApproval, Long> imp
 		finder.append(" order by f.id asc ");
 		return find(finder);
 	}
+
+	@Override
+	public FlowApproval findCur(Long id, Integer hierarchy) {
+		Finder finder = Finder.create();
+		finder.append("from FlowApproval f where f.flow.id =:fid");
+		finder.setParam("fid", id);
+		finder.append(" and f.hierarchy =:hierarchy");
+		finder.setParam("hierarchy", hierarchy);
+		List<FlowApproval> as = find(finder);
+		if (as!=null&&as.size()>0) {
+			return as.get(0);
+		}else{
+			return null;
+		}
+	}
 }

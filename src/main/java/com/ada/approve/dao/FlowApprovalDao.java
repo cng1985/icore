@@ -21,6 +21,8 @@ public interface FlowApprovalDao extends CriteriaDao<FlowApproval, Long>{
 	public FlowApproval deleteById(Long id);
 
 	public FlowApproval findNext(Long id, Integer hierarchy);
+	
+	public FlowApproval findCur(Long id, Integer hierarchy);
 
 	public FlowApproval findPre(Long id, Integer hierarchy);
 
