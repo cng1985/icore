@@ -3,6 +3,7 @@ package com.ada.approve.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -56,12 +57,12 @@ public class FlowApprovalDaoImpl extends CriteriaDaoImpl<FlowApproval, Long> imp
 		finder.append("from FlowApproval f where f.flow.id =:fid");
 		finder.setParam("fid", id);
 		finder.append(" and f.hierarchy =:hierarchy");
-		finder.setParam("hierarchy", hierarchy+1);
+		finder.setParam("hierarchy", hierarchy + 1);
 		finder.append(" order by f.hierarchy asc");
 		List<FlowApproval> as = find(finder);
-		if (as!=null&&as.size()>0) {
+		if (as != null && as.size() > 0) {
 			return as.get(0);
-		}else{
+		} else {
 			return null;
 		}
 	}
@@ -72,11 +73,11 @@ public class FlowApprovalDaoImpl extends CriteriaDaoImpl<FlowApproval, Long> imp
 		finder.append("from FlowApproval f where f.flow.id =:fid");
 		finder.setParam("fid", id);
 		finder.append(" and f.hierarchy =:hierarchy");
-		finder.setParam("hierarchy", hierarchy-1);
+		finder.setParam("hierarchy", hierarchy - 1);
 		List<FlowApproval> as = find(finder);
-		if (as!=null&&as.size()>0) {
+		if (as != null && as.size() > 0) {
 			return as.get(0);
-		}else{
+		} else {
 			return null;
 		}
 	}
@@ -98,10 +99,17 @@ public class FlowApprovalDaoImpl extends CriteriaDaoImpl<FlowApproval, Long> imp
 		finder.append(" and f.hierarchy =:hierarchy");
 		finder.setParam("hierarchy", hierarchy);
 		List<FlowApproval> as = find(finder);
-		if (as!=null&&as.size()>0) {
+		if (as != null && as.size() > 0) {
 			return as.get(0);
-		}else{
+		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public Integer deleteByFlow(Long id) {
+		SQLQuery query = getSession().createSQLQuery("delete from approve_flow_approval where flow_id =:flow_id");
+		query.setParameter("flow_id", id);
+		return query.executeUpdate();
 	}
 }
