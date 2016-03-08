@@ -95,7 +95,8 @@ public class ActivityCatalogServiceImpl implements ActivityCatalogService {
 		     return dao.findList(first,count,filters,orders);
 	
 	}
-
+	
+	@Transactional(readOnly = true)
 	@Override
 	public List<ActivityCatalog> findChild(int id) {
 		Finder finder = Finder.create("from ActivityCatalog t where t.parent.id=" + id);

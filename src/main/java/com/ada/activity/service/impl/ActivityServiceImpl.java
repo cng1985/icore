@@ -63,6 +63,7 @@ public class ActivityServiceImpl implements ActivityService {
 
 	private ActivityDao dao;
 	
+	@Autowired
 	private ActivityCatalogDao catalogDao;
 
 	@Autowired
@@ -100,7 +101,7 @@ public class ActivityServiceImpl implements ActivityService {
 		     return dao.findList(first,count,filters,orders);
 	
 	}
-
+	@Transactional(readOnly = true)
 	@Override
 	public ActivityPage pageByCatalog(int id, int curpage, int pagesize) {
 		ActivityPage result = null;
