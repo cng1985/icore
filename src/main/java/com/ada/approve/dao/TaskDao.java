@@ -4,6 +4,10 @@ package com.ada.approve.dao;
 import  com.ada.data.core.CriteriaDao;
 import  com.ada.data.core.Updater;
 import com.ada.data.core.Pagination;
+
+import java.util.Date;
+import java.util.List;
+
 import  com.ada.approve.entity.Task;
 
 public interface TaskDao extends CriteriaDao<Task, Long>{
@@ -16,4 +20,6 @@ public interface TaskDao extends CriteriaDao<Task, Long>{
 	public Task updateByUpdater(Updater<Task> updater);
 
 	public Task deleteById(Long id);
+	
+	public List<Date> list(long uid, int year, int month);
 }

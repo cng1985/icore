@@ -11,7 +11,7 @@ public interface FlowDao extends CriteriaDao<Flow, Long>{
 
 	public Flow findById(Long id);
 	
-	public Flow findByOId(Long id);
+	public Flow findByOId(Integer catalog,Long id);
 
 
 	public Flow save(Flow bean);

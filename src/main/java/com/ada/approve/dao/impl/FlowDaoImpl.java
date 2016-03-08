@@ -36,22 +36,24 @@ public class FlowDaoImpl extends CriteriaDaoImpl<Flow, Long> implements FlowDao 
 		}
 		return entity;
 	}
-	
+
 	@Override
 	protected Class<Flow> getEntityClass() {
 		return Flow.class;
 	}
-	
+
 	@Autowired
-	public void setSuperSessionFactory(SessionFactory sessionFactory){
-	    super.setSessionFactory(sessionFactory);
+	public void setSuperSessionFactory(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
 	}
 
 	@Override
-	public Flow findByOId(Long id) {
-		Finder finder=Finder.create();
+	public Flow findByOId(Integer catalog, Long id) {
+		Finder finder = Finder.create();
 		finder.append("from Flow f where f.oid =:oid");
 		finder.setParam("oid", id);
+		finder.append("  and f.catalog =:catalog");
+		finder.setParam("catalog", catalog);
 		return findOne(finder);
 	}
 }
