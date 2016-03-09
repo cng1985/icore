@@ -1,10 +1,10 @@
 package com.ada.admin.service.impl;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,14 +24,13 @@ public class MenuServiceImpl implements MenuService {
 		return page;
 	}
 
-	
 	@Transactional(readOnly = true)
 	public Menu findById(Integer id) {
 		Menu entity = dao.findById(id);
 		return entity;
 	}
 
-	@CacheEvict(allEntries = true,value="menucache")
+	@CacheEvict(allEntries = true, value = "menucache")
 	@Transactional
 	public Menu save(Menu bean) {
 		dao.save(bean);
@@ -43,32 +42,33 @@ public class MenuServiceImpl implements MenuService {
 				} else {
 					bean.setLevelinfo(2);
 				}
-				if (parent.getIds()!=null) {
-					bean.setIds(parent.getIds()+","+bean.getId());
+				if (parent.getIds() != null) {
+					bean.setIds(parent.getIds() + "," + bean.getId());
 
-				}else{
-					bean.setIds(parent.getId()+","+bean.getId());
+				} else {
+					bean.setIds(parent.getId() + "," + bean.getId());
 				}
-				
+
 			} else {
 				bean.setLevelinfo(1);
-				bean.setIds(""+bean.getId());
+				bean.setIds("" + bean.getId());
 			}
 		} else {
 			bean.setLevelinfo(1);
-			bean.setIds(""+bean.getId());
+			bean.setIds("" + bean.getId());
 		}
 		return bean;
 	}
 
-	@CacheEvict(allEntries = true,value="menucache")
+	@CacheEvict(allEntries = true, value = "menucache")
 	@Transactional
 	public Menu update(Menu bean) {
 		Updater<Menu> updater = new Updater<Menu>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
-	@CacheEvict(allEntries = true,value="menucache")
+
+	@CacheEvict(allEntries = true, value = "menucache")
 	@Transactional
 	public Menu deleteById(Integer id) {
 		Menu bean = dao.deleteById(id);
@@ -99,5 +99,21 @@ public class MenuServiceImpl implements MenuService {
 		finder.setCacheable(true);
 		List ms = dao.find(finder);
 		return ms;
+	}
+
+	@Transactional
+	@Override
+	public List<Menu> findTop(Integer id) {
+		LinkedList<Menu> menus = new LinkedList<Menu>();
+		Menu menu = dao.findById(id);
+		while (menu.getParent() != null && menu.getId() > 0) {
+			menus.addFirst(menu);
+			menu = dao.findById(menu.getParentId());
+		}
+
+		if (menu != null && menu.getId() != null) {
+			menus.addFirst(menu);
+		}
+		return menus;
 	}
 }

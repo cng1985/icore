@@ -139,11 +139,14 @@ public class AreaServiceImpl implements AreaService {
 	@Override
 	public List<Area> findByTops(Integer id) {
 		LinkedList<Area> areas = new LinkedList<Area>();
-		int areaid = id;
 		Area area = dao.findById(id);
-		while (area.getParent() != null && area.getParent().getId() > 1) {
+		while (area.getParent() != null && area.getId() > 0) {
 			areas.addFirst(area);
 			area = dao.findById(area.getParentId());
+		}
+
+		if (area != null && area.getId() != null) {
+			areas.addFirst(area);
 		}
 
 		return areas;

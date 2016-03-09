@@ -5,7 +5,6 @@ import java.util.List;
 import com.ada.data.core.Pagination;
 import com.ada.admin.entity.Menu;
 
-
 public interface MenuService {
 	public Pagination getPage(int pageNo, int pageSize);
 
@@ -16,8 +15,10 @@ public interface MenuService {
 	public Menu update(Menu bean);
 
 	public Menu deleteById(Integer id);
-	
+
 	public Menu[] deleteByIds(Integer[] ids);
-	
+
 	public List<Menu> findChild(int id);
+
+	public List<Menu> findTop(Integer id);
 }
