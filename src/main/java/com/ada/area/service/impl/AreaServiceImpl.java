@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -156,7 +157,7 @@ public class AreaServiceImpl implements AreaService {
 	public Page<Area> findPage(Pageable pageable) {
 		return dao.findPage(pageable);
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Area> findByPids() {
@@ -165,7 +166,50 @@ public class AreaServiceImpl implements AreaService {
 		Finder finder = Finder.create();
 		finder.append(" from Area a  where a.parent is null");
 		result = dao.find(finder);
-		
+
 		return result;
 	}
+
+	@Cacheable(value = "area_cache")
+	@Transactional(readOnly = true)
+	@Override
+	public AreaPage pageByLevel(int level, int pageNo, int pageSize) {
+		Finder finder = Finder.create();
+		finder.append("from Area a where a.levelinfo =:levelinfo");
+		finder.setParam("levelinfo", level);
+		finder.append(" order by a.id desc ");
+		return new AreaPage(dao.find(finder, pageNo, pageSize));
+	}
+
+	@Cacheable(value = "area_cache")
+	@Transactional(readOnly = true)
+	@Override
+	public AreaPage pageByLevel(Integer areaid, int level, int pageNo, int pageSize) {
+		Area area = dao.findById(areaid);
+
+		Finder finder = Finder.create();
+		finder.append("from Area a where a.levelinfo =:levelinfo");
+		finder.setParam("levelinfo", level);
+		if (area != null) {
+			finder.append(" and a.lft>=" + area.getLft());
+			finder.append(" and a.rgt<=" + area.getRgt());
+		}
+		finder.append(" order by a.id desc ");
+
+		return new AreaPage(dao.find(finder, pageNo, pageSize));
+	}
+
+	@Cacheable(value = "area_cache")
+	@Transactional(readOnly = true)
+	@Override
+	public AreaPage pageByLevelState(int level, int state, int pageNo, int pageSize) {
+		Finder finder = Finder.create();
+		finder.append("from Area a where a.levelinfo =:levelinfo");
+		finder.setParam("levelinfo", level);
+		finder.append(" and a.state =:state");
+		finder.setParam("state", state);
+		finder.append(" order by a.id desc ");
+		return new AreaPage(dao.find(finder, pageNo, pageSize));
+	}
+
 }

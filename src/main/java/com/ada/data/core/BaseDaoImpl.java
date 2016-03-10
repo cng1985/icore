@@ -458,5 +458,17 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 
 		}
 	}
+	public  <X> X hql(Finder finder){
+		Query query = getSessionFactory().getCurrentSession().createQuery(
+				finder.getOrigHql());
+		finder.setParamsToQuery(query);
+		if (finder.isCacheable()) {
+			query.setCacheable(true);
+		}
+		List<?> ls = query.list();
+		Object o = ls.get(0);
+		X result=(X)o;
+		return result;
+	}
 
 }

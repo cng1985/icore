@@ -16,4 +16,6 @@ public interface AreaDao extends CriteriaDao<Area, Integer>{
 	public Area updateByUpdater(Updater<Area> updater);
 
 	public Area deleteById(Integer id);
+
+	public Area findByName(String area);
 }

@@ -30,4 +30,6 @@ public interface BaseDao<T , ID extends Serializable> {
 	public Long countQuery(Finder finder);
 
 	public int countQuerySqlResult(Finder finder);
+	
+	public  <X> X hql(Finder finder);
 }

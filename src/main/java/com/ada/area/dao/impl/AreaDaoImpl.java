@@ -1,5 +1,7 @@
 package com.ada.area.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.ada.area.dao.AreaDao;
 import com.ada.area.entity.Area;
 import com.ada.data.core.CriteriaDaoImpl;
+import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 
 @Repository
@@ -56,4 +59,20 @@ public class AreaDaoImpl extends CriteriaDaoImpl<Area, Integer> implements AreaD
 	public void setSuperSessionFactory(SessionFactory sessionFactory) {
 		super.setSessionFactory(sessionFactory);
 	}
+	
+	@Override
+	public Area findByName(String name) {
+		Area  resultone=null;
+
+		List<Area>  result=null;
+		Finder finder=Finder.create();
+		finder.append(" from Area a  where a.name=:name");
+		finder.setParam("name", name);
+		result=find(finder);
+		if(result!=null&&result.size()>0){
+			resultone=result.get(0);
+		}	
+		return resultone;
+	}
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ada.area.entity.Area;
 import com.ada.area.page.AreaPage;
+import com.ada.data.core.Pagination;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import com.openyelp.annotation.RestFul;
@@ -37,6 +38,45 @@ public interface AreaService {
 	public Page<Area> findPage(Pageable pageable);
 	
 	List<Area> findByPids();
+
+	public AreaPage pageByLevel(int level,int pageNo, int pageSize);
+	
+	
+	/**
+
+	 * 
+
+	 * @param areaid
+
+	 * @param level
+
+	 * @param pageNo
+
+	 * @param pageSize
+
+	 * @return
+
+	 */
+	public AreaPage pageByLevel(Integer areaid,int level,int pageNo, int pageSize);
+	
+	
+
+	/**
+
+	 * 查询某个状态下的城市
+
+	 * @param level
+
+	 * @param state
+
+	 * @param pageNo
+
+	 * @param pageSize
+
+	 * @return
+
+	 */
+	public AreaPage pageByLevelState(int level,int state,int pageNo, int pageSize);
 
 	
 }
