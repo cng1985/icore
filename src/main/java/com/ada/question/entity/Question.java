@@ -12,43 +12,15 @@ import javax.persistence.Table;
 
 import com.ada.user.entity.UserInfo;
 
+/**
+ * 提问
+ * 
+ * @author ada
+ *
+ */
 @Entity
 @Table(name = "question")
 public class Question implements Serializable {
-
-	@Id
-	@GeneratedValue
-	private Long id;
-
-	/**
-	 * 用户
-	 */
-	@JoinColumn(name = "userid")
-	@ManyToOne()
-	private UserInfo user;
-	
-	
-	/**
-	 * 问题分类
-	 */
-	@JoinColumn
-	@ManyToOne()
-	private  QuestionCatalog catalog;
-
-	/**
-	 * 标题
-	 */
-	private String title;
-
-	/**
-	 * 标题
-	 */
-	private String contents;
-
-	/**
-	 * 图片集合
-	 */
-	private String images;
 
 	/**
 	 * 添加时间
@@ -56,122 +28,57 @@ public class Question implements Serializable {
 	private Date addDate;
 
 	/**
-	 * 更新时间
-	 */
-	private Date lastDate;
-	
-	/**
 	 * 该问题有多少个回答
 	 */
 	private Integer answers;
-	
+
+	/**
+	 * 问题分类
+	 */
+	@JoinColumn
+	@ManyToOne()
+	private QuestionCatalog catalog;
+
+	/**
+	 * 标题
+	 */
+	private String contents;
+
 	/**
 	 * 该问题有多少个人收藏
 	 */
 	private Integer favorites;
-	
-	
 
-	public Integer getFavorites() {
-		return favorites;
-	}
+	@Id
+	@GeneratedValue
+	private Long id;
 
-	public void setFavorites(Integer favorites) {
-		this.favorites = favorites;
-	}
+	/**
+	 * 图片集合
+	 */
+	private String images;
+
+	/**
+	 * 更新时间
+	 */
+	private Date lastDate;
 
 	/**
 	 * 是否解决
 	 */
 	private Integer state;
 
-	public Integer getState() {
-		return state;
-	}
+	/**
+	 * 标题
+	 */
+	private String title;
 
-	public void setState(Integer state) {
-		this.state = state;
-	}
-
-	public Integer getAnswers() {
-		return answers;
-	}
-
-	public void setAnswers(Integer answers) {
-		this.answers = answers;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UserInfo getUser() {
-		return user;
-	}
-
-	public void setUser(UserInfo user) {
-		this.user = user;
-	}
-
-	public QuestionCatalog getCatalog() {
-		return catalog;
-	}
-
-	public void setCatalog(QuestionCatalog catalog) {
-		this.catalog = catalog;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContents() {
-		return contents;
-	}
-
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-
-	public String getImages() {
-		return images;
-	}
-
-	public void setImages(String images) {
-		this.images = images;
-	}
-
-	public Date getAddDate() {
-		return addDate;
-	}
-
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
-	}
-
-	public Date getLastDate() {
-		return lastDate;
-	}
-
-	public void setLastDate(Date lastDate) {
-		this.lastDate = lastDate;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+	/**
+	 * 用户
+	 */
+	@JoinColumn(name = "userid")
+	@ManyToOne()
+	private UserInfo user;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -188,6 +95,102 @@ public class Question implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Date getAddDate() {
+		return addDate;
+	}
+
+	public Integer getAnswers() {
+		return answers;
+	}
+
+	public QuestionCatalog getCatalog() {
+		return catalog;
+	}
+
+	public String getContents() {
+		return contents;
+	}
+
+	public Integer getFavorites() {
+		return favorites;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getImages() {
+		return images;
+	}
+
+	public Date getLastDate() {
+		return lastDate;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public UserInfo getUser() {
+		return user;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	public void setAddDate(Date addDate) {
+		this.addDate = addDate;
+	}
+
+	public void setAnswers(Integer answers) {
+		this.answers = answers;
+	}
+
+	public void setCatalog(QuestionCatalog catalog) {
+		this.catalog = catalog;
+	}
+
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+
+	public void setFavorites(Integer favorites) {
+		this.favorites = favorites;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
+	}
+
+	public void setLastDate(Date lastDate) {
+		this.lastDate = lastDate;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
 	}
 
 	@Override
