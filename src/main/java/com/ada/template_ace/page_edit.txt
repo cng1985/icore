@@ -109,6 +109,7 @@
 						<form role="form" method="post" class="form-horizontal"
 							action="${siteurl}#{config_entity}/model_update.htm">
 							<input type="hidden" name="id" value="${model.id}" />
+							<input type="hidden" name="pageNumber" value="${page.pageNumber}" />
 							<div class="form-group">
 								<label for="form-field-1"
 									class="col-sm-3 control-label no-padding-right"> 姓名</label>

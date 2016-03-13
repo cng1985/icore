@@ -41,9 +41,10 @@ public class #{Entity}Action {
 	}
 
 	@RequestMapping("/#{config_entity}/view_edit")
-	public String edit(#{idtype} id, Integer pageNo, HttpServletRequest request, ModelMap model) {
+	public String edit(Pageable pageable,#{idtype} id, Integer pageNo, HttpServletRequest request, ModelMap model) {
 		model.addAttribute("model", manager.findById(id));
 		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("page", pageable);
 		return "#{config_entity}/edit";
 	}
 
@@ -58,7 +59,7 @@ public class #{Entity}Action {
 	public String update(Pageable pageable, #{Entity} bean,HttpServletRequest request, ModelMap model) {
 		bean = manager.update(bean);
 		log.info("update Teacher id={}.", bean.getId());
-		return list(pageable, request, model);
+		return "redirect:/#{config_entity}/view_list.htm?pageNumber="+pageable.getPageNumber();
 	}
 
 	@RequestMapping("/#{config_entity}/model_delete")
@@ -66,14 +67,14 @@ public class #{Entity}Action {
 			 
 				manager.deleteById(id);
 			 
-		return list(pageable, request, model);
+		return "redirect:/#{config_entity}/view_list.htm?pageNumber="+pageable.getPageNumber();
 	}
 	@RequestMapping("/#{config_entity}/model_deletes")
 	public String deletes(Pageable pageable, #{idtype}[] ids, HttpServletRequest request, ModelMap model) {
 			 
 				manager.deleteByIds(ids);
 			 
-		return list(pageable, request, model);
+		return "redirect:/#{config_entity}/view_list.htm?pageNumber="+pageable.getPageNumber();
 	}
 	@Autowired
 	private #{Entity}Service manager;
