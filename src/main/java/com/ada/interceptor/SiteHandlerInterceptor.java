@@ -40,7 +40,11 @@ public class SiteHandlerInterceptor extends HandlerInterceptorAdapter {
 					+ modelAndView.getViewName());
 			String siteurl = "siteurl";
 			if(url!=null){
-				siteurl=url;
+				if(request.getLocalAddr().indexOf("192.168")>-1){
+					siteurl="http://"+request.getLocalAddr()+":"+request.getLocalPort()+request.getContextPath()+"/";
+				}else{
+					siteurl=url;
+				}
 			}else{
 				siteurl="http://"+request.getLocalAddr()+":"+request.getLocalPort()+request.getContextPath()+"/";
 			}
