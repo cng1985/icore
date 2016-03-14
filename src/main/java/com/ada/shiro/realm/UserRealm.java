@@ -83,7 +83,7 @@ public class UserRealm extends AuthorizingRealm {
 		logger.info("doGetAuthorizationInfo:" + shiroUser.getName());
 		// 把principals放session中
 		UserUtil.getSession().setAttribute(String.valueOf(user.getId()), SecurityUtils.getSubject().getPrincipals());
-
+		UserUtil.setCurrentUser(user);
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
 		Set<String> authorities = new HashSet<String>();
