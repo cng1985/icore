@@ -80,38 +80,44 @@ public class UserWeiXinDaoImpl extends CriteriaDaoImpl<UserWeiXin, Long> impleme
 		if (qq==null) {
 			
 				qq=new UserWeiXin();
-				UserInfo info=new UserInfo();
-				info.setUsername(openid);
-				info.setPlainPassword("123456");
-				entryptPassword(info);
-				info=userInfoDao.save(info);
-				qq.setUser(info);
-				
-				Connection con = HttpConnection.connect("https://api.weixin.qq.com/sns/userinfo");
-				con.data("access_token", access_token);
-				con.data("openid", openid);
-				String body;
-				body = con.execute().body();
-				JsonParser parser = new JsonParser();
-				JsonElement e = parser.parse(body);
-				String nickname = e.getAsJsonObject().get("nickname").getAsString();
-				Integer sexid = e.getAsJsonObject().get("sex").getAsInt();
-				String sex="男";
-				if (sexid==null||sexid==0) {
-					 sex="女";
+				UserInfo info=userInfoDao.findByName(openid);
+				if (info==null) {
+					info=new UserInfo();
+					info.setUsername(openid);
+					info.setPlainPassword("123456");
+					entryptPassword(info);
+					info=userInfoDao.save(info);
 				}
-				String city = e.getAsJsonObject().get("city").getAsString();
-				String province = e.getAsJsonObject().get("province").getAsString();
-				String country = e.getAsJsonObject().get("country").getAsString();
-				String headimgurl = e.getAsJsonObject().get("headimgurl").getAsString();
-				qq.setNickName(nickname);
-				qq.setSex(sex);
-				qq.setCity(city);
-				qq.setProvince(province);
-				qq.setCountry(country);
-				qq.setHeadimgurl(headimgurl);
+				qq.setUser(info);
+				qq.setOpenid(openid);
 				qq=save(qq);
-			
+				try {
+					Connection con = HttpConnection.connect("https://api.weixin.qq.com/sns/userinfo");
+					con.data("access_token", access_token);
+					con.data("openid", openid);
+					String body;
+					body = con.execute().body();
+					JsonParser parser = new JsonParser();
+					JsonElement e = parser.parse(body);
+					String nickname = e.getAsJsonObject().get("nickname").getAsString();
+					Integer sexid = e.getAsJsonObject().get("sex").getAsInt();
+					String sex="男";
+					if (sexid==null||sexid==0) {
+						 sex="女";
+					}
+					String city = e.getAsJsonObject().get("city").getAsString();
+					String province = e.getAsJsonObject().get("province").getAsString();
+					String country = e.getAsJsonObject().get("country").getAsString();
+					String headimgurl = e.getAsJsonObject().get("headimgurl").getAsString();
+					qq.setNickName(nickname);
+					qq.setSex(sex);
+					qq.setCity(city);
+					qq.setProvince(province);
+					qq.setCountry(country);
+					qq.setHeadimgurl(headimgurl);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 		}
 		return qq;
 	}

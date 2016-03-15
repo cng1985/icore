@@ -99,4 +99,12 @@ public class UserInfoDaoImpl extends BaseDaoImpl<UserInfo, Long> implements User
 		return result;
 	}
 
+	@Override
+	public UserInfo findByName(String name) {
+		Finder finder = Finder.create();
+		finder.append("from UserInfo u where u.username ='" + name + "'");
+		// finder.append(" and u.password = '" + password + "'");
+		return findOne(finder);
+	}
+
 }

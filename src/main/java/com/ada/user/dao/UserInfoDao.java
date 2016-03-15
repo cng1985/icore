@@ -24,6 +24,9 @@ public interface UserInfoDao extends BaseDao<UserInfo, Long> {
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public UserInfo findById(Long id);
+	
+	public UserInfo findByName(String name);
+
 
 	public UserInfo save(UserInfo bean);
 
