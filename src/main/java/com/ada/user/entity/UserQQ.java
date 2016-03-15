@@ -72,7 +72,7 @@ public class UserQQ extends AbstractEntity {
 	/**
 	 * 标识用户是否为黄钻用户（0：不是；1：是）。
 	 */
-	@Column(name = "is_yellow_vip")
+	@Column(name = "yellow_vip")
 	private Integer yellowVip;
 
 	/**
@@ -82,7 +82,7 @@ public class UserQQ extends AbstractEntity {
 	/**
 	 * 黄钻等级
 	 */
-	@Column(name = "is_yellow_vip")
+	@Column(name = "yellow_level")
 	private Integer yellowVipLevel;
 
 	/**
