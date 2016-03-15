@@ -1,5 +1,7 @@
 package com.ada.user.dao.impl;
 
+import java.util.Date;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +92,7 @@ public class UserWeiXinDaoImpl extends CriteriaDaoImpl<UserWeiXin, Long> impleme
 				}
 				qq.setUser(info);
 				qq.setOpenid(openid);
+				qq.setAccessToken(access_token);
 				qq=save(qq);
 				try {
 					Connection con = HttpConnection.connect("https://api.weixin.qq.com/sns/userinfo");
@@ -100,24 +103,27 @@ public class UserWeiXinDaoImpl extends CriteriaDaoImpl<UserWeiXin, Long> impleme
 					JsonParser parser = new JsonParser();
 					JsonElement e = parser.parse(body);
 					String nickname = e.getAsJsonObject().get("nickname").getAsString();
+					qq.setNickName(nickname);
+					String headimgurl = e.getAsJsonObject().get("headimgurl").getAsString();
+					qq.setHeadimgurl(headimgurl);
+					String city = e.getAsJsonObject().get("city").getAsString();
+					qq.setCity(city);
 					Integer sexid = e.getAsJsonObject().get("sex").getAsInt();
 					String sex="男";
 					if (sexid==null||sexid==0) {
 						 sex="女";
 					}
-					String city = e.getAsJsonObject().get("city").getAsString();
-					String province = e.getAsJsonObject().get("province").getAsString();
-					String country = e.getAsJsonObject().get("country").getAsString();
-					String headimgurl = e.getAsJsonObject().get("headimgurl").getAsString();
-					qq.setNickName(nickname);
 					qq.setSex(sex);
-					qq.setCity(city);
+					String province = e.getAsJsonObject().get("province").getAsString();
 					qq.setProvince(province);
+					String country = e.getAsJsonObject().get("country").getAsString();
 					qq.setCountry(country);
-					qq.setHeadimgurl(headimgurl);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+		}else{
+			qq.setAccessToken(access_token);
+			qq.setLastDate(new Date());
 		}
 		return qq;
 	}

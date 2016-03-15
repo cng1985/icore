@@ -1,6 +1,7 @@
 package com.ada.user.dao.impl;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -93,6 +94,7 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 				}
 				qq.setUser(info);
 				qq.setOpenid(openid);
+				qq.setAccessToken(access_token);
 				qq=save(qq);
 				try {
 					Connection con = HttpConnection.connect("https://graph.qq.com/user/get_user_info");
@@ -105,41 +107,44 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 					JsonParser parser = new JsonParser();
 					JsonElement e = parser.parse(body);
 					String nickname = e.getAsJsonObject().get("nickname").getAsString();
-					String gender = e.getAsJsonObject().get("gender").getAsString();
-					String province = e.getAsJsonObject().get("province").getAsString();
-					String city = e.getAsJsonObject().get("city").getAsString();
-					int year = e.getAsJsonObject().get("year").getAsInt();
-					String figureurl = e.getAsJsonObject().get("figureurl").getAsString();
-					String figureurl_1 = e.getAsJsonObject().get("figureurl_1").getAsString();
-					String figureurl_2 = e.getAsJsonObject().get("figureurl_2").getAsString();
-					String figureurl_qq_1 = e.getAsJsonObject().get("figureurl_qq_1").getAsString();
-					String figureurl_qq_2 = e.getAsJsonObject().get("figureurl_qq_2").getAsString();
-					int is_yellow_vip = e.getAsJsonObject().get("is_yellow_vip").getAsInt();
-					int vip = e.getAsJsonObject().get("vip").getAsInt();
-					int yellow_vip_level = e.getAsJsonObject().get("yellow_vip_level").getAsInt();
-					int level = e.getAsJsonObject().get("level").getAsInt();
-					int is_yellow_year_vip = e.getAsJsonObject().get("is_yellow_year_vip").getAsInt();
-					System.out.println(is_yellow_year_vip);
-					qq.setAccessToken(access_token);
 					qq.setNickName(nickname);
-					qq.setGender(gender);
-					qq.setProvince(province);
-					qq.setCity(city);
-					qq.setYear(year);
-					qq.setFigureUrl(figureurl);
-					qq.setFigureUrl1(figureurl_1);
-					qq.setFigureUrl2(figureurl_2);
+					String figureurl_qq_1 = e.getAsJsonObject().get("figureurl_qq_1").getAsString();
 					qq.setFigureurlQq1(figureurl_qq_1);
+					String gender = e.getAsJsonObject().get("gender").getAsString();
+					qq.setGender(gender);
+					String province = e.getAsJsonObject().get("province").getAsString();
+					qq.setProvince(province);
+					String city = e.getAsJsonObject().get("city").getAsString();
+					qq.setCity(city);
+					int year = e.getAsJsonObject().get("year").getAsInt();
+					qq.setYear(year);
+					String figureurl = e.getAsJsonObject().get("figureurl").getAsString();
+					qq.setFigureUrl(figureurl);
+					String figureurl_1 = e.getAsJsonObject().get("figureurl_1").getAsString();
+					qq.setFigureUrl1(figureurl_1);
+					String figureurl_2 = e.getAsJsonObject().get("figureurl_2").getAsString();
+					qq.setFigureUrl2(figureurl_2);
+			
+					String figureurl_qq_2 = e.getAsJsonObject().get("figureurl_qq_2").getAsString();
 					qq.setFigureurlQq2(figureurl_qq_2);
+					int is_yellow_vip = e.getAsJsonObject().get("is_yellow_vip").getAsInt();
 					qq.setYellowVip(is_yellow_vip);
+					int vip = e.getAsJsonObject().get("vip").getAsInt();
 					qq.setVip(vip);
-					qq.setLevel(level);
-					qq.setYellowYearVip(is_yellow_year_vip);
+					int yellow_vip_level = e.getAsJsonObject().get("yellow_vip_level").getAsInt();
 					qq.setYellowVipLevel(yellow_vip_level);
+					int level = e.getAsJsonObject().get("level").getAsInt();
+					qq.setLevel(level);
+					int is_yellow_year_vip = e.getAsJsonObject().get("is_yellow_year_vip").getAsInt();
+					qq.setYellowYearVip(is_yellow_year_vip);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			
+		}else{
+			qq.setOpenid(openid);
+			qq.setAccessToken(access_token);
+			qq.setLastDate(new Date());
 		}
 		return qq;
 	}

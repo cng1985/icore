@@ -17,8 +17,20 @@ public class UserWeiXin extends AbstractEntity {
 	@JoinColumn(name="userid")
 	private UserInfo user;
 	
+	/**
+	 * accessToken
+	 */
+	@Column(name = "access_token")
+	private String accessToken;
 	
-	
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
 	private String openid;
 
 	@Column(name = "nickname")
