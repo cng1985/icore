@@ -17,6 +17,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.young.http.Connection;
 import com.young.http.HttpConnection;
+import com.young.security.Digests;
+import com.young.security.Encodes;
 
 @Repository
 public class UserWeiXinDaoImpl extends CriteriaDaoImpl<UserWeiXin, Long> implements UserWeiXinDao {
@@ -25,7 +27,21 @@ public class UserWeiXinDaoImpl extends CriteriaDaoImpl<UserWeiXin, Long> impleme
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
+	/** 加密方法 */
+	public static final String HASH_ALGORITHM = "SHA-1";
+	public static final int HASH_INTERATIONS = 1024;
+	public static final int SALT_SIZE = 8; // 盐长度
 
+	/**
+	 * 设定安全的密码，生成随机的salt并经过1024次 sha-1 hash
+	 */
+	private void entryptPassword(UserInfo user) {
+		byte[] salt = Digests.generateSalt(SALT_SIZE);
+		user.setSalt(Encodes.encodeHex(salt));
+
+		byte[] hashPassword = Digests.sha1(user.getPlainPassword().getBytes(), salt, HASH_INTERATIONS);
+		user.setPassword(Encodes.encodeHex(hashPassword));
+	}
 	public UserWeiXin findById(Long id) {
 		UserWeiXin entity = get(id);
 		return entity;
@@ -66,6 +82,8 @@ public class UserWeiXinDaoImpl extends CriteriaDaoImpl<UserWeiXin, Long> impleme
 				qq=new UserWeiXin();
 				UserInfo info=new UserInfo();
 				info.setUsername(openid);
+				info.setPlainPassword("123456");
+				entryptPassword(info);
 				info=userInfoDao.save(info);
 				qq.setUser(info);
 				
