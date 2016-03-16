@@ -16,6 +16,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.ada.common.hibernate.HibernateTree;
+import com.ada.data.entity.CatalogEntity;
 import com.openyelp.annotation.NoGson;
 
 /**
@@ -26,34 +27,30 @@ import com.openyelp.annotation.NoGson;
  */
 @Entity
 @Table(name = "area")
-public class Area implements HibernateTree<Integer> {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+public class Area extends CatalogEntity {
 
-	private java.lang.String name;
-
-	private Integer sortnum;
-
+	/**
+	 * 城市编码
+	 */
 	private Integer code;
 
-	public Integer getCode() {
-		return code;
-	}
 
-	public void setCode(Integer code) {
-		this.code = code;
-	}
+	/**
+	 * 城市状态 1为开通，0为未开通
+	 */
+	private Integer state;
 
-	private java.lang.Integer lft;
-
-	private java.lang.Integer rgt;
-
-	private Integer levelinfo;
-	@JoinColumn(name = "pid")
-	@ManyToOne(fetch=FetchType.EAGER)
-	private Area parent;
 	
+	/**
+	 * 父地区id
+	 */
+	@JoinColumn(name = "pid")
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Area parent;
+
+	/**
+	 *下属地区
+	 */
 	@NoGson
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
 	private List<Area> childrens;
@@ -68,29 +65,8 @@ public class Area implements HibernateTree<Integer> {
 		}
 	}
 
-	@Override
-	public Integer getId() {
-		// TODO Auto-generated method stub
-		return id;
-	}
-
-	public Integer getLevelinfo() {
-		return levelinfo;
-	}
-
-	public java.lang.Integer getLft() {
-		return lft;
-	}
-
-	/**
-	 * @see HibernateTree#getLftName()
-	 */
-	public String getLftName() {
-		return DEF_LEFT_NAME;
-	}
-
-	public java.lang.String getName() {
-		return name;
+	public Integer getCode() {
+		return code;
 	}
 
 	public Area getParent() {
@@ -106,71 +82,24 @@ public class Area implements HibernateTree<Integer> {
 		}
 	}
 
-	/**
-	 * @see HibernateTree#getParentName()
-	 */
-	public String getParentName() {
-		return DEF_PARENT_NAME;
-	}
-
-	public java.lang.Integer getRgt() {
-		return rgt;
-	}
-
-	/**
-	 * @see HibernateTree#getRgtName()
-	 */
-	public String getRgtName() {
-		return DEF_RIGHT_NAME;
-	}
-
-	public Integer getSortnum() {
-		return sortnum;
-	}
-
-	@Override
-	public String getTreeCondition() {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer getState() {
+		return state;
 	}
 
 	public void setChildrens(List<Area> childrens) {
 		this.childrens = childrens;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public void setLevelinfo(Integer levelinfo) {
-		this.levelinfo = levelinfo;
-	}
-
-	public void setLft(java.lang.Integer lft) {
-		this.lft = lft;
-	}
-
-	public void setName(java.lang.String name) {
-		this.name = name;
+	public void setCode(Integer code) {
+		this.code = code;
 	}
 
 	public void setParent(Area parent) {
 		this.parent = parent;
 	}
 
-	public void setRgt(java.lang.Integer rgt) {
-		this.rgt = rgt;
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
-	public void setSortnum(Integer sortnum) {
-		this.sortnum = sortnum;
-	}
-
-	@Override
-	public String toString() {
-		return "Area [id=" + id + ", name=" + name + ", sortnum=" + sortnum
-				+ ", code=" + code + ", lft=" + lft + ", rgt=" + rgt
-				+ ", levelinfo=" + levelinfo + ", parent=" + parent
-				+ ", childrens=" + childrens + "]";
-	}
 }
