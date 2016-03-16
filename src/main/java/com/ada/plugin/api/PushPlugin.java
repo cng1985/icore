@@ -134,7 +134,13 @@ public abstract class PushPlugin implements Comparable<PushPlugin>{
 	 */
 	public abstract PushBack pushAll(String msg,Map<String,String> keys);
 
-	public abstract PushBack pushToSingleDevice(String chanel,String msg);
+	public abstract PushBack pushToSingleDevice(String chanel,String msg,Map<String,String> keys);
+	
+	public abstract PushBack pushToTag(String tag,String msg,Map<String,String> keys);
+	
+	
+	public abstract PushBack pushToChannels(String[] chanels,String msg,Map<String,String> keys);
+
 
 	@Override
 	public boolean equals(Object obj) {
