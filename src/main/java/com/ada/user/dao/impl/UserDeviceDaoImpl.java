@@ -28,22 +28,7 @@ public class UserDeviceDaoImpl extends CriteriaDaoImpl<UserDevice, Long> impleme
 	}
 
 	public UserDevice save(UserDevice bean) {
-		List<UserDevice> ds=	findByProperty("code", bean.getCode());
-		if (ds!=null&&ds.size()>0) {
-			bean=ds.get(0);
-			Integer times=bean.getTimes();
-			if (times==null) {
-				times=1;
-			}
-			times++;
-			bean.setLastDate(new Date());
-			bean.setTimes(times);
-		}else{
-			bean.setState(0);
-			bean.setTimes(1);
-			getSession().save(bean);
-
-		}
+		getSession().save(bean);
 		return bean;
 	}
 
