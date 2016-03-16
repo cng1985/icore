@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ada.data.core.CriteriaDaoImpl;
+import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.user.dao.UserDeviceDao;
 import com.ada.user.entity.UserDevice;
@@ -27,22 +28,7 @@ public class UserDeviceDaoImpl extends CriteriaDaoImpl<UserDevice, Long> impleme
 	}
 
 	public UserDevice save(UserDevice bean) {
-		List<UserDevice> ds=	findByProperty("code", bean.getCode());
-		if (ds!=null&&ds.size()>0) {
-			bean=ds.get(0);
-			Integer times=bean.getTimes();
-			if (times==null) {
-				times=1;
-			}
-			times++;
-			bean.setLastDate(new Date());
-			bean.setTimes(times);
-		}else{
-			bean.setState(0);
-			bean.setTimes(1);
-			getSession().save(bean);
-
-		}
+		getSession().save(bean);
 		return bean;
 	}
 
@@ -62,5 +48,14 @@ public class UserDeviceDaoImpl extends CriteriaDaoImpl<UserDevice, Long> impleme
 	@Autowired
 	public void setSuperSessionFactory(SessionFactory sessionFactory){
 	    super.setSessionFactory(sessionFactory);
+	}
+
+	@Override
+	public UserDevice findByDevice(Long uid, String device) {
+		Finder finder=Finder.create();
+		finder.append("from UserDevice u where u.user.id =:uid and u.code =:device ");
+		finder.setParam("uid", uid);
+		finder.setParam("device", device);
+		return findOne(finder);
 	}
 }

@@ -10,6 +10,9 @@ public interface UserDeviceDao extends CriteriaDao<UserDevice, Long>{
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public UserDevice findById(Long id);
+	
+	public UserDevice findByDevice(Long uid,String device);
+
 
 	public UserDevice save(UserDevice bean);
 
