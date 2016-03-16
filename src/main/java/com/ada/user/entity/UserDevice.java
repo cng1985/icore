@@ -23,7 +23,6 @@ public class UserDevice extends AbstractEntity {
 	/**
 	 * 设备代码
 	 */
-	@Column(unique = true)
 	private String code;
 
 	/**
