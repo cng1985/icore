@@ -13,7 +13,7 @@ public class Log extends AbstractEntity {
 	@Column(length = 50)
 	private String source;
 
-	@Column(length = 30000)
+	@Column(length = 5000)
 	private String messages;
 
 	@Column(name = "level_info")
