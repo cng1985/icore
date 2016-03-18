@@ -36,6 +36,10 @@ public class SiteHandlerInterceptor extends HandlerInterceptorAdapter {
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		if(modelAndView!=null){
+			String view=modelAndView.getViewName();
+			if ("jaxb2MarshallingView".equals(view)) {
+				return;
+			}
 			logger.info("LogHandlerInterceptor  postHandle "
 					+ modelAndView.getViewName());
 			String siteurl = "siteurl";
