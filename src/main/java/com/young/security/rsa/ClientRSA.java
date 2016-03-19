@@ -26,7 +26,7 @@ public class ClientRSA {
 		RSAKey key=new RSAKey(1024);
 
 		ClientRSA rsa = new ClientRSA(key.getPublicKey());
-		String v=rsa.encode("我是陈联高哈哈CMobile 是 Geek Zoo Studio ");
+		String v=rsa.encode("这是一个测试");
 		System.out.println(v.length());
 		ServerRSA srsa=new ServerRSA(key.getPrivate());
 		System.out.println(srsa.decoder(v));
