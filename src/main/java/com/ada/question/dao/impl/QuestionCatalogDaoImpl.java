@@ -22,6 +22,9 @@ public class QuestionCatalogDaoImpl extends CriteriaDaoImpl<QuestionCatalog, Int
 	}
 
 	public QuestionCatalog findById(Integer id) {
+		if (id==null) {
+			return null;
+		}
 		QuestionCatalog entity = get(id);
 		return entity;
 	}

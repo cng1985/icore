@@ -19,6 +19,9 @@ public class #{Entity}DaoImpl extends CriteriaDaoImpl<#{Entity}, #{idtype}> impl
 	}
 
 	public #{Entity} findById(#{idtype} id) {
+	    if (id==null) {
+			return null;
+		}
 		#{Entity} entity = get(id);
 		return entity;
 	}
