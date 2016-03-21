@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.question.dao.QuestionCatalogDao;
 import com.ada.question.dao.QuestionDao;
 import com.ada.question.entity.Question;
 import com.ada.question.page.QuestionPage;
@@ -34,11 +35,20 @@ public class QuestionServiceImpl implements QuestionService {
 		return entity;
 	}
 
+	@Autowired
+	private QuestionCatalogDao catalogDao;
 	@Transactional
 	public Question save(Question bean) {
 		bean.setAddDate(new Date());
 		bean.setLastDate(new Date());
 		dao.save(bean);
+		Integer cid = -1;
+		if (bean.getCatalog() != null) {
+			cid = bean.getCatalog().getId();
+		}
+		if (cid > 0) {
+			catalogDao.updateNumsAndTime(cid);
+		}
 		return bean;
 	}
 

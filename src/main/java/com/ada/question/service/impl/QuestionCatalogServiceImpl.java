@@ -1,14 +1,20 @@
 package com.ada.question.service.impl;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ada.admin.entity.Menu;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.data.entity.CatalogEntity;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
+import com.ada.data.utils.CatalogUtils;
 import com.ada.question.dao.QuestionCatalogDao;
 import com.ada.question.entity.QuestionCatalog;
 import com.ada.question.page.QuestionCatalogPage;
@@ -34,6 +40,8 @@ public class QuestionCatalogServiceImpl implements QuestionCatalogService {
     @Transactional
 	public QuestionCatalog save(QuestionCatalog bean) {
 		dao.save(bean);
+		CatalogEntity parent=dao.findById(bean.getParentId());
+		CatalogUtils.updateParent(bean, parent);
 		return bean;
 	}
 
@@ -66,11 +74,35 @@ public class QuestionCatalogServiceImpl implements QuestionCatalogService {
 		this.dao = dao;
 	}
 
+	
+	@Transactional
 	@Override
 	public List<QuestionCatalog> findChild(int pid) {
 		Finder finder = Finder.create("from QuestionCatalog t where t.parent.id=" + pid);
 		finder.append(" order by t.sortnum asc");
 		finder.setCacheable(true);
 		return dao.find(finder);
+	}
+
+	@Transactional
+	@Override
+	public List<QuestionCatalog> findTop(Integer id) {
+		LinkedList<QuestionCatalog> catalogs = new LinkedList<QuestionCatalog>();
+		QuestionCatalog catalog = dao.findById(id);
+		while (catalog.getParent() != null && catalog.getId() > 0) {
+			catalogs.addFirst(catalog);
+			catalog = dao.findById(catalog.getParentId());
+		}
+
+		if (catalog != null && catalog.getId() != null) {
+			catalogs.addFirst(catalog);
+		}
+		return catalogs;
+	}
+
+	@Override
+	public Page<QuestionCatalog> findPage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return dao.findPage(pageable);
 	}
 }

@@ -24,6 +24,18 @@ public class QuestionCatalog extends CatalogEntity {
 	@JoinColumn(name = "pid")
 	@ManyToOne(fetch = FetchType.LAZY)
 	private QuestionCatalog parent;
+	/**
+	 * 数量
+	 */
+	private Long nums;
+	
+	public Long getNums() {
+		return nums;
+	}
+
+	public void setNums(Long nums) {
+		this.nums = nums;
+	}
 
 	private String path;
 	public List<QuestionCatalog> getChildrens() {

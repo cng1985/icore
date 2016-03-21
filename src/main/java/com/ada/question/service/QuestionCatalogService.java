@@ -2,6 +2,9 @@ package com.ada.question.service;
 
 import java.util.List;
 
+import com.ada.admin.entity.Menu;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.ada.question.entity.QuestionCatalog;
 import com.ada.question.page.QuestionCatalogPage;
 import com.openyelp.annotation.RestFul;
@@ -23,4 +26,10 @@ public interface QuestionCatalogService {
 	public QuestionCatalog[] deleteByIds(Integer[] ids);
 
 	public List<QuestionCatalog> findChild(int pid);
+	
+	public List<QuestionCatalog> findTop(Integer id);
+	
+	public Page<QuestionCatalog> findPage(Pageable pageable);
+
+
 }
