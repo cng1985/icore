@@ -31,6 +31,18 @@ public class Question implements Serializable {
 	 * 该问题有多少个回答
 	 */
 	private Integer answers;
+	
+	/**
+	 * 该问题有多少个查看
+	 */
+	private Integer views;
+	
+	
+
+	/**
+	 * 该问题有多少个投票
+	 */
+	private Integer votes;
 
 	/**
 	 * 问题分类
@@ -79,6 +91,22 @@ public class Question implements Serializable {
 	@JoinColumn(name = "userid")
 	@ManyToOne()
 	private UserInfo user;
+
+	public Integer getVotes() {
+		return votes;
+	}
+
+	public void setVotes(Integer votes) {
+		this.votes = votes;
+	}
+
+	public Integer getViews() {
+		return views;
+	}
+
+	public void setViews(Integer views) {
+		this.views = views;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

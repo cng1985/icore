@@ -21,10 +21,10 @@ public class QuestionServiceImpl implements QuestionService {
 	@Transactional(readOnly = true)
 	public QuestionPage getPage(int pageNo, int pageSize) {
 		QuestionPage result = null;
-		Finder finder=Finder.create();
+		Finder finder = Finder.create();
 		finder.append("from Question q");
 		finder.append(" order by q.id desc ");
-		Pagination<Question> page = dao.find(finder,pageNo, pageSize);
+		Pagination<Question> page = dao.find(finder, pageNo, pageSize);
 		result = new QuestionPage(page);
 		return result;
 	}
@@ -37,6 +37,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Autowired
 	private QuestionCatalogDao catalogDao;
+
 	@Transactional
 	public Question save(Question bean) {
 		bean.setAddDate(new Date());
@@ -54,7 +55,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Transactional
 	public Question update(Question bean) {
-		
+
 		bean.setLastDate(new Date());
 		Updater<Question> updater = new Updater<Question>(bean);
 		bean = dao.updateByUpdater(updater);
@@ -87,7 +88,7 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public QuestionPage pageByCatalog(int catalog, int pageNo, int pageSize) {
 		QuestionPage result = null;
-		Finder finder=Finder.create();
+		Finder finder = Finder.create();
 		finder.append("from Question q where q.catalog.id=:cid ");
 		finder.setParam("cid", catalog);
 		finder.append(" order by q.id desc");
@@ -100,7 +101,7 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public QuestionPage pageByUser(long uid, int pageNo, int pageSize) {
 		QuestionPage result = null;
-		Finder finder=Finder.create();
+		Finder finder = Finder.create();
 		finder.append("from Question q where q.user.id=:uid ");
 		finder.setParam("uid", uid);
 		finder.append(" order by q.id desc");
@@ -112,9 +113,9 @@ public class QuestionServiceImpl implements QuestionService {
 	@Transactional(readOnly = true)
 	@Override
 	public QuestionPage getPageByPid(Long id, int pageNo, int pageSize) {
-		int ids = Integer.parseInt(id+"");
+		int ids = Integer.parseInt(id + "");
 		QuestionPage result = null;
-		Finder finder=Finder.create();
+		Finder finder = Finder.create();
 		finder.append("from Question q where q.catalog.id=:pid ");
 		finder.setParam("pid", ids);
 		finder.append(" order by q.id desc");
@@ -122,5 +123,31 @@ public class QuestionServiceImpl implements QuestionService {
 		result = new QuestionPage(page);
 		return result;
 	}
-	
+
+	@Transactional(readOnly = true)
+	@Override
+	public QuestionPage pageByType(String type, int pageNo, int pageSize) {
+		QuestionPage result = null;
+		Finder finder = Finder.create();
+		finder.append("from Question q  ");
+		if ("new".equals(type)) {
+			finder.append(" order by q.id desc");
+		} else if ("hot".equals(type)) {
+			finder.append(" order by q.views desc");
+		} else if ("vote".equals(type)) {
+			finder.append(" order by q.votes desc");
+		} else if ("answer".equals(type)) {
+			finder.append(" order by q.answers desc");
+		} else if ("views".equals(type)) {
+			finder.append(" order by q.views desc");
+		}else if ("unanswer".equals(type)) {
+			finder.append(" where q.state != 1 order by q.id desc");
+		} else {
+			finder.append(" order by q.id desc");
+		}
+		Pagination<Question> page = dao.find(finder, pageNo, pageSize);
+		result = new QuestionPage(page);
+		return result;
+	}
+
 }

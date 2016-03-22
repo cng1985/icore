@@ -21,6 +21,9 @@ public interface QuestionService {
 	public QuestionPage pageByCatalog(int catalog,int pageNo, int pageSize);
 	
 	public QuestionPage pageByUser(long uid,int pageNo, int pageSize);
+	
+	public QuestionPage pageByType(String type,int pageNo, int pageSize);
+
 
 	public QuestionPage getPageByPid(Long id, int pageNo, int pageSize);
 

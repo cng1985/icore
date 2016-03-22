@@ -68,7 +68,7 @@ public class QuestionCatalogDaoImpl extends CriteriaDaoImpl<QuestionCatalog, Int
 
 	private void counts(QuestionCatalog cur) {
 		Finder finder = Finder.create();
-		finder.append("from QuestionCatalog a where a.catalog.lft >= :lft ");
+		finder.append("from Question a where a.catalog.lft >= :lft ");
 		finder.setParam("lft", cur.getLft());
 		finder.append(" and a.catalog.rgt <= :rgt");
 		finder.setParam("rgt", cur.getRgt());
