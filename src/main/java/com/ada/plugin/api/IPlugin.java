@@ -128,8 +128,8 @@ public abstract class IPlugin implements Comparable<IPlugin>{
 		return new HashCodeBuilder(17, 37).append(getId()).toHashCode();
 	}
 
-	public int compareTo(StoragePlugin storagePlugin) {
-		return new CompareToBuilder().append(getOrder(), storagePlugin.getOrder()).append(getId(), storagePlugin.getId()).toComparison();
+	public int compareTo(IPlugin plug) {
+		return new CompareToBuilder().append(getOrder(), plug.getOrder()).append(getId(), plug.getId()).toComparison();
 	}
 
 }
