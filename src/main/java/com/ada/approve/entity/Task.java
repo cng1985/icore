@@ -45,7 +45,7 @@ public class Task extends AbstractEntity {
 	private Integer state;
 	
 	/**
-	 * 事务类型 	1为审批	2为事务
+	 * 事务类型 	1为审批	2为事务 3查看
 	 */
 	private Integer style;
 	
