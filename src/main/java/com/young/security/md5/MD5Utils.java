@@ -24,6 +24,14 @@ public class MD5Utils {
 		}
 	}
 
+	public static String md5(String key){
+		if (key==null) {
+			return "";
+		}
+		MD5Utils utils=new MD5Utils(key);
+		return utils.compute();
+		
+	}
 	/**
 	 * Computes the MD5 fingerprint of a string.
 	 * 
