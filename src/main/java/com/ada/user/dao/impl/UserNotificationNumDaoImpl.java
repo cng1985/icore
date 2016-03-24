@@ -1,4 +1,4 @@
-package com.ada.site.dao.impl;
+package com.ada.user.dao.impl;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -7,32 +7,32 @@ import org.springframework.stereotype.Repository;
 
 import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Pagination;
-import com.ada.site.dao.LogDao;
-import com.ada.site.entity.Log;
+import com.ada.user.dao.UserNotificationNumDao;
+import com.ada.user.entity.UserNotificationNum;
 
 @Repository
-public class LogDaoImpl extends CriteriaDaoImpl<Log, Long> implements LogDao {
+public class UserNotificationNumDaoImpl extends CriteriaDaoImpl<UserNotificationNum, Long> implements UserNotificationNumDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
 
-	public Log findById(Long id) {
+	public UserNotificationNum findById(Long id) {
 	    if (id==null) {
 			return null;
 		}
-		Log entity = get(id);
+		UserNotificationNum entity = get(id);
 		return entity;
 	}
 
-	public Log save(Log bean) {
+	public UserNotificationNum save(UserNotificationNum bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public Log deleteById(Long id) {
-		Log entity = super.get(id);
+	public UserNotificationNum deleteById(Long id) {
+		UserNotificationNum entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
 		}
@@ -40,8 +40,8 @@ public class LogDaoImpl extends CriteriaDaoImpl<Log, Long> implements LogDao {
 	}
 	
 	@Override
-	protected Class<Log> getEntityClass() {
-		return Log.class;
+	protected Class<UserNotificationNum> getEntityClass() {
+		return UserNotificationNum.class;
 	}
 	
 	@Autowired

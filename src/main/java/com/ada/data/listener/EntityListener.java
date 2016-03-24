@@ -23,7 +23,6 @@ public class EntityListener {
 	 */
 	@PrePersist
 	public void prePersist(AbstractEntity entity) {
-		entity.setAddDate(new Date());
 		entity.setLastDate(new Date());
 	}
 

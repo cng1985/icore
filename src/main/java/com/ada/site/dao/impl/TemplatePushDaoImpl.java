@@ -7,32 +7,32 @@ import org.springframework.stereotype.Repository;
 
 import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Pagination;
-import com.ada.site.dao.LogDao;
-import com.ada.site.entity.Log;
+import com.ada.site.dao.TemplatePushDao;
+import com.ada.site.entity.TemplatePush;
 
 @Repository
-public class LogDaoImpl extends CriteriaDaoImpl<Log, Long> implements LogDao {
+public class TemplatePushDaoImpl extends CriteriaDaoImpl<TemplatePush, String> implements TemplatePushDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
 
-	public Log findById(Long id) {
+	public TemplatePush findById(String id) {
 	    if (id==null) {
 			return null;
 		}
-		Log entity = get(id);
+		TemplatePush entity = get(id);
 		return entity;
 	}
 
-	public Log save(Log bean) {
+	public TemplatePush save(TemplatePush bean) {
 		getSession().save(bean);
 		return bean;
 	}
 
-	public Log deleteById(Long id) {
-		Log entity = super.get(id);
+	public TemplatePush deleteById(String id) {
+		TemplatePush entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);
 		}
@@ -40,8 +40,8 @@ public class LogDaoImpl extends CriteriaDaoImpl<Log, Long> implements LogDao {
 	}
 	
 	@Override
-	protected Class<Log> getEntityClass() {
-		return Log.class;
+	protected Class<TemplatePush> getEntityClass() {
+		return TemplatePush.class;
 	}
 	
 	@Autowired
