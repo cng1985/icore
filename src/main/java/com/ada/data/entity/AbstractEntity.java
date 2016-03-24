@@ -28,6 +28,14 @@ public abstract class AbstractEntity extends NumEntity<Long> implements Serializ
 	private Date lastDate;
 	
 	public AbstractEntity(){
+		inittime();
+		
+	}
+
+
+	private void inittime() {
+		addDate=new Date();
+		lastDate=new Date();
 	}
 
 
