@@ -18,4 +18,8 @@ public interface UserFriendRequestService {
 	public UserFriendRequest deleteById(Long id);
 	
 	public UserFriendRequest[] deleteByIds(Long[] ids);
+	
+
+	public Pagination pageByUser(Long userid,String key,int pageNo, int pageSize);
+	public Pagination pageByUser(Long userid,int pageNo, int pageSize);
 }

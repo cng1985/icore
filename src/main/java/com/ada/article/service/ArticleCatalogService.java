@@ -25,6 +25,10 @@ public interface ArticleCatalogService {
 	List<ArticleCatalog> findChild(int id);
 	
 	List<ArticleCatalog> all();
+	
+	
+	
+	public Pagination pageByPid(int  pid,int pageNo, int pageSize);
 
 
 }

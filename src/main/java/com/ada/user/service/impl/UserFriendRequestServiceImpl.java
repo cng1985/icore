@@ -77,4 +77,28 @@ public class UserFriendRequestServiceImpl implements UserFriendRequestService {
 	public void setDao(UserFriendRequestDao dao) {
 		this.dao = dao;
 	}
+	
+
+	@Transactional(readOnly = true)
+	@Override
+	public Pagination pageByUser(Long userid, String key, int pageNo,
+			int pageSize) {
+		Finder finder=Finder.create();
+		finder.append("from  UserFriendRequest u where u.userInfo.id =:userid");
+		finder.setParam("userid", userid);
+		finder.append(" and u.userInfo.name like :key ");
+		finder.setParam("key","%"+key+"%");
+		finder.append(" order by u.id desc ");
+		return dao.find(finder, pageNo, pageSize);
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public Pagination pageByUser(Long userid, int pageNo, int pageSize) {
+		Finder finder=Finder.create();
+		finder.append("from  UserFriendRequest u where u.userInfo.id =:userid");
+		finder.setParam("userid", userid);
+		finder.append(" order by u.id desc ");
+		return dao.find(finder, pageNo, pageSize);
+	}
 }

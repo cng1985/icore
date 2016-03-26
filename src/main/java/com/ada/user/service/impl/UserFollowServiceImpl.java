@@ -71,7 +71,7 @@ public class UserFollowServiceImpl implements UserFollowService {
 		UserFollow result=null;
 		Finder finder = Finder.create();
 		finder.append("from UserFollow u where u.userInfo.id=:userid");
-		finder.setParam("userid", bean.getUserInfo().getId());
+		finder.setParam("userid", bean.getUser().getId());
 		finder.append(" and u.follower.id=:followerid");
 		finder.setParam("followerid", bean.getFollower().getId());
 		List list=	dao.find(finder);
@@ -113,7 +113,7 @@ public class UserFollowServiceImpl implements UserFollowService {
 			result.setId(-1l);
 		}else{
 			UserFollow bean=new UserFollow();
-			bean.setUserInfo(UserInfo.fromId(userid));
+			bean.setUser(UserInfo.fromId(userid));
 			bean.setFollower(UserInfo.fromId(followid));
 			result=dao.save(bean);
 		}
@@ -139,4 +139,34 @@ public class UserFollowServiceImpl implements UserFollowService {
 		}
 		return result;
 	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public Pagination pageByUser(long userid, int pageNo, int pageSize) {
+		Finder finder = Finder.create();
+		finder.append("from UserFollow f where f.user.id=:userid");
+		finder.setParam("userid", userid);
+		finder.append("  order by f.id desc");
+		return dao.find(finder, pageNo, pageSize);
+	}
+	@Transactional
+	@Override
+	public UserFollow remove(UserFollow bean) {
+		UserFollow result = new UserFollow();
+		Finder finder = Finder.create();
+		finder.append("from UserFollow f where f.user.id=:userid");
+		finder.setParam("userid", bean.getUser().getId());
+		finder.append(" and  f.friend.id=:friendid ");
+		finder.setParam("friendid", bean.getFollower().getId());
+		List<UserFollow> follows = dao.find(finder);
+		if (follows != null && follows.size() > 0) {
+			dao.delete(follows.get(0));
+			result.setId(1l);
+			return null;
+		} else {
+			result.setId(-1l);
+		}
+		return result;
+	}
+
 }

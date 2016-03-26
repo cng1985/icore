@@ -92,4 +92,14 @@ public class ArticleCatalogServiceImpl implements ArticleCatalogService {
 		// TODO Auto-generated method stub
 		return dao.find(finder);
 	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public Pagination pageByPid(int pid, int pageNo, int pageSize) {
+		Finder finder = Finder.create("from ArticleCatalog t where t.parent.id=" + pid);
+		finder.append(" order by t.sortnum asc");
+		finder.setCacheable(true);
+		return dao.find(finder, pageNo, pageSize);
+	}
+	
 }

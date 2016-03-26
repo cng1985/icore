@@ -99,4 +99,17 @@ public class UserFriendServiceImpl implements UserFriendService {
 		result = new UserFriendPage(p);
 		return result;
 	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public Pagination pageByUser(Long id, String key, int pageNo, int pageSize) {
+		Finder finder = Finder.create();
+		finder.append("from UserFriend u where u.user.id=:uid");
+		finder.setParam("uid", id);
+		finder.append(" and u.user.name like :key ");
+		finder.setParam("key","%"+ key+"%");
+		finder.append("  order by u.id desc");
+		Pagination page = dao.find(finder, pageNo, pageSize);
+		return page;
+	}
 }

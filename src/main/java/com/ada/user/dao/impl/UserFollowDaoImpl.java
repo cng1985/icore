@@ -1,11 +1,14 @@
 package com.ada.user.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ada.data.core.BaseDaoImpl;
+import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.user.dao.UserFollowDao;
 import com.ada.user.entity.UserFollow;
@@ -45,4 +48,18 @@ public class UserFollowDaoImpl extends BaseDaoImpl<UserFollow, Long> implements 
 	public void setSuperSessionFactory(SessionFactory sessionFactory){
 	    super.setSessionFactory(sessionFactory);
 	}
+	@Override
+	public UserFollow findById(Long id, Long friendid) {
+		Finder finder = Finder.create();
+		finder.append("from UserFollow u where u.user.id =:uid");
+		finder.setParam("uid", id);
+		finder.append("  and u.follower.id =:fid");
+		finder.setParam("fid", friendid);
+		List<UserFollow> fs = find(finder);
+		if(fs!=null&&fs.size()>0){
+			return fs.get(0);
+		}
+		return null;
+	}
+
 }

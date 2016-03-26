@@ -23,4 +23,7 @@ public interface UserFriendService {
 	
 	
 	UserFriendPage pageByUser(long userid,int pageNo, int pageSize);
+	
+	
+	public Pagination pageByUser(Long id,String key,int pageNo, int pageSize);
 }

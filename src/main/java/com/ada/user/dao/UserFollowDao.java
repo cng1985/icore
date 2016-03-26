@@ -16,4 +16,6 @@ public interface UserFollowDao extends BaseDao<UserFollow, Long>{
 	public UserFollow updateByUpdater(Updater<UserFollow> updater);
 
 	public UserFollow deleteById(Long id);
+	
+	public UserFollow findById(Long id,Long friendid);
 }

@@ -45,7 +45,7 @@ public class UserFollow implements Serializable {
 	 */
 	@JoinColumn(name="userid")
 	@ManyToOne()
-	private UserInfo userInfo;
+	private UserInfo user;
 	
 	
 	/**
@@ -67,12 +67,13 @@ public class UserFollow implements Serializable {
 		this.id = id;
 	}
 
-	public UserInfo getUserInfo() {
-		return userInfo;
+
+	public UserInfo getUser() {
+		return user;
 	}
 
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
+	public void setUser(UserInfo user) {
+		this.user = user;
 	}
 
 	public UserInfo getFollower() {

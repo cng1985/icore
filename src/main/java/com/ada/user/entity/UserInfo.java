@@ -23,7 +23,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -48,81 +47,53 @@ public class UserInfo extends AbstractEntity {
 	}
 
 
-	private String age;
+	
+	private String username;
+	private String phone;
 
-	@Column(length = 100)
-	private String bgimg;
-
-	private String city;
-
+	private String name;
 	/**
-	 * 投资人所在公司
+	 * 朋友数量
 	 */
-	private String company;
-	private String email;
+	private Integer friends;
+	/**
+	 * 点评数量
+	 */
+	private Integer comments;
+	
+	/**
+	 * 精英点评数量
+	 */
+	private Integer goods;
+
 	private String headimg;
 
 
-	private String introduction;
+	private String phonenum;
 
-	private String job;
 
-	private String exts;
+	@Column(nullable=true)
+	private String email;
+
+
+	private String password;
+
+
+	private String macaddress;
 
 
 	private Integer logintimes;
 
-	private String macaddress;
 
-	/**
-	 * 用户昵称
-	 */
-	private String name;
-	
-	/**
-	 * 用户真实名
-	 */
-	@Column(name="realname")
-	private String realName;
-
-	
-	/**
-	 * 用户密码
-	 */
-	@Basic(optional = false)
-	@Column(length = 255)
-	private String password;
-
-	
-	/**
-	 * 电话号码
-	 */
-	private String phone;
-
-	
-	/**
-	 * 传递时候的密码
-	 */
-	@Transient
-	private String plainPassword;
-
-	
-	/**
-	 * 腾讯qq号码
-	 */
-	private String qq;
-
-	/**
-	 * 用户角色
-	 */
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role_links")
+	@JoinTable(name = "users_role_links")
 	private Set<UserRole> roles = new HashSet<UserRole>();
 
-	/**
-	 * 加密密码的盐
-	 */
-	private String salt;
+
+
+	private String salt; // 加密密码的盐
+	@Transient
+	private String plainPassword;
 
 	/** 属性 */
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -130,211 +101,143 @@ public class UserInfo extends AbstractEntity {
 	@MapKeyColumn(name = "name", length = 100)
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	/**
-	 * 用户名
-	 */
-	@Column(unique = true)
-	private String username;
-
-
-	public String getAge() {
-		return age;
-	}
-
-	public Map<String, String> getAttributes() {
-		return attributes;
-	}
-
-	public String getBgimg() {
-		return bgimg;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public String getCompany() {
-		return company;
-	}
-
-	@Transient
-	public String getCredentialsSalt() {
-		return username + salt;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public String getExts() {
-		return exts;
-	}
-
-	public String getHeadimg() {
-		return headimg;
-	}
-
-
-	public String getIntroduction() {
-		return introduction;
-	}
-
-	public String getJob() {
-		return job;
-	}
-
-
-	public Integer getLogintimes() {
-		return logintimes;
-	}
-
-	public String getMacaddress() {
-		return macaddress;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Returns the password for this user.
-	 *
-	 * @return this user's password
-	 */
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public String getPlainPassword() {
-		return plainPassword;
-	}
-
-	// 不持久化到数据库，也不显示在Restful接口的属性.
-
-	public String getQq() {
-		return qq;
-	}
-
-	public String getRealName() {
-		return realName;
-	}
-
-	public Set<UserRole> getRoles() {
-		if (roles == null) {
-			roles = new HashSet<UserRole>();
-		}
-		return roles;
-	}
-
-	public String getSalt() {
-		return salt;
-	}
-
-	/**
-	 * Returns the username associated with this user account;
-	 *
-	 * @return the username associated with this user account;
-	 */
 	public String getUsername() {
 		return username;
-	}
-
-
-	public void setAge(String age) {
-		this.age = age;
-	}
-
-	public void setAttributes(Map<String, String> attributes) {
-		this.attributes = attributes;
-	}
-
-	public void setBgimg(String bgimg) {
-		this.bgimg = bgimg;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public void setCompany(String company) {
-		this.company = company;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setExts(String exts) {
-		this.exts = exts;
-	}
-
-	public void setHeadimg(String headimg) {
-		this.headimg = headimg;
-	}
-
-
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
-	}
-
-	public void setJob(String job) {
-		this.job = job;
-	}
-
-	public void setLogintimes(Integer logintimes) {
-		this.logintimes = logintimes;
-	}
-
-	public void setMacaddress(String macaddress) {
-		this.macaddress = macaddress;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public void setPlainPassword(String plainPassword) {
-		this.plainPassword = plainPassword;
-	}
-
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
-
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
-
-	public void setRoles(Set<UserRole> roles) {
-		this.roles = roles;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
 	}
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	@Override
-	public String toString() {
-		return "UserInfo [name=" + name + ", username=" + username + "]";
+	public String getName() {
+		return name;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Integer friends) {
+		this.friends = friends;
+	}
+
+	public Integer getComments() {
+		return comments;
+	}
+
+	public void setComments(Integer comments) {
+		this.comments = comments;
+	}
+
+	public Integer getGoods() {
+		return goods;
+	}
+
+	public void setGoods(Integer goods) {
+		this.goods = goods;
+	}
+
+	public String getHeadimg() {
+		return headimg;
+	}
+
+	public void setHeadimg(String headimg) {
+		this.headimg = headimg;
+	}
+
+	public String getPhonenum() {
+		return phonenum;
+	}
+
+	public void setPhonenum(String phonenum) {
+		this.phonenum = phonenum;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getMacaddress() {
+		return macaddress;
+	}
+
+	public void setMacaddress(String macaddress) {
+		this.macaddress = macaddress;
+	}
+
+	public Integer getLogintimes() {
+		return logintimes;
+	}
+
+	public void setLogintimes(Integer logintimes) {
+		this.logintimes = logintimes;
+	}
+
+	public Set<UserRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<UserRole> roles) {
+		this.roles = roles;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public String getPlainPassword() {
+		return plainPassword;
+	}
+
+	public void setPlainPassword(String plainPassword) {
+		this.plainPassword = plainPassword;
+	}
+
+	public Map<String, String> getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(Map<String, String> attributes) {
+		this.attributes = attributes;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	
+	public String getCredentialsSalt() {
+		return username + salt;
+	}
+
+
+
+
+
+	
 
 }

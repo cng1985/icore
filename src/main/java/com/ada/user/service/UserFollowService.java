@@ -27,4 +27,9 @@ public interface UserFollowService {
 	public UserFollow follow(long  userid,long followid);
 	public UserFollow unFollow(UserFollow bean);
 	public UserFollow unFollow(long  userid,long followid);
+	
+	public Pagination pageByUser(long userid,int pageNo, int pageSize);
+
+	public UserFollow remove(UserFollow follow);
+
 }
