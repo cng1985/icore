@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.ada.question.dao.QuestionAnswerDao;
 import com.ada.question.dao.QuestionDao;
 import com.ada.question.entity.Question;
@@ -118,5 +120,11 @@ public class QuestionAnswerServiceImpl implements QuestionAnswerService {
 		}
 
 		return a;
+	}
+	@Transactional
+	@Override
+	public Page<QuestionAnswer> findPage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return dao.findPage(pageable);
 	}
 }

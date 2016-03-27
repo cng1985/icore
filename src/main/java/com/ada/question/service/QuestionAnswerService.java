@@ -1,6 +1,8 @@
 package com.ada.question.service;
 
 import com.ada.data.core.Pagination;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.ada.question.entity.QuestionAnswer;
 import com.ada.question.page.QuestionAnswerPage;
 
@@ -25,5 +27,7 @@ public interface QuestionAnswerService {
 	public QuestionAnswer[] deleteByIds(Long[] ids);
 	
 	public QuestionAnswerPage pageByQuestion(long qid,int pageNo, int pageSize);
+
+	public Page<QuestionAnswer> findPage(Pageable pageable);
 
 }
