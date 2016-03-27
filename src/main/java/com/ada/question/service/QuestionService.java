@@ -1,5 +1,7 @@
 package com.ada.question.service;
 
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.ada.question.entity.Question;
 import com.ada.question.page.QuestionPage;
 import com.openyelp.annotation.RestFul;
@@ -26,6 +28,8 @@ public interface QuestionService {
 
 
 	public QuestionPage getPageByPid(Long id, int pageNo, int pageSize);
+
+	public Page<Question> findPage(Pageable pageable);
 
 
 }

@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.ada.question.dao.QuestionCatalogDao;
 import com.ada.question.dao.QuestionDao;
 import com.ada.question.entity.Question;
@@ -148,6 +150,11 @@ public class QuestionServiceImpl implements QuestionService {
 		Pagination<Question> page = dao.find(finder, pageNo, pageSize);
 		result = new QuestionPage(page);
 		return result;
+	}
+	@Transactional(readOnly = true)
+	@Override
+	public Page<Question> findPage(Pageable pageable) {
+		return dao.findPage(pageable);
 	}
 
 }
