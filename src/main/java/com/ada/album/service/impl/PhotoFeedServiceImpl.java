@@ -12,13 +12,20 @@ import com.ada.album.entity.PhotoFeed;
 import com.ada.album.service.PhotoFeedService;
 import com.ada.album.page.PhotoFeedPage;
 
+import com.ada.data.page.Filter;
+import com.ada.data.page.Order;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
+import java.util.List;
+
+
 @Service
 @Transactional
 public class PhotoFeedServiceImpl implements PhotoFeedService {
 	
 
 	@Transactional(readOnly = true)
-	public PhotoFeed findById(Long id) {
+	public PhotoFeed findById(String id) {
 		PhotoFeed entity = dao.findById(id);
 		return entity;
 	}
@@ -37,13 +44,13 @@ public class PhotoFeedServiceImpl implements PhotoFeedService {
 	}
 
     @Transactional
-	public PhotoFeed deleteById(Long id) {
+	public PhotoFeed deleteById(String id) {
 		PhotoFeed bean = dao.deleteById(id);
 		return bean;
 	}
 
     @Transactional	
-	public PhotoFeed[] deleteByIds(Long[] ids) {
+	public PhotoFeed[] deleteByIds(String[] ids) {
 		PhotoFeed[] beans = new PhotoFeed[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -67,5 +74,25 @@ public class PhotoFeedServiceImpl implements PhotoFeedService {
 		Pagination<PhotoFeed> page = dao.find(finder,pageNo, pageSize);
 		result = new PhotoFeedPage(page);
 		return result;
+	}
+	
+	
+	@Transactional(readOnly = true)
+	public Page<PhotoFeed> findPage(Pageable pageable){
+	     return dao.findPage(pageable);
+	}
+
+	@Transactional(readOnly = true)
+	public long count(Filter... filters){
+	     
+	     return dao.count(filters);
+	     
+	}
+
+	@Transactional(readOnly = true)
+	public List<PhotoFeed> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders){
+	
+		     return dao.findList(first,count,filters,orders);
+	
 	}
 }

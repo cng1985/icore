@@ -5,20 +5,23 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ada.data.core.BaseDaoImpl;
+import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Pagination;
 import com.ada.album.dao.PhotoFeedDao;
 import com.ada.album.entity.PhotoFeed;
 
 @Repository
-public class PhotoFeedDaoImpl extends BaseDaoImpl<PhotoFeed, Long> implements PhotoFeedDao {
+public class PhotoFeedDaoImpl extends CriteriaDaoImpl<PhotoFeed, String> implements PhotoFeedDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);
 		return page;
 	}
 
-	public PhotoFeed findById(Long id) {
+	public PhotoFeed findById(String id) {
+	    if (id==null) {
+			return null;
+		}
 		PhotoFeed entity = get(id);
 		return entity;
 	}
@@ -28,7 +31,7 @@ public class PhotoFeedDaoImpl extends BaseDaoImpl<PhotoFeed, Long> implements Ph
 		return bean;
 	}
 
-	public PhotoFeed deleteById(Long id) {
+	public PhotoFeed deleteById(String id) {
 		PhotoFeed entity = super.get(id);
 		if (entity != null) {
 			getSession().delete(entity);

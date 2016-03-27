@@ -12,13 +12,20 @@ import com.ada.album.entity.Album;
 import com.ada.album.service.AlbumService;
 import com.ada.album.page.AlbumPage;
 
+import com.ada.data.page.Filter;
+import com.ada.data.page.Order;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
+import java.util.List;
+
+
 @Service
 @Transactional
 public class AlbumServiceImpl implements AlbumService {
 	
 
 	@Transactional(readOnly = true)
-	public Album findById(Long id) {
+	public Album findById(String id) {
 		Album entity = dao.findById(id);
 		return entity;
 	}
@@ -37,13 +44,13 @@ public class AlbumServiceImpl implements AlbumService {
 	}
 
     @Transactional
-	public Album deleteById(Long id) {
+	public Album deleteById(String id) {
 		Album bean = dao.deleteById(id);
 		return bean;
 	}
 
     @Transactional	
-	public Album[] deleteByIds(Long[] ids) {
+	public Album[] deleteByIds(String[] ids) {
 		Album[] beans = new Album[ids.length];
 		for (int i = 0,len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
@@ -67,5 +74,25 @@ public class AlbumServiceImpl implements AlbumService {
 		Pagination<Album> page = dao.find(finder,pageNo, pageSize);
 		result = new AlbumPage(page);
 		return result;
+	}
+	
+	
+	@Transactional(readOnly = true)
+	public Page<Album> findPage(Pageable pageable){
+	     return dao.findPage(pageable);
+	}
+
+	@Transactional(readOnly = true)
+	public long count(Filter... filters){
+	     
+	     return dao.count(filters);
+	     
+	}
+
+	@Transactional(readOnly = true)
+	public List<Album> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders){
+	
+		     return dao.findList(first,count,filters,orders);
+	
 	}
 }
