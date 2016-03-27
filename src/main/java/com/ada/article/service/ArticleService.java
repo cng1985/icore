@@ -14,8 +14,9 @@ public interface ArticleService {
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public Article findById(Long id);
+	public Article view(Long id);
 
-	public Article save(Article bean);
+	public Article save(Article bean,String... tag);
 	
 	public Article addTag(Long id,String tag);
 

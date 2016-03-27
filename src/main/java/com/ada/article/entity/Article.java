@@ -56,8 +56,16 @@ public class Article extends AbstractEntity {
 	
 	private Integer ups;
 
+	/**
+	 * 文章评论数量
+	 */
 	private Integer comments;
 	
+	/**
+	 * 文章查看数量
+	 */
+	private Integer views;
+
 	
 	public ArticleCatalog getCatalog() {
 		return catalog;
@@ -69,9 +77,11 @@ public class Article extends AbstractEntity {
 		}
 		return comments;
 	}
+
 	public String getContents() {
 		return contents;
 	}
+
 	public String getExts() {
 		return exts;
 	}
@@ -93,22 +103,24 @@ public class Article extends AbstractEntity {
 	public String getTitle() {
 		return title;
 	}
-
 	public Integer getUps() {
 		if(ups==null){
 			ups=0;
 		}
 		return ups;
 	}
-
 	public UserInfo getUser() {
 		return user;
 	}
 
+	public Integer getViews() {
+		return views;
+	}
 
 	public void setCatalog(ArticleCatalog catalog) {
 		this.catalog = catalog;
 	}
+
 
 	public void setComments(Integer comments) {
 		this.comments = comments;
@@ -122,10 +134,10 @@ public class Article extends AbstractEntity {
 		this.exts = exts;
 	}
 
-
 	public void setImages(String images) {
 		this.images = images;
 	}
+
 
 	public void setImg(String img) {
 		this.img = img;
@@ -135,10 +147,10 @@ public class Article extends AbstractEntity {
 		this.introduction = introduction;
 	}
 
-
 	public void setTags(Set<ArticleTag> tags) {
 		this.tags = tags;
 	}
+
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -150,6 +162,10 @@ public class Article extends AbstractEntity {
 
 	public void setUser(UserInfo user) {
 		this.user = user;
+	}
+
+	public void setViews(Integer views) {
+		this.views = views;
 	}
 
 }

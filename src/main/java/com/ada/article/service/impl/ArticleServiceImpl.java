@@ -22,37 +22,39 @@ import com.ada.data.core.Updater;
 @Transactional
 public class ArticleServiceImpl implements ArticleService {
 
-	@Transactional(readOnly = true)
-	public Pagination getPage(int pageNo, int pageSize) {
-		Finder finder = Finder.create("from Article a order by a.id desc ");
-		Pagination page = dao.find(finder, pageNo, pageSize);
-		return page;
+	private ArticleDao dao;
+
+	@Autowired
+	private ArticleTagDao tagDao;
+
+	@Autowired
+	private ArticleCatalogDao catalogDao;
+
+	@Transactional
+	@Override
+	public Article addTag(Long id, String tag) {
+		Article article = dao.findById(id);
+		if (article!=null) {
+			addTag(tag, article);
+		}
+		return article;
 	}
 
-	@Transactional(readOnly = true)
-	public Article findById(Long id) {
-		Article entity = dao.findById(id);
-		return entity;
+	private void addTag(String tag, Article article) {
+		ArticleTag e=tagDao.tag(tag);
+		article.getTags().add(e);
 	}
 
 	@Transactional
-	public Article save(Article bean) {
-		dao.save(bean);
-		Integer cid = -1;
-		if (bean.getCatalog() != null) {
-			cid = bean.getCatalog().getId();
+	@Override
+	public Article addTagS(Long id, List<String> tags) {
+		Article article = dao.findById(id);
+		if (article!=null) {
+			for (String string : tags) {
+				addTag(string, article);
+			}
 		}
-		if (cid > 0) {
-			catalogDao.updateNumsAndTime(cid);
-		}
-		return bean;
-	}
-
-	@Transactional
-	public Article update(Article bean) {
-		Updater<Article> updater = new Updater<Article>(bean);
-		bean = dao.updateByUpdater(updater);
-		return bean;
+		return article;
 	}
 
 	@Transactional
@@ -69,7 +71,7 @@ public class ArticleServiceImpl implements ArticleService {
 		}
 		return bean;
 	}
-
+	
 	@Transactional
 	public Article[] deleteByIds(Long[] ids) {
 		Article[] beans = new Article[ids.length];
@@ -79,17 +81,17 @@ public class ArticleServiceImpl implements ArticleService {
 		return beans;
 	}
 
-	private ArticleDao dao;
-	
-	@Autowired
-	private ArticleTagDao tagDao;
+	@Transactional(readOnly = true)
+	public Article findById(Long id) {
+		Article entity = dao.findById(id);
+		return entity;
+	}
 
-	@Autowired
-	private ArticleCatalogDao catalogDao;
-
-	@Autowired
-	public void setDao(ArticleDao dao) {
-		this.dao = dao;
+	@Transactional(readOnly = true)
+	public Pagination getPage(int pageNo, int pageSize) {
+		Finder finder = Finder.create("from Article a order by a.id desc ");
+		Pagination page = dao.find(finder, pageNo, pageSize);
+		return page;
 	}
 
 	@Transactional(readOnly = true)
@@ -133,33 +135,6 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Transactional
 	@Override
-	public Article addTag(Long id, String tag) {
-		Article article = dao.findById(id);
-		if (article!=null) {
-			addTag(tag, article);
-		}
-		return article;
-	}
-
-	private void addTag(String tag, Article article) {
-		ArticleTag e=tagDao.tag(tag);
-		article.getTags().add(e);
-	}
-
-	@Transactional
-	@Override
-	public Article addTagS(Long id, List<String> tags) {
-		Article article = dao.findById(id);
-		if (article!=null) {
-			for (String string : tags) {
-				addTag(string, article);
-			}
-		}
-		return article;
-	}
-
-	@Transactional
-	@Override
 	public Article resetTagS(Long id, List<String> tags) {
 		Article article = dao.findById(id);
 		if (article!=null) {
@@ -169,5 +144,49 @@ public class ArticleServiceImpl implements ArticleService {
 			}
 		}
 		return article;
+	}
+
+	@Transactional
+	public Article save(Article bean,String... tag) {
+		dao.save(bean);
+		if (tag!=null) {
+			for (String string : tag) {
+				addTag(string,bean);
+			}
+		}
+		Integer cid = -1;
+		if (bean.getCatalog() != null) {
+			cid = bean.getCatalog().getId();
+		}
+		if (cid > 0) {
+			catalogDao.updateNumsAndTime(cid);
+		}
+		return bean;
+	}
+
+	@Autowired
+	public void setDao(ArticleDao dao) {
+		this.dao = dao;
+	}
+
+	@Transactional
+	public Article update(Article bean) {
+		Updater<Article> updater = new Updater<Article>(bean);
+		bean = dao.updateByUpdater(updater);
+		return bean;
+	}
+	@Transactional
+	@Override
+	public Article view(Long id) {
+		Article result=dao.findById(id);
+		if (result!=null) {
+			Integer views=result.getViews();
+			if (views==null) {
+				views=0;
+			}
+			views++;
+			result.setViews(views);
+		}
+		return result;
 	}
 }
