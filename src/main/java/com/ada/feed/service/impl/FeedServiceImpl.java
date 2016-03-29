@@ -129,25 +129,28 @@ public class FeedServiceImpl implements FeedService {
 		Feed bean = new Feed();
 
 		FeedTemplate f=	feedTemplateDao.findById(templateid);
-		Configuration config = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
-		try {
-			Template template = new Template(f.getId(), f.getNote(), config);
-			Writer out = new StringWriter();
-			Map<String, Object> keys=new HashMap<String, Object>();
-			keys.put("object", object);
-			template.process(keys, out);
-			String msg = out.toString();
-			bean.setAddDate(new Date());
-			bean.setLastDate(new Date());
-			bean.setUser(UserInfo.fromId(userid));
-			bean.setNote(msg);
-			bean.setCatalog(f.getCatalog());
-			dao.save(bean);
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (f!=null) {
+			Configuration config = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
+			try {
+				Template template = new Template(f.getId(), f.getNote(), config);
+				Writer out = new StringWriter();
+				Map<String, Object> keys=new HashMap<String, Object>();
+				keys.put("object", object);
+				template.process(keys, out);
+				String msg = out.toString();
+				bean.setAddDate(new Date());
+				bean.setLastDate(new Date());
+				bean.setUser(UserInfo.fromId(userid));
+				bean.setNote(msg);
+				bean.setCatalog(f.getCatalog());
+				dao.save(bean);
+			} catch (TemplateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		
 		return bean;
 	}
 }
