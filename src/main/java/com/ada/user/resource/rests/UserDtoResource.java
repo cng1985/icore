@@ -1,4 +1,4 @@
-package com.ada.user.rest.impl;
+package com.ada.user.resource.rests;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import com.ada.data.core.Finder;
 import com.ada.user.dao.UserInfoDao;
 import com.ada.user.dto.UserDto;
 import com.ada.user.entity.UserInfo;
-import com.ada.user.rest.UserDtoApi;
+import com.ada.user.rest.api.UserDtoApi;
 
 @Service
 @Transactional

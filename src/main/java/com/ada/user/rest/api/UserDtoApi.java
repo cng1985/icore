@@ -1,4 +1,4 @@
-package com.ada.user.rest;
+package com.ada.user.rest.api;
 
 import com.ada.user.dto.UserDto;
 
