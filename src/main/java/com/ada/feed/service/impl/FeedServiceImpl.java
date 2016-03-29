@@ -1,8 +1,13 @@
 package com.ada.feed.service.impl;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +18,20 @@ import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
 import com.ada.feed.dao.FeedCommentDao;
 import com.ada.feed.dao.FeedDao;
+import com.ada.feed.dao.FeedTemplateDao;
 import com.ada.feed.dto.FeedDto;
 import com.ada.feed.entity.Feed;
+import com.ada.feed.entity.FeedTemplate;
 import com.ada.feed.page.FeedDtoPage;
 import com.ada.feed.page.FeedPage;
 import com.ada.feed.service.FeedService;
+import com.ada.user.entity.UserInfo;
+import com.ada.user.entity.UserNotification;
+import com.ada.user.entity.UserNotificationMember;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 @Service
 @Transactional
@@ -62,6 +76,9 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	private FeedDao dao;
+	
+	@Autowired
+	private FeedTemplateDao feedTemplateDao;
 
 	@Autowired
 	public void setDao(FeedDao dao) {
@@ -105,5 +122,32 @@ public class FeedServiceImpl implements FeedService {
 		}
 
 		return result;
+	}
+	@Transactional
+	@Override
+	public Feed push(String templateid, Object object, Long userid) {
+		Feed bean = new Feed();
+
+		FeedTemplate f=	feedTemplateDao.findById(templateid);
+		Configuration config = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
+		try {
+			Template template = new Template(f.getId(), f.getNote(), config);
+			Writer out = new StringWriter();
+			Map<String, Object> keys=new HashMap<String, Object>();
+			keys.put("object", object);
+			template.process(keys, out);
+			String msg = out.toString();
+			bean.setAddDate(new Date());
+			bean.setLastDate(new Date());
+			bean.setUser(UserInfo.fromId(userid));
+			bean.setNote(msg);
+			bean.setCatalog(f.getCatalog());
+			dao.save(bean);
+		} catch (TemplateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return bean;
 	}
 }

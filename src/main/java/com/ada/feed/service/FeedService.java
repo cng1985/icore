@@ -11,6 +11,9 @@ public interface FeedService {
 	public Feed findById(Long id);
 
 	public Feed save(Feed bean);
+	
+	public Feed push(String template,Object object,Long userid);
+
 
 	public Feed update(Feed bean);
 
