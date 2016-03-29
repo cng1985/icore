@@ -19,7 +19,7 @@ public class Task extends AbstractEntity {
 
 	
 	/**
-	 * 分类  1为请假	2为工作汇报	3为项目	4为邮件冻结
+	 * 分类  1为请假	2为工作汇报	3为项目	4为邮件冻结 5为工作总结
 	 */
 	private Integer catalog;
 	
@@ -45,7 +45,7 @@ public class Task extends AbstractEntity {
 	private Integer state;
 	
 	/**
-	 * 事务类型 	1为审批	2为事务 3查看
+	 * 事务类型 	1为审批	2为事务 3查看 101项目任务分配
 	 */
 	private Integer style;
 	
