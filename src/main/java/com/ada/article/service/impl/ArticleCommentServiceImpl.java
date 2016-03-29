@@ -89,7 +89,7 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
 		Finder finder=Finder.create();
 		finder.append("from ArticleComment a where a.article.id=:articleid");
 		finder.setParam("articleid", articleid);
-		finder.append("order by a.id desc ");
+		finder.append("  order by a.id desc ");
 		Pagination<ArticleComment> cs=	dao.find(finder, pageNo, pageSize);
 		result=new ArticleCommentPage(cs);
 		return result;

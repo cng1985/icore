@@ -30,7 +30,7 @@ public class ArticleCommentResource implements ArticleCommentApi {
 		Finder finder = Finder.create();
 		finder.append("from ArticleComment a where a.article.id=:articleid");
 		finder.setParam("articleid", articleid);
-		finder.append("order by a.id desc ");
+		finder.append("  order by a.id desc ");
 		Pagination<ArticleComment> cs = dao.find(finder, pageNo, pageSize);
 		List<ArticleComment> csc = cs.getList();
 		List<ArticleCommentVo> vos = new ArrayList<ArticleCommentVo>();
