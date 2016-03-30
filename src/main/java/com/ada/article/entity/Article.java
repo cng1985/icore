@@ -168,4 +168,11 @@ public class Article extends AbstractEntity {
 		this.views = views;
 	}
 
+	@Override
+	public String toString() {
+		return "Article [catalog=" + catalog + ", user=" + user 
+				+ ", introduction=" + introduction + ", tags=" + tags + ", title=" + title + ", exts=" + exts
+				+ ", images=" + images + ", ups=" + ups + ", comments=" + comments + ", views=" + views + "]";
+	}
+
 }
