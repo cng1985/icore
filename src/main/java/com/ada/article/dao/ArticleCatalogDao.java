@@ -1,14 +1,11 @@
 package com.ada.article.dao;
 
-import com.ada.data.core.BaseDao;
-import com.ada.data.core.Updater;
-import com.ada.data.core.Pagination;
-
-import javax.persistence.criteria.CriteriaBuilder.In;
-
 import com.ada.article.entity.ArticleCatalog;
+import com.ada.data.core.CriteriaDao;
+import com.ada.data.core.Pagination;
+import com.ada.data.core.Updater;
 
-public interface ArticleCatalogDao extends BaseDao<ArticleCatalog, Integer> {
+public interface ArticleCatalogDao extends CriteriaDao<ArticleCatalog, Integer> {
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public ArticleCatalog findById(Integer id);

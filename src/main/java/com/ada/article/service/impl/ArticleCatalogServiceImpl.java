@@ -12,6 +12,8 @@ import com.ada.article.service.ArticleCatalogService;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 
 @Service
 @Transactional
@@ -100,6 +102,14 @@ public class ArticleCatalogServiceImpl implements ArticleCatalogService {
 		finder.append(" order by t.sortnum asc");
 		finder.setCacheable(true);
 		return dao.find(finder, pageNo, pageSize);
+	}
+
+	
+	@Transactional(readOnly = true)
+	@Override
+	public Page<ArticleCatalog> findPage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return dao.findPage(pageable);
 	}
 	
 }

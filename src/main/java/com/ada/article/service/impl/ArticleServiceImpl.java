@@ -17,6 +17,8 @@ import com.ada.article.service.ArticleService;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 
 @Service
 @Transactional
@@ -188,5 +190,11 @@ public class ArticleServiceImpl implements ArticleService {
 			result.setViews(views);
 		}
 		return result;
+	}
+
+	@Transactional
+	@Override
+	public Page<Article> findPage(Pageable pageable) {
+		return dao.findPage(pageable);
 	}
 }

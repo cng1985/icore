@@ -7,14 +7,14 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ada.data.core.BaseDaoImpl;
-import com.ada.data.core.Finder;
-import com.ada.data.core.Pagination;
 import com.ada.article.dao.ArticleCatalogDao;
 import com.ada.article.entity.ArticleCatalog;
+import com.ada.data.core.CriteriaDaoImpl;
+import com.ada.data.core.Finder;
+import com.ada.data.core.Pagination;
 
 @Repository
-public class ArticleCatalogDaoImpl extends BaseDaoImpl<ArticleCatalog, Integer> implements ArticleCatalogDao {
+public class ArticleCatalogDaoImpl extends CriteriaDaoImpl<ArticleCatalog, Integer> implements ArticleCatalogDao {
 	public Pagination getPage(int pageNo, int pageSize) {
 		Criteria crit = createCriteria();
 		Pagination page = findByCriteria(crit, pageNo, pageSize);

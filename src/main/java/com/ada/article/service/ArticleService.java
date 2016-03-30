@@ -5,6 +5,8 @@ import java.util.List;
 import com.ada.article.entity.Article;
 import com.ada.article.page.ArticlePage;
 import com.ada.data.core.Pagination;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.openyelp.annotation.RestFul;
 
 
@@ -33,6 +35,9 @@ public interface ArticleService {
 	public ArticlePage pageByCatalog(int catalog,int pageNo, int pageSize);
 	
 	public ArticlePage pageByCatalog(long uid,int catalog,int pageNo, int pageSize);
+	
+	public Page<Article> findPage(Pageable pageable);
+
 
 
 }

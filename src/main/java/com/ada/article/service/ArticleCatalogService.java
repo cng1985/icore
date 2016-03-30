@@ -3,7 +3,10 @@ package com.ada.article.service;
 import java.util.List;
 
 import com.ada.article.entity.ArticleCatalog;
+import com.ada.article.entity.ArticleComment;
 import com.ada.data.core.Pagination;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.openyelp.annotation.RestFul;
 
 
@@ -29,6 +32,9 @@ public interface ArticleCatalogService {
 	
 	
 	public Pagination pageByPid(int  pid,int pageNo, int pageSize);
+	
+	public Page<ArticleCatalog> findPage(Pageable pageable);
+
 
 
 }
