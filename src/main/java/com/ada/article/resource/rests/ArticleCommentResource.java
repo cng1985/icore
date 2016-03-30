@@ -1,8 +1,5 @@
 package com.ada.article.resource.rests;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +10,9 @@ import com.ada.article.entity.ArticleComment;
 import com.ada.article.resource.conver.ArticleCommentVoConver;
 import com.ada.article.rest.api.ArticleCommentApi;
 import com.ada.article.rest.page.ArticleCommentPageVo;
-import com.ada.article.rest.vo.ArticleCommentVo;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
+import com.ada.data.rest.core.ConverUtils;
 
 @Transactional
 @Component
@@ -32,15 +29,7 @@ public class ArticleCommentResource implements ArticleCommentApi {
 		finder.setParam("articleid", articleid);
 		finder.append("  order by a.id desc ");
 		Pagination<ArticleComment> cs = dao.find(finder, pageNo, pageSize);
-		List<ArticleComment> csc = cs.getList();
-		List<ArticleCommentVo> vos = new ArrayList<ArticleCommentVo>();
-		ArticleCommentVoConver conver = new ArticleCommentVoConver();
-		if (csc != null) {
-			for (ArticleComment item : csc) {
-				vos.add(conver.conver(item));
-			}
-		}
-		result.setList(vos);
+		ConverUtils.coverpage(result, cs, new ArticleCommentVoConver());
 		return result;
 
 	}

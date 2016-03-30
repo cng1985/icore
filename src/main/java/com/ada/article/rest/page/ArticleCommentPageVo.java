@@ -1,19 +1,8 @@
 package com.ada.article.rest.page;
 
-import java.util.List;
-
 import com.ada.article.rest.vo.ArticleCommentVo;
-import com.ada.data.dto.PageRpc;
+import com.ada.data.rest.domain.PageVo;
 
-public class ArticleCommentPageVo {
-	private List<ArticleCommentVo> list;
-
-	public List<ArticleCommentVo> getList() {
-		return list;
-	}
-
-	public void setList(List<ArticleCommentVo> list) {
-		this.list = list;
-	}
+public class ArticleCommentPageVo extends PageVo<ArticleCommentVo>{
 
 }
