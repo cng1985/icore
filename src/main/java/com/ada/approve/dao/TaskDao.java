@@ -22,4 +22,6 @@ public interface TaskDao extends CriteriaDao<Task, Long>{
 	public Task deleteById(Long id);
 	
 	public List<Date> list(long uid, int year, int month);
+	
+	
 }
