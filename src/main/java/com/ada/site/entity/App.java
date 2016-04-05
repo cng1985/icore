@@ -1,7 +1,12 @@
 package com.ada.site.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.ada.data.entity.AbstractEntity;
@@ -46,6 +51,24 @@ public class App extends AbstractEntity {
 	 * 程序下载地址
 	 */
 	private String downUrl;
+	
+	
+	/**
+	 * 系统
+	 */
+	private String system="android";
+	
+	@OrderBy("versionCode DESC")
+	@OneToMany(mappedBy="app",fetch=FetchType.LAZY)
+	private List<AppVersion> versions;
+
+	public String getSystem() {
+		return system;
+	}
+
+	public void setSystem(String system) {
+		this.system = system;
+	}
 
 	public String getName() {
 		return name;
@@ -93,6 +116,14 @@ public class App extends AbstractEntity {
 
 	public void setDownUrl(String downUrl) {
 		this.downUrl = downUrl;
+	}
+
+	public List<AppVersion> getVersions() {
+		return versions;
+	}
+
+	public void setVersions(List<AppVersion> versions) {
+		this.versions = versions;
 	}
 
 }
