@@ -30,12 +30,38 @@ public class AppVersion extends AbstractEntity {
 	 * 程序描述
 	 */
 	private String note;
+	
+	/**
+	 * 该程序下载地址
+	 */
+	private String downUrl;
 
 	/**
 	 * 对应的程序
 	 */
 	@ManyToOne
 	private App app;
+	/**
+	 * 系统
+	 */
+	private String system="android";
+	
+	
+	public String getDownUrl() {
+		return downUrl;
+	}
+
+	public void setDownUrl(String downUrl) {
+		this.downUrl = downUrl;
+	}
+
+	public String getSystem() {
+		return system;
+	}
+
+	public void setSystem(String system) {
+		this.system = system;
+	}
 
 	public Integer getVersionCode() {
 		return versionCode;

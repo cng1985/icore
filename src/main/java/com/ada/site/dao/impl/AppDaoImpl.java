@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ada.data.core.CriteriaDaoImpl;
+import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.site.dao.AppDao;
 import com.ada.site.entity.App;
@@ -47,5 +48,15 @@ public class AppDaoImpl extends CriteriaDaoImpl<App, Long> implements AppDao {
 	@Autowired
 	public void setSuperSessionFactory(SessionFactory sessionFactory){
 	    super.setSessionFactory(sessionFactory);
+	}
+
+	@Override
+	public App findByPackage(String packageName) {
+		
+		Finder finder=Finder.create();
+		finder.append("from App app where app.packageName =:packageName ");
+		finder.setParam("packageName", packageName);
+		
+		return findOne(finder);
 	}
 }

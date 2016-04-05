@@ -11,6 +11,10 @@ public interface AppDao extends CriteriaDao<App, Long>{
 
 	public App findById(Long id);
 
+	
+	public App findByPackage(String packageName);
+
+	
 	public App save(App bean);
 
 	public App updateByUpdater(Updater<App> updater);
