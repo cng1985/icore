@@ -41,10 +41,6 @@ public class AppVersion extends AbstractEntity {
 	 */
 	@ManyToOne
 	private App app;
-	/**
-	 * 系统
-	 */
-	private String system="android";
 	
 	
 	public String getDownUrl() {
@@ -53,14 +49,6 @@ public class AppVersion extends AbstractEntity {
 
 	public void setDownUrl(String downUrl) {
 		this.downUrl = downUrl;
-	}
-
-	public String getSystem() {
-		return system;
-	}
-
-	public void setSystem(String system) {
-		this.system = system;
 	}
 
 	public Integer getVersionCode() {

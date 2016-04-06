@@ -50,16 +50,33 @@ public class #{Entity}Action {
 
 	@RequestMapping("/#{config_entity}/model_save")
 	public String save(#{Entity} bean, HttpServletRequest request, ModelMap model) {
-		bean = manager.save(bean);
-		log.info("save Teacher id={}", bean.getId());
-		return "redirect:view_list.htm";
+	
+	    String view="redirect:view_list.htm";
+		try {
+			bean = manager.save(bean);
+			log.info("save object id={}", bean.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("erro", e.getMessage());
+			view="#{config_entity}/add";
+		}
+		return view;
 	}
 
 	@RequestMapping("/#{config_entity}/model_update")
 	public String update(Pageable pageable, #{Entity} bean,HttpServletRequest request, ModelMap model) {
+		
+		String view="redirect:/#{config_entity}/view_list.htm?pageNumber="+pageable.getPageNumber();
+		try {
 		bean = manager.update(bean);
-		log.info("update Teacher id={}.", bean.getId());
-		return "redirect:/#{config_entity}/view_list.htm?pageNumber="+pageable.getPageNumber();
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("erro", e.getMessage());
+			model.addAttribute("model",bean);
+		    model.addAttribute("page", pageable);
+			view="#{config_entity}/edit";
+		}
+		return view;
 	}
 
 	@RequestMapping("/#{config_entity}/model_delete")

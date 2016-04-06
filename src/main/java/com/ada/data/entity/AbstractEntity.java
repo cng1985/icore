@@ -14,7 +14,7 @@ import com.ada.data.listener.EntityListener;
 
 @EntityListeners(EntityListener.class)
 @MappedSuperclass
-public abstract class AbstractEntity extends NumEntity<Long> implements Serializable{
+public abstract class AbstractEntity extends LongEntity implements Serializable{
 
 
 	/**
