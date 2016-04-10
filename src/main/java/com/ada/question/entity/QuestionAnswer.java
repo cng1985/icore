@@ -13,7 +13,12 @@ import javax.persistence.Table;
 import com.ada.user.entity.UserInfo;
 
 
-
+/**
+ * 提问回答
+ * 
+ * @author 年高
+ *
+ */
 @Entity
 @Table(name = "question_answer")
 public class QuestionAnswer implements Serializable {
@@ -40,7 +45,7 @@ public class QuestionAnswer implements Serializable {
 	private String title;
 
 	/**
-	 * 标题
+	 * 回答内容
 	 */
 	private String contents;
 

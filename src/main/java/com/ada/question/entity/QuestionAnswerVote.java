@@ -16,8 +16,8 @@ import com.ada.user.entity.UserInfo;
  *
  */
 @Entity
-@Table(name = "question_vote")
-public class QuestionVote {
+@Table(name = "question_answer_vote")
+public class QuestionAnswerVote {
 
 	@Id
 	@GeneratedValue
@@ -35,7 +35,7 @@ public class QuestionVote {
 	 */
 	@JoinColumn
 	@ManyToOne()
-	private Question question;
+	private QuestionAnswer answer;
 	
 	/**
 	 * 投票数量
@@ -47,13 +47,8 @@ public class QuestionVote {
 	 */
 	private Integer flag;
 
-
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
+	public QuestionAnswer getAnswer() {
+		return answer;
 	}
 
 	public Integer getFlag() {
@@ -73,6 +68,9 @@ public class QuestionVote {
 		return vote;
 	}
 
+	public void setAnswer(QuestionAnswer answer) {
+		this.answer = answer;
+	}
 
 	public void setFlag(Integer flag) {
 		this.flag = flag;

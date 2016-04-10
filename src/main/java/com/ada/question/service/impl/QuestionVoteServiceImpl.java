@@ -76,14 +76,14 @@ public class QuestionVoteServiceImpl implements QuestionVoteService {
 	public QuestionVote vote(QuestionVote bean) {
 		QuestionVote vote=new QuestionVote();
 		vote.setId(-1l);
-		if(bean.getAnswer()==null||bean.getUser()==null){
+		if(bean.getQuestion()==null||bean.getUser()==null){
 			return vote;
 		}
 		Finder finder=Finder.create();
 		finder.append("from QuestionVote q where q.user.id = :uid ");
 		finder.setParam("uid", bean.getUser().getId());
-		finder.append(" and q.answer.id = :aid");
-		finder.setParam("aid", bean.getAnswer().getId());
+		finder.append(" and q.question.id = :aid");
+		finder.setParam("aid", bean.getQuestion().getId());
 		List<QuestionVote> vs=	dao.find(finder);
 		if (vs!=null&&vs.size()>0) {
 			
@@ -91,10 +91,10 @@ public class QuestionVoteServiceImpl implements QuestionVoteService {
 			vote=dao.save(bean);
 		}
 		Finder coutfinder=Finder.create();
-		coutfinder.append("from QuestionVote q where q.answer.id=:aid");
-		coutfinder.setParam("aid", bean.getAnswer().getId());
+		coutfinder.append("from QuestionVote q where q.question.id=:aid");
+		coutfinder.setParam("aid", bean.getQuestion().getId());
 		int size=dao.countQueryResult(coutfinder);
-		QuestionAnswer answer=	answerDao.findById(bean.getAnswer().getId());
+		QuestionAnswer answer=	answerDao.findById(bean.getQuestion().getId());
 		if(answer!=null){
 			answer.setUps(size);
 		}
