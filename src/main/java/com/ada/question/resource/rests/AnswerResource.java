@@ -5,7 +5,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ada.data.core.Finder;
+import com.ada.data.core.Pagination;
+import com.ada.data.rest.core.ConverUtils;
 import com.ada.question.dao.QuestionAnswerDao;
+import com.ada.question.entity.QuestionAnswer;
+import com.ada.question.resource.conver.AnswerVoConver;
 import com.ada.question.rest.api.AnswerApi;
 import com.ada.question.rest.page.AnswerPageVo;
 
@@ -13,10 +17,9 @@ import com.ada.question.rest.page.AnswerPageVo;
 @Transactional
 public class AnswerResource implements AnswerApi {
 
-	
 	@Autowired
 	QuestionAnswerDao questionAnswerDao;
-	
+
 	@Override
 	public AnswerPageVo pageByQuestion(Long questionid, Integer curPage, Integer pageSize) {
 		AnswerPageVo result=new AnswerPageVo();
@@ -25,8 +28,8 @@ public class AnswerResource implements AnswerApi {
 		finder.append("from QuestionAnswer q  where q.question.id =:qid");
 		finder.setParam("qid", questionid);
 		finder.append(" order by q.id desc ");
-		questionAnswerDao.find(finder, curPage, pageSize);
-		
+		Pagination<QuestionAnswer> pager=	questionAnswerDao.find(finder, curPage, pageSize);
+		ConverUtils.coverpage(result, pager, new AnswerVoConver());
 		return result;
 	}
 
