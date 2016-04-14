@@ -1,11 +1,11 @@
 package com.ada.user.dao;
 
-import com.ada.data.core.BaseDao;
-import com.ada.data.core.Updater;
+import com.ada.data.core.CriteriaDao;
 import com.ada.data.core.Pagination;
+import com.ada.data.core.Updater;
 import com.ada.user.entity.UserInfo;
 
-public interface UserInfoDao extends BaseDao<UserInfo, Long> {
+public interface UserInfoDao extends CriteriaDao<UserInfo, Long> {
 
 	/** 加密方法 */
 	public static final String HASH_ALGORITHM = "SHA-1";

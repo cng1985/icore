@@ -3,6 +3,11 @@ package com.ada.user.service;
 import java.util.List;
 
 import com.ada.data.core.Pagination;
+import com.ada.data.page.Filter;
+import com.ada.data.page.Order;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
+import com.ada.user.entity.UserDevice;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserRole;
 import com.openyelp.annotation.RestFul;
@@ -56,4 +61,10 @@ public interface UserInfoService {
 	 * @return 权限集合
 	 */
 	public List<String> findAuthorities(Long id);
+	
+	public Page<UserInfo> findPage(Pageable pageable);
+
+	public long count(Filter... filters);
+
+	public List<UserInfo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 }

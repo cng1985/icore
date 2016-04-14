@@ -12,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.data.page.Filter;
+import com.ada.data.page.Order;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 import com.ada.user.dao.UserInfoDao;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserRole;
@@ -309,5 +313,20 @@ public class UserInfoServiceImpl implements UserInfoService {
 			}
 		}
 		return authorities;
+	}
+
+	@Override
+	public Page<UserInfo> findPage(Pageable pageable) {
+		return dao.findPage(pageable);
+	}
+
+	@Override
+	public long count(Filter... filters) {
+		return dao.count(filters);
+	}
+
+	@Override
+	public List<UserInfo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
+		return dao.findList(first, count, filters, orders);
 	}
 }
