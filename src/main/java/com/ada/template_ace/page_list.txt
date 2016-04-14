@@ -138,15 +138,15 @@ background: #E19487 !important;
 														</button>
 
 														<ul id="searchPropertyOption" class="dropdown-menu ">
-															<li val="name"><a href="#">名称</a></li>
-															<li val="name1" class="acivit"><a href="#">名称11</a></li>
+														    [@searchitem name="username" value ="用户名"/]
+															[@searchitem name="name" value ="姓名"/]
 
 														</ul>
 													</div>
 												</div>
 												<div class="input-group">
 
-													<input type="text" name="searchValue" placeholder="关键词"
+													<input type="text" name="searchValue"   value="${(page.searchValue)!''}"  placeholder="关键词"
 														class="form-control search-query"> <span
 														class="input-group-btn">
 														<button class="btn btn-purple btn-sm" type="submit">
