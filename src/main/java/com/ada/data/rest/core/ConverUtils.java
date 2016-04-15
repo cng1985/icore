@@ -33,5 +33,25 @@ public class ConverUtils {
 		result.setList(vos);
 		return result;
 	}
+	
+	/**
+	 * 转换集合功能
+	 * 
+	 * @param source
+	 *            转化源
+	 * @param conver
+	 *            转化器
+	 * @return 转换后的集合
+	 */
+	public static <R, S> List<R> coverList(List<S> source, Conver<R, S> conver) {
+		List<R> vos = new ArrayList<R>();
+		if (source != null) {
+			for (S item : source) {
+				vos.add(conver.conver(item));
+			}
+		}
+		return vos;
+	}
+
 
 }
