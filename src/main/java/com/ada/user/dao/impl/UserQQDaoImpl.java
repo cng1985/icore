@@ -89,6 +89,7 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 					info=new UserInfo();
 					info.setUsername(openid);
 					info.setPlainPassword("123456");
+					info.setRegisterType("qq");
 					entryptPassword(info);
 					info=userInfoDao.save(info);
 				}
@@ -127,6 +128,10 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 			
 					String figureurl_qq_2 = e.getAsJsonObject().get("figureurl_qq_2").getAsString();
 					qq.setFigureurlQq2(figureurl_qq_2);
+					
+					info.setHeadimg(figureurl_qq_1);
+					info.setName(nickname);
+					
 					int is_yellow_vip = e.getAsJsonObject().get("is_yellow_vip").getAsInt();
 					qq.setYellowVip(is_yellow_vip);
 					int vip = e.getAsJsonObject().get("vip").getAsInt();
@@ -137,6 +142,9 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 					qq.setLevel(level);
 					int is_yellow_year_vip = e.getAsJsonObject().get("is_yellow_year_vip").getAsInt();
 					qq.setYellowYearVip(is_yellow_year_vip);
+					
+					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

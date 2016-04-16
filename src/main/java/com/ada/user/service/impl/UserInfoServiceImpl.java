@@ -329,4 +329,27 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public List<UserInfo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
 		return dao.findList(first, count, filters, orders);
 	}
+	
+	@Transactional
+	@Override
+	public UserInfo loginqq(String openid, String nickname, String figureurl_qq_1) {
+		UserInfo result = null;
+		Finder finder = Finder.create();
+		finder.append("from UserInfo u where u.username ='" + openid + "'");
+		// finder.append("  and  u.password = '" + password + "'");
+		List<UserInfo> us = dao.find(finder);
+		if (us != null && us.size() > 0) {
+			result=us.get(0);
+		}else{
+			UserInfo user=new UserInfo();
+			user.setUsername(openid);
+			user.setName(nickname);
+			user.setName(nickname);
+			user.setHeadimg(figureurl_qq_1);
+			user.setPlainPassword("123456");
+			entryptPassword(user);
+			result=dao.save(user);
+		}
+		return result;
+	}
 }

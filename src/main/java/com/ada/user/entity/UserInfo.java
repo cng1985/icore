@@ -50,6 +50,20 @@ public class UserInfo extends AbstractEntity {
 	
 	private String username;
 	private String phone;
+	/**
+	 * 注册
+	 */
+	private String registerType="账号";
+
+	public String getRegisterType() {
+		return registerType;
+	}
+
+	public void setRegisterType(String registerType) {
+		this.registerType = registerType;
+	}
+
+
 
 	private String name;
 	/**
