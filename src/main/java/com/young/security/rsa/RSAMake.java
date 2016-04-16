@@ -8,18 +8,18 @@ import java.security.interfaces.RSAPublicKey;
 
 import com.young.security.utils.Base64;
 
-public class RSAKey {
+public class RSAMake {
 
 	RSAPrivateKey privateKey;
 	RSAPublicKey publicKey;
 
 	public static void main(String[] args) {
-		RSAKey key=new RSAKey(1024);
+		RSAMake key=new RSAMake(1024);
 		System.out.println(key.getPrivate());
 		System.out.println(key.getPublicKey());
 
 	}
-	public RSAKey(int length) {
+	public RSAMake(int length) {
 		try {
 			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
 			keyPairGen.initialize(length);

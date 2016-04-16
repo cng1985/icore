@@ -20,11 +20,11 @@ import com.young.security.utils.Base64;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-public class ServerRSA {
+public class RSAMakePrivateKey {
 
 	String privatekey;
 
-	public ServerRSA(String privatekey) {
+	public RSAMakePrivateKey(String privatekey) {
 		super();
 		this.privatekey = privatekey;
 	}

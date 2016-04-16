@@ -17,22 +17,22 @@ import javax.crypto.NoSuchPaddingException;
 
 import com.young.security.utils.Base64;
 
-public class ClientRSA {
+public class RSAMakePubKey {
 
 
 	private String privatekey ;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		RSAKey key=new RSAKey(1024);
+		RSAMake key=new RSAMake(1024);
 
-		ClientRSA rsa = new ClientRSA(key.getPublicKey());
+		RSAMakePubKey rsa = new RSAMakePubKey(key.getPublicKey());
 		String v=rsa.encode("这是一个测试");
 		System.out.println(v.length());
-		ServerRSA srsa=new ServerRSA(key.getPrivate());
+		RSAMakePrivateKey srsa=new RSAMakePrivateKey(key.getPrivate());
 		System.out.println(srsa.decoder(v));
 	}
 
-	public ClientRSA(String privatekey) {
+	public RSAMakePubKey(String privatekey) {
 		super();
 		this.privatekey = privatekey;
 	}
