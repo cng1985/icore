@@ -29,6 +29,9 @@ public class UserInfoDaoImpl extends CriteriaDaoImpl<UserInfo, Long> implements 
 	}
 
 	public UserInfo save(UserInfo bean) {
+		if (bean.getUsername()==null) {
+			return null;
+		}
 		getSession().save(bean);
 		return bean;
 	}

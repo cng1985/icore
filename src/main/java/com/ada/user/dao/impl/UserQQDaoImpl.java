@@ -1,6 +1,5 @@
 package com.ada.user.dao.impl;
 
-import java.io.IOException;
 import java.util.Date;
 
 import org.hibernate.Criteria;
@@ -77,26 +76,20 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 	}
 	@Override
 	public UserQQ login(String access_token, String openid, String oauth_consumer_key) throws Exception {
+		if (access_token==null) {
+			return null;
+		}
+		if (openid==null) {
+			return null;
+		}
 		Finder finder = Finder.create();
 		finder.append("from UserQQ u where u.openid =:openid");
 		finder.setParam("openid", openid);
 		UserQQ qq = findOne(finder);
 		if (qq==null) {
 			
-				qq=new UserQQ();
-				UserInfo info=userInfoDao.findByName(openid);
-				if (info==null) {
-					info=new UserInfo();
-					info.setUsername(openid);
-					info.setPlainPassword("123456");
-					info.setRegisterType("qq");
-					entryptPassword(info);
-					info=userInfoDao.save(info);
-				}
-				qq.setUser(info);
-				qq.setOpenid(openid);
-				qq.setAccessToken(access_token);
-				qq=save(qq);
+				
+			
 				try {
 					Connection con = HttpConnection.connect("https://graph.qq.com/user/get_user_info");
 					con.data("oauth_consumer_key",oauth_consumer_key);
@@ -129,8 +122,24 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 					String figureurl_qq_2 = e.getAsJsonObject().get("figureurl_qq_2").getAsString();
 					qq.setFigureurlQq2(figureurl_qq_2);
 					
-					info.setHeadimg(figureurl_qq_1);
-					info.setName(nickname);
+					
+					UserInfo info=userInfoDao.findByName(openid);
+					if (info==null) {
+						info=new UserInfo();
+						info.setUsername(openid);
+						info.setPlainPassword("123456");
+						info.setRegisterType("qq");
+						info.setHeadimg(figureurl_qq_1);
+						info.setName(nickname);
+						entryptPassword(info);
+						info=userInfoDao.save(info);
+					}
+					qq=new UserQQ();
+					qq.setUser(info);
+					qq.setOpenid(openid);
+					qq.setAccessToken(access_token);
+					qq=save(qq);
+					
 					
 					int is_yellow_vip = e.getAsJsonObject().get("is_yellow_vip").getAsInt();
 					qq.setYellowVip(is_yellow_vip);
