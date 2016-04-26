@@ -1,5 +1,9 @@
 package com.ada.user.dto;
 
-public class OauthToken {
+import java.io.Serializable;
+
+public class OauthToken implements Serializable{
+	
+	private String access_token;
 
 }

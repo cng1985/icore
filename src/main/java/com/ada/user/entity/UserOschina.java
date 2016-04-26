@@ -11,7 +11,7 @@ import com.ada.data.entity.UUIDEntity;
 
 
 @Entity
-@Table(name = "user_login_oschina")
+@Table(name = "user_oschina")
 public class UserOschina extends AbstractEntity{
 	
 	
