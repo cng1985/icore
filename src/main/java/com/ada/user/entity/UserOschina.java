@@ -1,20 +1,33 @@
 package com.ada.user.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.ada.data.entity.AbstractEntity;
+import com.ada.data.entity.NumEntity;
 import com.ada.data.entity.UUIDEntity;
 
 
 
 @Entity
 @Table(name = "user_oschina")
-public class UserOschina extends AbstractEntity{
+public class UserOschina implements Serializable{
+	
+	@Id
+	private Long id;
 	
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	/**
 	 *用户email
 	 */
