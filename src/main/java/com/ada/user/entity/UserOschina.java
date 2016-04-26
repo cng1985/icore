@@ -1,15 +1,18 @@
 package com.ada.user.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ada.data.entity.AbstractEntity;
 import com.ada.data.entity.UUIDEntity;
 
 
 
 @Entity
 @Table(name = "user_login_oschina")
-public class UserOschina extends UUIDEntity{
+public class UserOschina extends AbstractEntity{
 	
 	
 	/**
@@ -43,6 +46,18 @@ public class UserOschina extends UUIDEntity{
 	 * 主页
 	 */
 	private String url;
+	
+	@ManyToOne
+	@JoinColumn(name="userid")
+	private UserInfo user;
+	
+	
+	public UserInfo getUser() {
+		return user;
+	}
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
 	public String getEmail() {
 		return email;
 	}

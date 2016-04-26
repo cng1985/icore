@@ -1,6 +1,5 @@
 package com.ada.user.service.impl;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +13,13 @@ import com.ada.data.page.Filter;
 import com.ada.data.page.Order;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
+import com.ada.user.dao.UserGitHubDao;
 import com.ada.user.dao.UserInfoDao;
-import com.ada.user.dao.UserOauthTokenDao;
-import com.ada.user.dao.UserOschinaDao;
+import com.ada.user.entity.UserGitHub;
 import com.ada.user.entity.UserInfo;
-import com.ada.user.entity.UserOauthToken;
 import com.ada.user.entity.UserOschina;
-import com.ada.user.page.UserOschinaPage;
-import com.ada.user.service.UserOschinaService;
+import com.ada.user.page.UserGitHubPage;
+import com.ada.user.service.UserGitHubService;
 import com.google.gson.Gson;
 import com.young.http.Connection;
 import com.young.http.HttpConnection;
@@ -30,65 +28,62 @@ import com.young.security.Encodes;
 
 @Service
 @Transactional
-public class UserOschinaServiceImpl implements UserOschinaService {
+public class UserGitHubServiceImpl implements UserGitHubService {
 
 	@Transactional(readOnly = true)
-	public UserOschina findById(Long id) {
-		UserOschina entity = dao.findById(id);
+	public UserGitHub findById(Long id) {
+		UserGitHub entity = dao.findById(id);
 		return entity;
 	}
 
 	@Transactional
-	public UserOschina save(UserOschina bean) {
+	public UserGitHub save(UserGitHub bean) {
 		dao.save(bean);
 		return bean;
 	}
 
 	@Transactional
-	public UserOschina update(UserOschina bean) {
-		Updater<UserOschina> updater = new Updater<UserOschina>(bean);
+	public UserGitHub update(UserGitHub bean) {
+		Updater<UserGitHub> updater = new Updater<UserGitHub>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
 	@Transactional
-	public UserOschina deleteById(Long id) {
-		UserOschina bean = dao.deleteById(id);
+	public UserGitHub deleteById(Long id) {
+		UserGitHub bean = dao.deleteById(id);
 		return bean;
 	}
 
 	@Transactional
-	public UserOschina[] deleteByIds(Long[] ids) {
-		UserOschina[] beans = new UserOschina[ids.length];
+	public UserGitHub[] deleteByIds(Long[] ids) {
+		UserGitHub[] beans = new UserGitHub[ids.length];
 		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
 		}
 		return beans;
 	}
 
-	private UserOschinaDao dao;
+	private UserGitHubDao dao;
 
 	@Autowired
-	private UserOauthTokenDao tokenDao;
-
-	@Autowired
-	public void setDao(UserOschinaDao dao) {
+	public void setDao(UserGitHubDao dao) {
 		this.dao = dao;
 	}
 
 	@Transactional(readOnly = true)
-	public UserOschinaPage getPage(int pageNo, int pageSize) {
-		UserOschinaPage result = null;
+	public UserGitHubPage getPage(int pageNo, int pageSize) {
+		UserGitHubPage result = null;
 		Finder finder = Finder.create();
-		finder.append("from UserOschina f ");
+		finder.append("from UserGitHub f ");
 		finder.append(" order by f.id desc  ");
-		Pagination<UserOschina> page = dao.find(finder, pageNo, pageSize);
-		result = new UserOschinaPage(page);
+		Pagination<UserGitHub> page = dao.find(finder, pageNo, pageSize);
+		result = new UserGitHubPage(page);
 		return result;
 	}
 
 	@Transactional(readOnly = true)
-	public Page<UserOschina> findPage(Pageable pageable) {
+	public Page<UserGitHub> findPage(Pageable pageable) {
 		return dao.findPage(pageable);
 	}
 
@@ -100,12 +95,11 @@ public class UserOschinaServiceImpl implements UserOschinaService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<UserOschina> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
+	public List<UserGitHub> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
 
 		return dao.findList(first, count, filters, orders);
 
 	}
-	
 	/** 加密方法 */
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;
@@ -122,47 +116,37 @@ public class UserOschinaServiceImpl implements UserOschinaService {
 		user.setPassword(Encodes.encodeHex(hashPassword));
 	}
 
-	
 	@Autowired
 	UserInfoDao userInfoDao;
+
+	@Transactional
 	@Override
-	public UserOschina login(String client_id, String client_secret, String grant_type, String redirect_uri,
-			String code) {
-		UserOschina result = new UserOschina();
+	public UserGitHub login(String token) {
+		UserGitHub result = null;
 
+		Gson gson = new Gson();
+
+		Connection info = HttpConnection.connect("https://api.github.com/user");
+
+		info.data("access_token", token);
+		info.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0");
+		String infojson;
 		try {
-			Connection con = HttpConnection.connect("http://www.oschina.net/action/openapi/token");
-			con.data("client_id", client_id);
-			con.data("client_secret", client_secret);
-			con.data("grant_type", grant_type);
-			con.data("redirect_uri", redirect_uri);
-			con.data("code", code);
-			con.data("dataType", "json");
-			con.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0");
-			String body = con.execute().body();
-			Gson gson = new Gson();
-			UserOauthToken token = gson.fromJson(body, UserOauthToken.class);
-			tokenDao.save(token);
+			infojson = info.execute().body();
 
-			Connection info = HttpConnection.connect("http://www.oschina.net/action/openapi/user");
-
-			info.data("access_token", token.getAccess_token());
-			info.data("dataType", "json");
-			info.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0");
-			String infojson = info.execute().body();
-
-			result = gson.fromJson(infojson, UserOschina.class);
+			result = gson.fromJson(infojson, UserGitHub.class);
 			
-			UserOschina d = dao.findById(result.getId());
+			UserGitHub d = dao.findById(result.getId());
 			if (d == null) {
-				String username="oschina_"+result.getId();
+				String username = "github_" + result.getId();
 				UserInfo user = userInfoDao.findByName(username);
+				
 				if (user == null) {
 					user = new UserInfo();
 					user.setUsername(username);
 					user.setPlainPassword("123456");
-					user.setRegisterType("oschina");
-					user.setHeadimg(result.getAvatar());
+					user.setRegisterType("github");
+					user.setHeadimg(result.getAvatar_url());
 					user.setName(result.getName());
 					entryptPassword(user);
 					user = userInfoDao.save(user);
@@ -172,8 +156,7 @@ public class UserOschinaServiceImpl implements UserOschinaService {
 			}else{
 				result=d;
 			}
-
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
