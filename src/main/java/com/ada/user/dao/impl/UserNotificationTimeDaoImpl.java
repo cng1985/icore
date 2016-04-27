@@ -77,12 +77,15 @@ public class UserNotificationTimeDaoImpl extends CriteriaDaoImpl<UserNotificatio
 		List<UserNotificationTime> times=	find(finder);
 		if (times!=null&&times.size()>0) {
 			result=times.get(0);
+			if (result.getLastDate()==null) {
+				result.setLastDate(new Date());
+			}
 		}else{
 			result=new UserNotificationTime();
 			result.setUser(user);
 			result.setLastDate(user.getAddDate());
 			if (result.getLastDate()==null) {
-				result.setAddDate(new Date());
+				result.setLastDate(new Date());
 			}
 			add(result);
 		}
