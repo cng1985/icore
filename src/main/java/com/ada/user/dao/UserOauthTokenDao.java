@@ -10,6 +10,9 @@ public interface UserOauthTokenDao extends CriteriaDao<UserOauthToken, Long>{
 	public Pagination getPage(int pageNo, int pageSize);
 
 	public UserOauthToken findById(Long id);
+	
+	public UserOauthToken findByUid(String uid,String type);
+
 
 	public UserOauthToken save(UserOauthToken bean);
 

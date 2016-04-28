@@ -1,6 +1,8 @@
 package com.ada.user.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.ada.data.entity.AbstractEntity;
@@ -15,14 +17,47 @@ import com.ada.data.entity.AbstractEntity;
 @Table(name = "user_oauth_token")
 public class UserOauthToken extends AbstractEntity {
 
+	/**
+	 * 访问token
+	 */
 	private String access_token;
-
+	/**
+	 * 刷新token
+	 */
 	private String refresh_token;
+
+	/**
+	 * token类型
+	 */
 	private String token_type;
 
-	private Long uid;
+	/**
+	 * 用户id
+	 * 
+	 */
+	private String uid;
 
+	
+	/**
+	 * 过期时间
+	 * 
+	 */
 	private Long expires_in;
+	
+	/**
+	 * 和用户绑定
+	 */
+	@ManyToOne
+	@JoinColumn(name="userid")
+	private UserInfo user;
+
+	public UserInfo getUser() {
+		return user;
+	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
 
 	public String getAccess_token() {
 		return access_token;
@@ -48,11 +83,11 @@ public class UserOauthToken extends AbstractEntity {
 		this.token_type = token_type;
 	}
 
-	public Long getUid() {
+	public String getUid() {
 		return uid;
 	}
 
-	public void setUid(Long uid) {
+	public void setUid(String uid) {
 		this.uid = uid;
 	}
 
