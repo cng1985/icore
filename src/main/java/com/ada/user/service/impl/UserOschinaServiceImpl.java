@@ -144,10 +144,10 @@ public class UserOschinaServiceImpl implements UserOschinaService {
 			UserOauthToken token = gson.fromJson(body, UserOauthToken.class);
 
 			UserOauthToken utoken = tokenDao.findByUid(token.getUid(), "oschina");
-			if (utoken!= null && utoken.getId() > 0) {
+			if (utoken!= null &&utoken.getId()!=null&& utoken.getId() > 0) {
 				utoken.setLastDate(new Date());
 				utoken.setAccess_token(token.getAccess_token());
-				// result = utoken.getUser();
+				 result = utoken.getUser();
 
 			} else {
 
@@ -160,7 +160,7 @@ public class UserOschinaServiceImpl implements UserOschinaService {
 
 				UserOschina oschina = gson.fromJson(infojson, UserOschina.class);
 
-				String username = "oschina_" + result.getId();
+				String username = "oschina_" + oschina.getId();
 				UserInfo user = userInfoDao.findByName(username);
 				if (user == null) {
 					user = new UserInfo();
