@@ -1,6 +1,7 @@
 package com.ada.user.service.impl;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,7 +106,7 @@ public class UserOschinaServiceImpl implements UserOschinaService {
 		return dao.findList(first, count, filters, orders);
 
 	}
-	
+
 	/** 加密方法 */
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;
@@ -122,13 +123,12 @@ public class UserOschinaServiceImpl implements UserOschinaService {
 		user.setPassword(Encodes.encodeHex(hashPassword));
 	}
 
-	
 	@Autowired
 	UserInfoDao userInfoDao;
+
 	@Override
-	public UserOschina login(String client_id, String client_secret, String grant_type, String redirect_uri,
-			String code) {
-		UserOschina result = new UserOschina();
+	public UserInfo login(String client_id, String client_secret, String grant_type, String redirect_uri, String code) {
+		UserInfo result = new UserInfo();
 
 		try {
 			Connection con = HttpConnection.connect("http://www.oschina.net/action/openapi/token");
@@ -142,35 +142,50 @@ public class UserOschinaServiceImpl implements UserOschinaService {
 			String body = con.execute().body();
 			Gson gson = new Gson();
 			UserOauthToken token = gson.fromJson(body, UserOauthToken.class);
-			tokenDao.save(token);
 
-			Connection info = HttpConnection.connect("http://www.oschina.net/action/openapi/user");
+			UserOauthToken utoken = tokenDao.findByUid(token.getUid(), "oschina");
+			if (utoken.getId() != null && utoken.getId() > 0) {
+				utoken.setLastDate(new Date());
+				utoken.setAccess_token(token.getAccess_token());
+				// result = utoken.getUser();
 
-			info.data("access_token", token.getAccess_token());
-			info.data("dataType", "json");
-			info.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0");
-			String infojson = info.execute().body();
+			} else {
 
-			result = gson.fromJson(infojson, UserOschina.class);
-			
-			UserOschina d = dao.findById(result.getId());
-			if (d == null) {
-				String username="oschina_"+result.getId();
+				Connection info = HttpConnection.connect("http://www.oschina.net/action/openapi/user");
+
+				info.data("access_token", token.getAccess_token());
+				info.data("dataType", "json");
+				info.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0");
+				String infojson = info.execute().body();
+
+				UserOschina oschina = gson.fromJson(infojson, UserOschina.class);
+
+				String username = "oschina_" + result.getId();
 				UserInfo user = userInfoDao.findByName(username);
 				if (user == null) {
 					user = new UserInfo();
 					user.setUsername(username);
 					user.setPlainPassword("123456");
 					user.setRegisterType("oschina");
-					user.setHeadimg(result.getAvatar());
-					user.setName(result.getName());
+					user.setHeadimg(oschina.getAvatar());
+					user.setName(oschina.getName());
 					entryptPassword(user);
 					user = userInfoDao.save(user);
 				}
-				result.setUser(user);
-				result=dao.save(result);
-			}else{
-				result=d;
+				token.setUser(user);
+				token.setToken_type("oschina");
+				tokenDao.save(token);
+				result = user;
+
+				oschina.setUser(user);
+				
+				UserOschina temp=	dao.findById(oschina.getId());
+				if (temp==null) {
+					dao.save(oschina);
+				}else{
+					dao.update(oschina);
+				}
+
 			}
 
 		} catch (IOException e) {

@@ -1,5 +1,6 @@
 package com.ada.user.service;
 
+import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserOschina;
 import com.ada.user.entity.UserQQ;
 import com.ada.user.page.UserOschinaPage;
@@ -27,7 +28,7 @@ public interface UserOschinaService {
 	public UserOschinaPage getPage(int pageNo, int pageSize);
 	
 	
-	public UserOschina login(String client_id,String client_secret,String grant_type,String redirect_uri,String code);
+	public UserInfo login(String client_id,String client_secret,String grant_type,String redirect_uri,String code);
 
 	
 	public Page<UserOschina> findPage(Pageable pageable);
