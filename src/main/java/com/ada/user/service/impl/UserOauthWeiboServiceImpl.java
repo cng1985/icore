@@ -183,8 +183,6 @@ public class UserOauthWeiboServiceImpl implements UserOauthWeiboService {
 				UserOauthWeibo old = dao.findById(weibo.getId());
 				if (old==null) {
 					dao.save(weibo);
-				}else{
-					dao.update(weibo);
 				}
 				user.setName(weibo.getName());
 				user.setHeadimg(weibo.getAvatar_large());
