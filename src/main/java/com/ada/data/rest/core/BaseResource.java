@@ -1,7 +1,7 @@
 package com.ada.data.rest.core;
 
 import com.ada.data.core.Pagination;
-import com.ada.data.rest.domain.PageVo;
+import com.ada.data.rest.domain.AbstractPageVo;
 
 /**
  * 资源转换服务
@@ -15,7 +15,7 @@ import com.ada.data.rest.domain.PageVo;
  * @param <PVo>
  *            目标分页对象
  */
-public abstract class BaseResource<R, S, PVo extends PageVo<R>> {
+public abstract class BaseResource<R, S, PVo extends AbstractPageVo<R>> {
 
 	public abstract Conver<R, S> getConver();
 

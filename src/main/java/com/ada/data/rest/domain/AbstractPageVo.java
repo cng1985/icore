@@ -2,7 +2,7 @@ package com.ada.data.rest.domain;
 
 import java.util.List;
 
-public class PageVo<T> extends BaseVo {
+public class AbstractPageVo<T> extends AbstractVo {
 
 	/**
 	 * 数据集合

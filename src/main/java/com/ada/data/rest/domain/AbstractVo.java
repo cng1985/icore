@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author ada
  *
  */
-public class BaseVo implements Serializable {
+public class AbstractVo implements Serializable {
 
 	/**
 	 * 

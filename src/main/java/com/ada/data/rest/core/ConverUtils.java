@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ada.data.core.Pagination;
-import com.ada.data.rest.domain.PageVo;
+import com.ada.data.rest.domain.AbstractPageVo;
 
 public class ConverUtils {
 
@@ -14,14 +14,14 @@ public class ConverUtils {
 	 * @param result
 	 * @param pager
 	 */
-	public static <R, S> void cover(PageVo<R> result, Pagination<S> pager) {
+	public static <R, S> void cover(AbstractPageVo<R> result, Pagination<S> pager) {
 		result.setPage(pager.getPageNo());
 		result.setSize(pager.getPageSize());
 		result.setTotal(pager.getTotalCount());
 		result.setTotalPage(pager.getTotalPage());
 	}
 
-	public static <R, S> PageVo<R> coverpage(PageVo<R> result, Pagination<S> pager, Conver<R, S> conver) {
+	public static <R, S> AbstractPageVo<R> coverpage(AbstractPageVo<R> result, Pagination<S> pager, Conver<R, S> conver) {
 		cover(result, pager);
 		List<R> vos = new ArrayList<R>();
 		List<S> cs = pager.getList();

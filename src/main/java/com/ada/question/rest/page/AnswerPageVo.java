@@ -1,6 +1,6 @@
 package com.ada.question.rest.page;
 
-import com.ada.data.rest.domain.PageVo;
+import com.ada.data.rest.domain.AbstractPageVo;
 import com.ada.question.rest.vo.AnswerVo;
 
 /**
@@ -9,6 +9,6 @@ import com.ada.question.rest.vo.AnswerVo;
  * @author 年高
  *
  */
-public class AnswerPageVo extends PageVo<AnswerVo> {
+public class AnswerPageVo extends AbstractPageVo<AnswerVo> {
 
 }

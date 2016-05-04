@@ -10,7 +10,7 @@ package com.ada.data.rest.domain;
  * @author ada
  *
  */
-public class CodeVo extends BaseVo {
+public class CodeVo extends AbstractVo {
 
 	/**
 	 * 验证码
