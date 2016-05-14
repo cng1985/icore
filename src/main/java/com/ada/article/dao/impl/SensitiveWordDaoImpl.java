@@ -28,6 +28,8 @@ public class SensitiveWordDaoImpl extends CriteriaDaoImpl<SensitiveWord, Long> i
 
 	public SensitiveWord save(SensitiveWord bean) {
 		getSession().save(bean);
+		
+		
 		return bean;
 	}
 

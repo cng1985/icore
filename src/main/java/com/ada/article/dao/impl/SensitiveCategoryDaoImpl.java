@@ -28,6 +28,31 @@ public class SensitiveCategoryDaoImpl extends CriteriaDaoImpl<SensitiveCategory,
 
 	public SensitiveCategory save(SensitiveCategory bean) {
 		getSession().save(bean);
+		if (bean.getParentId() != null) {
+			SensitiveCategory parent =findById(bean.getParentId());
+			if (parent != null) {
+				if (parent.getLevelinfo() != null) {
+					bean.setLevelinfo(parent.getLevelinfo() + 1);
+				} else {
+					bean.setLevelinfo(2);
+				}
+				if (parent.getIds() != null) {
+					bean.setIds(parent.getIds() + "," + bean.getId());
+
+				} else {
+					bean.setIds(parent.getId() + "," + bean.getId());
+				}
+
+			} else {
+				bean.setLevelinfo(1);
+				bean.setIds("" + bean.getId());
+			}
+		} else {
+			bean.setLevelinfo(1);
+			bean.setIds("" + bean.getId());
+		}		
+		
+		
 		return bean;
 	}
 
