@@ -2,9 +2,11 @@ package com.ada.article.entity;
 
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.ada.data.entity.CatalogEntity;
 
@@ -14,6 +16,9 @@ import com.ada.data.entity.CatalogEntity;
  * @author 年高
  *
  */
+
+@Entity
+@Table(name = "article_sensitive_category")
 public class SensitiveCategory extends CatalogEntity {
 
 	/**
@@ -25,7 +30,7 @@ public class SensitiveCategory extends CatalogEntity {
 	/**
 	 * 该分类下有多少敏感词
 	 */
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="category")
 	private List<SensitiveWord> words;
 
 	@Override

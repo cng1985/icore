@@ -1,6 +1,10 @@
 package com.ada.article.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
@@ -11,6 +15,9 @@ import com.ada.user.entity.UserInfo;
  * @author 年高
  *
  */
+
+@Entity
+@Table(name = "article_sensitive_word")
 public class SensitiveWord extends AbstractEntity {
 
 	/**
@@ -21,6 +28,7 @@ public class SensitiveWord extends AbstractEntity {
 	/**
 	 * 替换词
 	 */
+	@Column(name="replace_word")
 	private String replace;
 
 	/**
@@ -31,12 +39,13 @@ public class SensitiveWord extends AbstractEntity {
 	/**
 	 * 用户
 	 */
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private UserInfo user;
 
 	/**
 	 * 相关类容一共有多少个敏感词
 	 */
+	@Column(name="word_size")
 	private Integer size;
 
 	
@@ -45,7 +54,7 @@ public class SensitiveWord extends AbstractEntity {
 	/**
 	 * 敏感词分类
 	 */
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private SensitiveCategory category;
 
 	public String getWord() {
