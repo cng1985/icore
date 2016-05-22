@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,7 +95,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Transactional
 	public UserInfo deleteById(Long id) {
-		UserInfo bean = dao.deleteById(id);
+		UserInfo bean=null;
+		try {
+			 bean = dao.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			// TODO: handle exception
+		}
 		return bean;
 	}
 
