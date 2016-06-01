@@ -15,7 +15,7 @@ import com.ada.data.entity.UUIDEntity;
 
 
 @Entity
-@Table(name = "user_oschina")
+@Table(name = "user_oauth_info_oschina")
 public class UserOschina implements Serializable{
 	
 	@Id

@@ -14,7 +14,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "user_oauth_weibo")
+@Table(name = "user_oauth_info_weibo")
 public class UserOauthWeibo implements Serializable{
 
 	

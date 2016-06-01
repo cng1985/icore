@@ -50,6 +50,16 @@ public class UserOauthToken extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name="userid")
 	private UserInfo user;
+	
+	private Integer loginSize;
+
+	public Integer getLoginSize() {
+		return loginSize;
+	}
+
+	public void setLoginSize(Integer loginSize) {
+		this.loginSize = loginSize;
+	}
 
 	public UserInfo getUser() {
 		return user;

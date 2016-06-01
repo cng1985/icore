@@ -4,6 +4,7 @@ package com.ada.user.dao;
 import  com.ada.data.core.CriteriaDao;
 import  com.ada.data.core.Updater;
 import com.ada.data.core.Pagination;
+import com.ada.user.entity.UserInfo;
 import  com.ada.user.entity.UserOauthWeibo;
 
 public interface UserOauthWeiboDao extends CriteriaDao<UserOauthWeibo, Long>{
@@ -16,4 +17,8 @@ public interface UserOauthWeiboDao extends CriteriaDao<UserOauthWeibo, Long>{
 	public UserOauthWeibo updateByUpdater(Updater<UserOauthWeibo> updater);
 
 	public UserOauthWeibo deleteById(Long id);
+	
+	
+	public UserInfo loginOauth(String  token);
+
 }

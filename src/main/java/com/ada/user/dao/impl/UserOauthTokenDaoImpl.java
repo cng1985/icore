@@ -54,7 +54,7 @@ public class UserOauthTokenDaoImpl extends CriteriaDaoImpl<UserOauthToken, Long>
 
 	@Override
 	public UserOauthToken findByUid(String uid, String type) {
-		UserOauthToken result = new UserOauthToken();
+		UserOauthToken result =null;
 		Finder finder = Finder.create("from UserOauthToken u where u.uid=:uid ");
 		finder.append(" and u.token_type =:token_type");
 		finder.setParam("uid", uid);

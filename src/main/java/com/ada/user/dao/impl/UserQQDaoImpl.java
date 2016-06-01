@@ -11,9 +11,12 @@ import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.user.dao.UserInfoDao;
+import com.ada.user.dao.UserOauthTokenDao;
 import com.ada.user.dao.UserQQDao;
 import com.ada.user.entity.UserInfo;
+import com.ada.user.entity.UserOauthToken;
 import com.ada.user.entity.UserQQ;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.young.http.Connection;
@@ -104,54 +107,7 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 				if (e.getAsJsonObject().get("ret").getAsInt() == 0) {
 					String name = "nickname";
 					String nickname = getString(e, name);
-					qq.setNickName(nickname);
-					String figureurl_qq_1 = getString(e, "figureurl_qq_1");
-					qq.setFigureurlQq1(figureurl_qq_1);
-					String gender = getString(e, "gender");
-					qq.setGender(gender);
-					String province = getString(e, "province");
-					qq.setProvince(province);
-					String city = getString(e, "city");
-					qq.setCity(city);
-					int year = getInteger(e, "year");
-					qq.setYear(year);
-					String figureurl = getString(e, "figureurl");
-					qq.setFigureUrl(figureurl);
-					String figureurl_1 = getString(e, "figureurl_1");
-					qq.setFigureUrl1(figureurl_1);
-					String figureurl_2 = getString(e, "figureurl_2");
-					qq.setFigureUrl2(figureurl_2);
-
-					String figureurl_qq_2 = getString(e, "figureurl_qq_2");
-					qq.setFigureurlQq2(figureurl_qq_2);
-
-					UserInfo info = userInfoDao.findByName(openid);
-					if (info == null) {
-						info = new UserInfo();
-						info.setUsername(openid);
-						info.setPlainPassword("123456");
-						info.setRegisterType("qq");
-						info.setHeadimg(figureurl_qq_1);
-						info.setName(nickname);
-						entryptPassword(info);
-						info = userInfoDao.save(info);
-					}
-
-					qq.setUser(info);
-					qq.setOpenid(openid);
-					qq.setAccessToken(access_token);
-					qq = save(qq);
-
-					int is_yellow_vip = getInteger(e, "is_yellow_vip");
-					qq.setYellowVip(is_yellow_vip);
-					int vip = getInteger(e, "vip");
-					qq.setVip(vip);
-					int yellow_vip_level = getInteger(e, "yellow_vip_level");
-					qq.setYellowVipLevel(yellow_vip_level);
-					int level = getInteger(e, "level");
-					qq.setLevel(level);
-					int is_yellow_year_vip = getInteger(e, "is_yellow_year_vip");
-					qq.setYellowYearVip(is_yellow_year_vip);
+			
 				}
 
 			} catch (Exception e) {
@@ -182,6 +138,83 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 			result = e.getAsJsonObject().get(name).getAsInt();
 		} catch (Exception e2) {
 			// TODO: handle exception
+		}
+		return result;
+	}
+	@Autowired
+	private UserOauthTokenDao tokenDao;
+	@Override
+	public UserInfo loginOauth(String access_token, String openid, String oauth_consumer_key) {
+		
+		UserInfo result=null;
+		
+		try {
+			Connection con = HttpConnection.connect("https://graph.qq.com/user/get_user_info");
+			con.data("oauth_consumer_key", oauth_consumer_key);
+			con.data("access_token", access_token);
+			con.data("openid", openid);
+			con.data("format", "json");
+			String body;
+			body = con.execute().body();
+			
+			JsonParser parser = new JsonParser();
+			JsonElement e = parser.parse(body);
+			if (e.getAsJsonObject().get("ret").getAsInt() != 0) {
+				return null;
+			}
+
+			Gson gson = new Gson();
+			UserQQ qq = gson.fromJson(body, UserQQ.class);
+			if (qq!=null&&qq.getRet()!=null&&qq.getRet()==0) {
+				qq.setOpenid(openid);
+				qq.setAccessToken(access_token);
+				qq.setAppid(oauth_consumer_key);
+				UserOauthToken utoken = tokenDao.findByUid(qq.getOpenid(), "qq");
+				if (utoken == null) {
+					String username = "qq_" + qq.getOpenid();
+					UserInfo user = userInfoDao.findByName(username);
+					if (user == null) {
+						user = new UserInfo();
+						user.setUsername(username);
+						user.setPlainPassword("123456");
+						user.setRegisterType("qq");
+						user.setHeadimg(qq.getFigureurl_2());
+						user.setName(qq.getNickname());
+						entryptPassword(user);
+						user = userInfoDao.save(user);
+					}
+					utoken = new UserOauthToken();
+					utoken.setAccess_token(access_token);
+					utoken.setUid(qq.getOpenid());
+					utoken.setToken_type("qq");
+					utoken.setUser(user);
+					utoken.setLoginSize(1);
+					tokenDao.save(utoken);
+					result = utoken.getUser();
+					save(qq);
+				} else {
+					Integer size = utoken.getLoginSize();
+					if (size == null) {
+						size = 1;
+					}
+					size++;
+					utoken.setLoginSize(size);
+					utoken.setLastDate(new Date());
+					utoken.setAccess_token(access_token);
+					result = utoken.getUser();
+					Integer sizes = result.getLogintimes();
+					if (sizes==null) {
+						sizes=1;
+					}
+					sizes++;
+					result.setLogintimes(sizes);
+					result.setLastDate(new Date());
+				}
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return result;
 	}

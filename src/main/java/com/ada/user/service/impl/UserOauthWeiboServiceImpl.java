@@ -151,26 +151,7 @@ public class UserOauthWeiboServiceImpl implements UserOauthWeiboService {
 				result = utoken.getUser();
 
 			} else {
-				String username = "weibo_" + uid;
-				UserInfo user = userInfoDao.findByName(username);
-				if (user == null) {
-					user = new UserInfo();
-					user.setUsername(username);
-					user.setPlainPassword("123456");
-					user.setRegisterType("weibo");
-					// user.setHeadimg(result.getAvatar());
-					// user.setName(result.getName());
-					entryptPassword(user);
-					user = userInfoDao.save(user);
-				}
-
-				UserOauthToken token2 = new UserOauthToken();
-				token2.setAccess_token(token);
-				token2.setUid(uid);
-				token2.setToken_type("weibo");
-				token2.setUser(user);
-				tokenDao.save(token2);
-				result = user;
+				
 
 				Connection infocon = HttpConnection.connect("https://api.weibo.com/2/users/show.json");
 				infocon.data("access_token", token);
@@ -184,8 +165,28 @@ public class UserOauthWeiboServiceImpl implements UserOauthWeiboService {
 				if (old==null) {
 					dao.save(weibo);
 				}
-				user.setName(weibo.getName());
-				user.setHeadimg(weibo.getAvatar_large());
+				
+				
+				String username = "weibo_" + uid;
+				UserInfo user = userInfoDao.findByName(username);
+				if (user == null) {
+					user = new UserInfo();
+					user.setUsername(username);
+					user.setPlainPassword("123456");
+					user.setRegisterType("weibo");
+					user.setName(weibo.getName());
+					user.setHeadimg(weibo.getAvatar_large());
+					entryptPassword(user);
+					user = userInfoDao.save(user);
+				}
+				UserOauthToken token2 = new UserOauthToken();
+				token2.setAccess_token(token);
+				token2.setUid(uid);
+				token2.setToken_type("weibo");
+				token2.setUser(user);
+				tokenDao.save(token2);
+				result = user;
+				
 			}
 
 		} catch (IOException e) {

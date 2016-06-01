@@ -9,13 +9,10 @@ import javax.persistence.Table;
 import com.ada.data.entity.AbstractEntity;
 
 @Entity
-@Table(name = "user_weixin")
+@Table(name = "user_oauth_info_weixin")
 public class UserWeiXin extends AbstractEntity {
 
 	
-	@ManyToOne
-	@JoinColumn(name="userid")
-	private UserInfo user;
 	
 	/**
 	 * accessToken
@@ -23,91 +20,96 @@ public class UserWeiXin extends AbstractEntity {
 	@Column(name = "access_token")
 	private String accessToken;
 	
-	public String getAccessToken() {
-		return accessToken;
-	}
-
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
-	}
-
-	private String openid;
-
-	@Column(name = "nickname")
-	private String nickName;
-
-	private String sex;
-
 	private String city;
-
-	private String province;
 
 	private String country;
 
 	private String headimgurl;
 
-	public String getOpenid() {
-		return openid;
-	}
+	@Column(name = "nickname")
+	private String nickName;
 
-	public void setOpenid(String openid) {
-		this.openid = openid;
-	}
+	private String openid;
 
-	public UserInfo getUser() {
-		return user;
-	}
+	private String province;
 
-	public void setUser(UserInfo user) {
-		this.user = user;
-	}
+	private String sex;
 
-	public String getNickName() {
-		return nickName;
-	}
+	/**
+	 * 用户统一标识。针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
+	 */
+	private String unionid;
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public String getAccessToken() {
+		return accessToken;
 	}
-
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
+	
 	public String getCity() {
 		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
 	}
 
 	public String getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 	public String getHeadimgurl() {
 		return headimgurl;
 	}
 
+	public String getNickName() {
+		return nickName;
+	}
+
+	public String getOpenid() {
+		return openid;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public String getUnionid() {
+		return unionid;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
 	public void setHeadimgurl(String headimgurl) {
 		this.headimgurl = headimgurl;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public void setUnionid(String unionid) {
+		this.unionid = unionid;
 	}
 	
 	
