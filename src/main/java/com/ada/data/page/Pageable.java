@@ -57,7 +57,15 @@ public class Pageable implements Serializable {
 
 	/** 排序 */
 	private List<Order> orders = new ArrayList<Order>();
+	private boolean cache=false;
 
+	public boolean isCache() {
+		return cache;
+	}
+
+	public void setCache(boolean cache) {
+		this.cache = cache;
+	}
 	/**
 	 * 初始化一个新创建的Pageable对象
 	 */

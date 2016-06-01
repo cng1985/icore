@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 public class LongEntity  implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	public Long getId() {

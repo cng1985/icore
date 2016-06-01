@@ -1,9 +1,9 @@
 package com.ada.article.resource.rests;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ada.article.dao.ArticleCommentDao;
 import com.ada.article.entity.ArticleComment;

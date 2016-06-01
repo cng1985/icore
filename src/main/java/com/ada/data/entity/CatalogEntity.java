@@ -20,7 +20,7 @@ import com.ada.common.hibernate.HibernateTree;
 public  abstract class CatalogEntity implements HibernateTree<Integer>, Serializable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	/**
