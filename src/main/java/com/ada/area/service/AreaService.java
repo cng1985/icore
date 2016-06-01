@@ -2,9 +2,12 @@ package com.ada.area.service;
 
 import java.util.List;
 
+import com.ada.admin.entity.Menu;
 import com.ada.area.entity.Area;
 import com.ada.area.page.AreaPage;
 import com.ada.data.core.Pagination;
+import com.ada.data.page.Filter;
+import com.ada.data.page.Order;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import com.openyelp.annotation.RestFul;
@@ -36,7 +39,8 @@ public interface AreaService {
 	public List<Area> findByHot(Integer id);
 
 	public Page<Area> findPage(Pageable pageable);
-	
+	public List<Area> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+
 	List<Area> findByPids();
 
 	public AreaPage pageByLevel(int level,int pageNo, int pageSize);

@@ -14,6 +14,10 @@ import com.ada.admin.service.MenuService;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.data.page.Filter;
+import com.ada.data.page.Order;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
 
 @Service
 @Transactional
@@ -115,5 +119,23 @@ public class MenuServiceImpl implements MenuService {
 			menus.addFirst(menu);
 		}
 		return menus;
+	}
+
+	@Override
+	public Page<Menu> findPage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return dao.findPage(pageable);
+	}
+
+	@Override
+	public long count(Filter... filters) {
+		// TODO Auto-generated method stub
+		return dao.count(filters);
+	}
+
+	@Override
+	public List<Menu> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
+		// TODO Auto-generated method stub
+		return dao.findList(first, count, filters, orders);
 	}
 }

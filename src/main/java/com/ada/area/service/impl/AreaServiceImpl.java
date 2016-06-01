@@ -15,6 +15,8 @@ import com.ada.area.service.AreaService;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
+import com.ada.data.page.Filter;
+import com.ada.data.page.Order;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 
@@ -210,6 +212,12 @@ public class AreaServiceImpl implements AreaService {
 		finder.setParam("state", state);
 		finder.append(" order by a.id desc ");
 		return new AreaPage(dao.find(finder, pageNo, pageSize));
+	}
+	@Transactional
+	@Override
+	public List<Area> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
+		// TODO Auto-generated method stub
+		return dao.findList(first, count, filters, orders);
 	}
 
 }
