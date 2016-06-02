@@ -9,7 +9,7 @@ import java.util.List;
  * @author 73552
  *
  */
-public class NamePage implements Serializable {
+public class NamePinYinPage implements Serializable {
 
 	private int code;
 
