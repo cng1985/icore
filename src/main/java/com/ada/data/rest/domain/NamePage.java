@@ -13,7 +13,7 @@ public class NamePage implements Serializable {
 
 	private int code;
 
-	private List<NamePinYinSimple> list;
+	private List<NameSimple> list;
 
 	public int getCode() {
 		return code;
@@ -23,11 +23,11 @@ public class NamePage implements Serializable {
 		this.code = code;
 	}
 
-	public List<NamePinYinSimple> getList() {
+	public List<NameSimple> getList() {
 		return list;
 	}
 
-	public void setList(List<NamePinYinSimple> list) {
+	public void setList(List<NameSimple> list) {
 		this.list = list;
 	}
 
