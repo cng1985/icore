@@ -48,58 +48,50 @@ public class UserNotification extends AbstractEntity {
 	private Integer category;
 
 	/**
+	 * 封面
+	 */
+	private String image;
+
+	private String introduction;
+
+	/**
 	 * 通知内容
 	 */
 	private String note;
 
+	
 	/**
 	 * 发送数量
 	 */
 	private Integer nums;
 
+	
 	/**
 	 * 通知标题
 	 */
 	private String title;
 
-	
-	private String introduction;
-
-	
-	public String getIntroduction() {
-		return introduction;
-	}
-
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
-	}
-
-
-	/**
-	 * 封面
-	 */
-	private String image;
-
-	
-	
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	public UserInfo getAuthor() {
 		return author;
 	}
+
 
 	public UserNotificationCatalog getCatalog() {
 		return catalog;
 	}
 
+	
+	
 	public Integer getCategory() {
 		return category;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public String getIntroduction() {
+		return introduction;
 	}
 
 	public String getNote() {
@@ -114,7 +106,6 @@ public class UserNotification extends AbstractEntity {
 		return title;
 	}
 
-
 	public void setAuthor(UserInfo author) {
 		this.author = author;
 	}
@@ -123,8 +114,17 @@ public class UserNotification extends AbstractEntity {
 		this.catalog = catalog;
 	}
 
+
 	public void setCategory(Integer category) {
 		this.category = category;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 
 	public void setNote(String note) {
