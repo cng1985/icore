@@ -59,7 +59,6 @@ public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDa
 		if (pageable == null) {
 			pageable = new Pageable();
 		}
-		
 		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
 			criteriaQuery.add(Restrictions.like(pageable.getSearchProperty(), "%" + pageable.getSearchValue() + "%"));
 		}
