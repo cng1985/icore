@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ada.data.core.CriteriaDaoImpl;
+import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.user.dao.UserVerificationDao;
 import com.ada.user.entity.UserVerification;
@@ -44,5 +45,16 @@ public class UserVerificationDaoImpl extends CriteriaDaoImpl<UserVerification, L
 	@Autowired
 	public void setSuperSessionFactory(SessionFactory sessionFactory){
 	    super.setSessionFactory(sessionFactory);
+	}
+
+	@Override
+	public UserVerification findByName(String phone, Integer catalog) {
+		
+		Finder finder=Finder.create();
+		finder.append("from UserVerification u where u.name =:name ");
+		finder.setParam("name", phone);
+		finder.append(" and u.catalog =:catalog ");
+		finder.setParam("catalog", catalog);
+		return findOne(finder);
 	}
 }

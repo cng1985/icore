@@ -25,10 +25,12 @@ public class UserVerification extends AbstractEntity {
 	/**
 	 * 用户
 	 */
-	private String  name;
+	private String name;
 
+	/**
+	 * 分类
+	 */
 	private Integer catalog;
-	
 
 	public String getCode() {
 		return code;
@@ -37,7 +39,6 @@ public class UserVerification extends AbstractEntity {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
 
 	public Integer getCatalog() {
 		return catalog;
