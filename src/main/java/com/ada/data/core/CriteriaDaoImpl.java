@@ -59,7 +59,12 @@ public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDa
 		if (pageable == null) {
 			pageable = new Pageable();
 		}
-		Long total = count(createCriteria(), pageable.getFilters());
+		
+		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
+			criteriaQuery.add(Restrictions.like(pageable.getSearchProperty(), "%" + pageable.getSearchValue() + "%"));
+		}
+		
+		Long total = count(criteriaQuery, pageable.getFilters());
 		if (total==null) {
 			total=0l;
 		}
@@ -67,9 +72,7 @@ public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDa
 		if (totalPages < pageable.getPageNumber()) {
 			pageable.setPageNumber(totalPages);
 		}
-		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
-			criteriaQuery.add(Restrictions.like(pageable.getSearchProperty(), "%" + pageable.getSearchValue() + "%"));
-		}
+		
 		addRestrictions(criteriaQuery, pageable.getFilters());
 		addOrders(criteriaQuery, pageable);
 		criteriaQuery.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
