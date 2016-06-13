@@ -23,7 +23,7 @@ public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDa
 		implements CriteriaDao<T, ID> {
 
 	public Page<T> findPage(Pageable pageable) {
-		
+
 		Criteria criteriaBuilder = createCriteria();
 		return findPage(criteriaBuilder, pageable);
 	}
@@ -59,20 +59,26 @@ public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDa
 		if (pageable == null) {
 			pageable = new Pageable();
 		}
+
+		Criteria countQuery = createCriteria();
+		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
+			countQuery.add(Restrictions.like(pageable.getSearchProperty(), "%" + pageable.getSearchValue() + "%"));
+		}
+
+		Long total = count(countQuery, pageable.getFilters());
+		if (total == null) {
+			total = 0l;
+		}
+
 		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
 			criteriaQuery.add(Restrictions.like(pageable.getSearchProperty(), "%" + pageable.getSearchValue() + "%"));
 		}
 		addRestrictions(criteriaQuery, pageable.getFilters());
-
-		Long total = count(criteriaQuery, pageable.getFilters());
-		if (total==null) {
-			total=0l;
-		}
 		int totalPages = (int) Math.ceil((double) total / (double) pageable.getPageSize());
 		if (totalPages < pageable.getPageNumber()) {
 			pageable.setPageNumber(totalPages);
 		}
-		
+
 		addOrders(criteriaQuery, pageable);
 		criteriaQuery.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
 		criteriaQuery.setMaxResults(pageable.getPageSize());
@@ -116,7 +122,7 @@ public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDa
 		if (criteriaQuery == null || filters == null || filters.isEmpty()) {
 			return;
 		}
-		
+
 		for (Filter filter : filters) {
 			if (filter == null || StringUtils.isEmpty(filter.getProperty())) {
 				continue;
