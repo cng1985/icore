@@ -33,6 +33,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import com.ada.data.entity.AbstractEntity;
 
@@ -106,6 +107,7 @@ public class UserInfo extends AbstractEntity {
 
 	private String salt; // 加密密码的盐
 
+	@NotNull(message = "用户名不为空")
 	private String username;
 
 	public Map<String, String> getAttributes() {
