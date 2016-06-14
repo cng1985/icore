@@ -25,6 +25,14 @@ import javax.persistence.Table;
 
 import com.ada.data.entity.AbstractEntity;
 
+
+
+/**
+ * 用户通知
+ * 
+ * @author ada
+ *
+ */
 @Entity
 @Table(name = "user_notification")
 public class UserNotification extends AbstractEntity {
@@ -59,29 +67,76 @@ public class UserNotification extends AbstractEntity {
 	 */
 	private String note;
 
-	
 	/**
 	 * 发送数量
 	 */
 	private Integer nums;
 
-	
 	/**
 	 * 通知标题
 	 */
 	private String title;
 
+	/**
+	 * 点击次数
+	 */
+	private Integer clicks;
+
+	/**
+	 * 跳转url
+	 */
+	private String url;
+
+	/**
+	 * 是否置顶 1为置顶 0为非置顶
+	 */
+	private Integer top;
+
+	/**
+	 * 分类1置顶2推荐3跳转
+	 */
+	private Integer taxonomy;
+
+	public Integer getClicks() {
+		return clicks;
+	}
+
+	public void setClicks(Integer clicks) {
+		this.clicks = clicks;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Integer getTop() {
+		return top;
+	}
+
+	public void setTop(Integer top) {
+		this.top = top;
+	}
+
+	public Integer getTaxonomy() {
+		return taxonomy;
+	}
+
+	public void setTaxonomy(Integer taxonomy) {
+		this.taxonomy = taxonomy;
+	}
+
 	public UserInfo getAuthor() {
 		return author;
 	}
-
 
 	public UserNotificationCatalog getCatalog() {
 		return catalog;
 	}
 
-	
-	
 	public Integer getCategory() {
 		return category;
 	}
@@ -113,7 +168,6 @@ public class UserNotification extends AbstractEntity {
 	public void setCatalog(UserNotificationCatalog catalog) {
 		this.catalog = catalog;
 	}
-
 
 	public void setCategory(Integer category) {
 		this.category = category;
