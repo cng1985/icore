@@ -36,6 +36,12 @@ import javax.persistence.Transient;
 
 import com.ada.data.entity.AbstractEntity;
 
+/**
+ * 用户
+ * 
+ * @author ada
+ *
+ */
 @Entity
 @Table(name = "user_info")
 public class UserInfo extends AbstractEntity {
@@ -46,35 +52,29 @@ public class UserInfo extends AbstractEntity {
 		return result;
 	}
 
-
-	
-	private String username;
-	private String phone;
+	/** 属性 */
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "user_attribute")
+	@MapKeyColumn(name = "name", length = 100)
+	private Map<String, String> attributes = new HashMap<String, String>();
 	/**
-	 * 注册
+	 * 用户类型
 	 */
-	private String registerType="账号";
+	private Integer catalog;
 
-	public String getRegisterType() {
-		return registerType;
-	}
-
-	public void setRegisterType(String registerType) {
-		this.registerType = registerType;
-	}
-
-
-
-	private String name;
-	/**
-	 * 朋友数量
-	 */
-	private Integer friends;
 	/**
 	 * 点评数量
 	 */
 	private Integer comments;
-	
+
+	@Column(nullable = true)
+	private String email;
+
+	/**
+	 * 朋友数量
+	 */
+	private Integer friends;
+
 	/**
 	 * 精英点评数量
 	 */
@@ -82,176 +82,178 @@ public class UserInfo extends AbstractEntity {
 
 	private String headimg;
 
+	private Integer logintimes;
+
+	private String macaddress;
+	private String name;
+	private String password;
+
+	private String phone;
 
 	private String phonenum;
 
+	@Transient
+	private String plainPassword;
 
-	@Column(nullable=true)
-	private String email;
-
-
-	private String password;
-
-
-	private String macaddress;
-
-
-	private Integer logintimes;
-
+	/**
+	 * 注册
+	 */
+	private String registerType = "账号";
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role_links")
 	private Set<UserRole> roles = new HashSet<UserRole>();
 
-
-
 	private String salt; // 加密密码的盐
-	@Transient
-	private String plainPassword;
 
-	/** 属性 */
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "user_attribute")
-	@MapKeyColumn(name = "name", length = 100)
-	private Map<String, String> attributes = new HashMap<String, String>();
+	private String username;
 
-	public String getUsername() {
-		return username;
+	public Map<String, String> getAttributes() {
+		return attributes;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Integer getFriends() {
-		return friends;
-	}
-
-	public void setFriends(Integer friends) {
-		this.friends = friends;
+	public Integer getCatalog() {
+		return catalog;
 	}
 
 	public Integer getComments() {
 		return comments;
 	}
 
-	public void setComments(Integer comments) {
-		this.comments = comments;
-	}
-
-	public Integer getGoods() {
-		return goods;
-	}
-
-	public void setGoods(Integer goods) {
-		this.goods = goods;
-	}
-
-	public String getHeadimg() {
-		return headimg;
-	}
-
-	public void setHeadimg(String headimg) {
-		this.headimg = headimg;
-	}
-
-	public String getPhonenum() {
-		return phonenum;
-	}
-
-	public void setPhonenum(String phonenum) {
-		this.phonenum = phonenum;
+	public String getCredentialsSalt() {
+		return username + salt;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public Integer getFriends() {
+		return friends;
 	}
 
-	public String getPassword() {
-		return password;
+	public Integer getGoods() {
+		return goods;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getMacaddress() {
-		return macaddress;
-	}
-
-	public void setMacaddress(String macaddress) {
-		this.macaddress = macaddress;
+	public String getHeadimg() {
+		return headimg;
 	}
 
 	public Integer getLogintimes() {
 		return logintimes;
 	}
 
-	public void setLogintimes(Integer logintimes) {
-		this.logintimes = logintimes;
+	public String getMacaddress() {
+		return macaddress;
 	}
 
-	public Set<UserRole> getRoles() {
-		return roles;
+	public String getName() {
+		return name;
 	}
 
-	public void setRoles(Set<UserRole> roles) {
-		this.roles = roles;
-	}
-
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-
-	public String getPlainPassword() {
-		return plainPassword;
-	}
-
-	public void setPlainPassword(String plainPassword) {
-		this.plainPassword = plainPassword;
-	}
-
-	public Map<String, String> getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Map<String, String> attributes) {
-		this.attributes = attributes;
+	public String getPassword() {
+		return password;
 	}
 
 	public String getPhone() {
 		return phone;
 	}
 
+	public String getPhonenum() {
+		return phonenum;
+	}
+
+	public String getPlainPassword() {
+		return plainPassword;
+	}
+
+	public String getRegisterType() {
+		return registerType;
+	}
+
+	public Set<UserRole> getRoles() {
+		return roles;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setAttributes(Map<String, String> attributes) {
+		this.attributes = attributes;
+	}
+
+	public void setCatalog(Integer catalog) {
+		this.catalog = catalog;
+	}
+
+	public void setComments(Integer comments) {
+		this.comments = comments;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setFriends(Integer friends) {
+		this.friends = friends;
+	}
+
+	public void setGoods(Integer goods) {
+		this.goods = goods;
+	}
+
+	public void setHeadimg(String headimg) {
+		this.headimg = headimg;
+	}
+
+	public void setLogintimes(Integer logintimes) {
+		this.logintimes = logintimes;
+	}
+
+	public void setMacaddress(String macaddress) {
+		this.macaddress = macaddress;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	
-	public String getCredentialsSalt() {
-		return username + salt;
+	public void setPhonenum(String phonenum) {
+		this.phonenum = phonenum;
 	}
 
+	public void setPlainPassword(String plainPassword) {
+		this.plainPassword = plainPassword;
+	}
 
+	public void setRegisterType(String registerType) {
+		this.registerType = registerType;
+	}
 
+	public void setRoles(Set<UserRole> roles) {
+		this.roles = roles;
+	}
 
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 
-	
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 }
