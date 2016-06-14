@@ -37,8 +37,6 @@ public class UserFeedBack extends AbstractEntity {
 	 */
 	@Column(length = 5000)
 	private String exts;
-	
-	
 
 	/**
 	 * 反馈系统中的用户
@@ -66,6 +64,36 @@ public class UserFeedBack extends AbstractEntity {
 	 * 反馈人邮箱
 	 */
 	private String email;
+
+	/**
+	 * 处理状态 0为未处理 1为处理
+	 * 
+	 */
+	private Integer state;
+
+	/**
+	 * 反馈内容
+	 * 
+	 */
+	private String feedContent;
+
+	
+	
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public String getFeedContent() {
+		return feedContent;
+	}
+
+	public void setFeedContent(String feedContent) {
+		this.feedContent = feedContent;
+	}
 
 	public String getName() {
 		return name;
