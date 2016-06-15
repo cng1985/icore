@@ -1,0 +1,66 @@
+[#macro menu item ids]
+      [@shiro.hasRole "sadmin"]
+               111
+               [#if item.childrens??]
+			           
+							<li class="[@menuopentag ids=ids id=item.id][/@menuopentag]">
+								<a href="" class="dropdown-toggle"> 
+									<i class="${item.icon!'icon-dashboard'}"></i> 
+									<span class="menu-text"> ${item.name!""} </span>
+									 <b class="arrow fa fa-angle-down"></b>
+							   </a>
+					
+								<ul class="submenu">
+									[#list item.childrens as item]
+								     [@menu item ids]
+								     [/@menu]
+								     [/#list]
+								</ul>
+							</li>
+			        [#else]
+			            
+				      		<li class="[@menuopentag ids=ids id=item.id][/@menuopentag]">
+								<a href="${siteurl}${item.path!'#'}"> 
+								<i class="${item.icon!'icon-dashboard'}"></i> 
+								<span class="menu-text"> ${item.name!""} </span>
+								</a>
+							</li>
+					  
+						
+					[/#if]
+      [/@shiro.hasRole]
+     
+       [@shiro.lacksRole roleName="sadmin"]
+	      [@shiro.hasPermission name=item.name]
+			     [#if item.childrens??]
+			           
+							<li class="[@menuopentag ids=ids id=item.id][/@menuopentag]">
+								<a href="" class="dropdown-toggle"> 
+									<i class="${item.icon!'icon-dashboard'}"></i> 
+									<span class="menu-text"> ${item.name!""} </span>
+									 <b class="arrow fa fa-angle-down"></b>
+							   </a>
+					
+								<ul class="submenu">
+									[#list item.childrens as item]
+								     [@menu item ids]
+								     [/@menu]
+								     [/#list]
+								</ul>
+							</li>
+			        [#else]
+			            
+				      		<li class="[@menuopentag ids=ids id=item.id][/@menuopentag]">
+								<a href="${siteurl}${item.path!'#'}"> 
+								<i class="${item.icon!'icon-dashboard'}"></i> 
+								<span class="menu-text"> ${item.name!""} </span>
+								</a>
+							</li>
+					  
+						
+					[/#if]
+			 [/@shiro.hasPermission]
+		 [/@shiro.lacksRole]
+ 
+[/#macro]
+
