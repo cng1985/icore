@@ -39,25 +39,31 @@ import com.ada.data.entity.AbstractEntity;
 public class UserRole extends AbstractEntity {
 
 	/**
-	 * 角色名
+	 * 别名
 	 */
-	@Basic(optional = false)
-	@Column(length = 100)
-	private String name;
+	private String alias;
+
+	/** 权限 */
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "user_role_authority")
+	private List<String> authorities = new ArrayList<String>();
+	
+	
 	/**
 	 * 角色描述
 	 */
 	@Column(length = 255)
 	private String description;
-	
+
 	/** 是否内置 */
 	private Boolean isSystem;
 
-
-	/** 权限 */
-	@ElementCollection(fetch=FetchType.LAZY)
-	@CollectionTable(name = "user_role_authority")
-	private List<String> authorities = new ArrayList<String>();
+	/**
+	 * 角色名
+	 */
+	@Basic(optional = false)
+	@Column(length = 100)
+	private String name;
 
 	public UserRole() {
 	}
@@ -66,40 +72,44 @@ public class UserRole extends AbstractEntity {
 		this.name = name;
 	}
 
-	public Boolean getIsSystem() {
-		return isSystem;
-	}
-
-	public void setIsSystem(Boolean isSystem) {
-		this.isSystem = isSystem;
+	public String getAlias() {
+		return alias;
 	}
 
 	public List<String> getAuthorities() {
 		return authorities;
 	}
 
-	public void setAuthorities(List<String> authorities) {
-		this.authorities = authorities;
+	public String getDescription() {
+		return description;
 	}
 
-
+	public Boolean getIsSystem() {
+		return isSystem;
+	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
-
-	public String getDescription() {
-		return description;
+	public void setAuthorities(List<String> authorities) {
+		this.authorities = authorities;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	public void setIsSystem(Boolean isSystem) {
+		this.isSystem = isSystem;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }

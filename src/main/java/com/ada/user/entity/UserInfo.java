@@ -34,6 +34,7 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.ada.data.entity.AbstractEntity;
 
@@ -108,6 +109,7 @@ public class UserInfo extends AbstractEntity {
 	private String salt; // 加密密码的盐
 
 	@NotNull(message = "用户名不为空")
+	@Size(min=3,message="用户名长度在3到20之间")
 	private String username;
 
 	public Map<String, String> getAttributes() {
