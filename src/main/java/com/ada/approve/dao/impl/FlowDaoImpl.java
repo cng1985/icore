@@ -1,5 +1,8 @@
 package com.ada.approve.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +11,10 @@ import org.springframework.stereotype.Repository;
 import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
+import com.ada.data.page.Filter;
 import com.ada.approve.dao.FlowDao;
 import com.ada.approve.entity.Flow;
+import com.ada.approve.entity.Task;
 
 @Repository
 public class FlowDaoImpl extends CriteriaDaoImpl<Flow, Long> implements FlowDao {
@@ -55,5 +60,21 @@ public class FlowDaoImpl extends CriteriaDaoImpl<Flow, Long> implements FlowDao 
 		finder.append("  and f.catalog =:catalog");
 		finder.setParam("catalog", catalog);
 		return findOne(finder);
+	}
+
+	@Override
+	public int deleteForCatalog(Long oid, Integer catalog) {
+		int result = 0;
+		List<Filter> filters = new ArrayList<Filter>();
+		filters.add(Filter.eq("oid", oid));
+		filters.add(Filter.eq("catalog", catalog));
+		List<Flow> tasks = findList(0, 1000, filters, null);
+		if (tasks != null && tasks.size() > 0) {
+			result = tasks.size();
+			for (Flow task : tasks) {
+				delete(task);
+			}
+		}
+		return result;
 	}
 }

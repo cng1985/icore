@@ -14,6 +14,7 @@ import com.ada.approve.dao.TaskDao;
 import com.ada.approve.entity.Task;
 import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Pagination;
+import com.ada.data.page.Filter;
 
 @Repository
 public class TaskDaoImpl extends CriteriaDaoImpl<Task, Long> implements TaskDao {
@@ -67,5 +68,21 @@ public class TaskDaoImpl extends CriteriaDaoImpl<Task, Long> implements TaskDao 
 		}
 		return result;
 
+	}
+
+	@Override
+	public int deleteForCatalog(Long oid, Integer catalog) {
+        int result=0;
+		List<Filter> filters = new ArrayList<Filter>();
+		filters.add(Filter.eq("oid", oid));
+		filters.add(Filter.eq("catalog", catalog));
+		List<Task> tasks = findList(0, 1000, filters, null);
+		if (tasks!=null&&tasks.size()>0) {
+			result=tasks.size();
+			for (Task task : tasks) {
+				delete(task);
+			}
+		}
+		return result;
 	}
 }

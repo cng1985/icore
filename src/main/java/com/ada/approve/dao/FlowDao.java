@@ -13,6 +13,7 @@ public interface FlowDao extends CriteriaDao<Flow, Long>{
 	
 	public Flow findByOId(Integer catalog,Long id);
 
+	public int deleteForCatalog(Long oid,Integer catalog);
 
 	public Flow save(Flow bean);
 

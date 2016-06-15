@@ -16,6 +16,9 @@ public interface TaskDao extends CriteriaDao<Task, Long>{
 	public Task findById(Long id);
 
 	public Task save(Task bean);
+	
+	public int deleteForCatalog(Long oid,Integer catalog);
+
 
 	public Task updateByUpdater(Updater<Task> updater);
 
