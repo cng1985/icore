@@ -11,12 +11,22 @@ import javax.persistence.Table;
 
 import com.ada.data.entity.CatalogEntity;
 
+/**
+ * 菜单实体
+ * 
+ * @author ada
+ *
+ */
+
 @Entity
 @Table(name = "menu")
 public class Menu extends CatalogEntity {
 
+	/**
+	 * 父分类
+	 */
 	@JoinColumn(name = "pid")
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Menu parent;
 
 	/**
@@ -29,6 +39,9 @@ public class Menu extends CatalogEntity {
 	 */
 	private String path;
 
+	/**
+	 * 子菜单
+	 */
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
 	private List<Menu> childrens;
 
