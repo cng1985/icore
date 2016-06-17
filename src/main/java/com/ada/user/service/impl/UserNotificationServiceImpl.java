@@ -11,6 +11,7 @@ import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
+import com.ada.user.dao.UserInfoDao;
 import com.ada.user.dao.UserNotificationDao;
 import com.ada.user.dao.UserNotificationMemberDao;
 import com.ada.user.entity.UserInfo;
@@ -27,7 +28,8 @@ public class UserNotificationServiceImpl implements UserNotificationService {
 	@Autowired
 	private UserNotificationMemberDao userNotificationMemberDao;
 	
-
+	@Autowired
+	private UserInfoDao userInfoDao;
 	
 	@Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
@@ -117,7 +119,7 @@ public class UserNotificationServiceImpl implements UserNotificationService {
 				UserNotificationMember nm = new UserNotificationMember();
 				nm.setNotification(bean);
 				nm.setUser(userInfo);
-				nm.setState(1);
+				nm.setState(0);
 				userNotificationMemberDao.save(nm);
 			}
 			bean.setNums(users.size());
@@ -135,7 +137,7 @@ public class UserNotificationServiceImpl implements UserNotificationService {
 				UserNotificationMember nm = new UserNotificationMember();
 				nm.setNotification(bean);
 				nm.setUser(userInfo);
-				nm.setState(1);
+				nm.setState(0);
 				userNotificationMemberDao.save(nm);
 			}
 			bean.setNums(users.size());
@@ -147,5 +149,34 @@ public class UserNotificationServiceImpl implements UserNotificationService {
 	@Override
 	public Page<UserNotification> findPage(Pageable pageable) {
 		 return dao.findPage(pageable);
+	}
+
+	@Override
+	public UserNotification notice(UserNotification bean) {
+		UserNotification result=	dao.save(bean);
+
+		return result;
+	}
+
+	@Transactional
+	@Override
+	public UserNotification noticeAll(UserNotification bean) {
+		
+		
+		
+		UserNotification result=	dao.save(bean);
+		Finder finder=Finder.create("from UserInfo u");
+		List<UserInfo> us=	userInfoDao.find(finder);
+		if (us!=null) {
+			for (UserInfo userInfo : us) {
+				UserNotificationMember nm = new UserNotificationMember();
+				nm.setNotification(bean);
+				nm.setUser(userInfo);
+				nm.setState(0);
+				userNotificationMemberDao.save(nm);
+			}
+		}
+		
+		return result;
 	}
 }

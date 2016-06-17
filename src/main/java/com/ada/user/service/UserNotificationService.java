@@ -18,6 +18,11 @@ public interface UserNotificationService {
 
 	public UserNotification save(UserNotification bean);
 	
+	public UserNotification notice(UserNotification bean);
+
+	public UserNotification noticeAll(UserNotification bean);
+
+	
 	public UserNotification send(UserNotification bean,List<UserInfo> users);
 
 	public UserNotification send(Long nid,List<UserInfo> users);
