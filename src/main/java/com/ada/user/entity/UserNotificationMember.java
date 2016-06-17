@@ -20,7 +20,7 @@ public class UserNotificationMember extends AbstractEntity {
 	private UserInfo user;
 
 	/**
-	 * 阅读状态 0为已读 1为未读
+	 * 阅读状态 1为已读0为未读
 	 */
 	private Integer state;
 

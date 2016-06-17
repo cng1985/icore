@@ -18,12 +18,25 @@ public class UserNotificationCatalog extends CatalogEntity {
 	@JoinColumn(name = "pid")
 	private UserNotificationCatalog parent;
 
+	/**
+	 * 这个分类通知图标
+	 */
+	private String icon;
+
 	public UserNotificationCatalog getParent() {
 		return parent;
 	}
 
 	public void setParent(UserNotificationCatalog parent) {
 		this.parent = parent;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	@Override
