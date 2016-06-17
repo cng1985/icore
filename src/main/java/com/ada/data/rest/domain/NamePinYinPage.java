@@ -1,6 +1,5 @@
 package com.ada.data.rest.domain;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,19 +8,10 @@ import java.util.List;
  * @author 73552
  *
  */
-public class NamePinYinPage implements Serializable {
+public class NamePinYinPage  extends AbstractVo {
 
-	private int code;
 
 	private List<NamePinYinSimple> list;
-
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
 
 	public List<NamePinYinSimple> getList() {
 		return list;

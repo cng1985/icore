@@ -1,6 +1,5 @@
 package com.ada.data.rest.domain;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,19 +8,11 @@ import java.util.List;
  * @author 73552
  *
  */
-public class NameIntPage implements Serializable {
+public class NameIntPage extends AbstractVo {
 
-	private int code;
 
 	private List<NameIntSimple> list;
 
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
 
 	public List<NameIntSimple> getList() {
 		return list;
