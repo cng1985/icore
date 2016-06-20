@@ -8,4 +8,8 @@ public interface NoticePushApi {
 
 	int pushjodd(String templateid, Map<String, String> keys, Map<String, String> pushkeys, String... channels);
 
+	
+	int pushToTag(String templateid, Map<String, String> keys, Map<String, String> pushkeys, String... tags);
+
+	
 }
