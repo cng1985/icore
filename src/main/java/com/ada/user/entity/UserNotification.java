@@ -96,6 +96,21 @@ public class UserNotification extends AbstractEntity {
 	 * 分类1置顶2推荐3跳转
 	 */
 	private Integer taxonomy;
+	
+	/**
+	 * 1为小图  2为大图
+	 */
+	private Integer imageType;
+	
+	
+
+	public Integer getImageType() {
+		return imageType;
+	}
+
+	public void setImageType(Integer imageType) {
+		this.imageType = imageType;
+	}
 
 	public Integer getClicks() {
 		return clicks;
