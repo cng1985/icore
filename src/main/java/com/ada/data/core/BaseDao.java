@@ -32,4 +32,10 @@ public interface BaseDao<T , ID extends Serializable> {
 	public int countQuerySqlResult(Finder finder);
 	
 	public  <X> X hql(Finder finder);
+	/**
+	 * hibernate 转换成sql
+	 * @param hql
+	 * @return
+	 */
+	public String transHqlToSql(String hql);
 }

@@ -2,6 +2,7 @@ package com.ada.data.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -13,7 +14,9 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.hql.internal.ast.QueryTranslatorImpl;
 import org.hibernate.internal.CriteriaImpl;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.transform.ResultTransformer;
 import org.hibernate.transform.Transformers;
@@ -470,5 +473,23 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 		X result=(X)o;
 		return result;
 	}
-
+	public String transHqlToSql(String hql) {
+		// 当hql为null或空时,直接返回null
+		if (hql == null || hql.equals("")) {
+			return null;
+		}
+		// 获取当前session
+		Session session = getSession();
+		// 得到session工厂实现类
+		SessionFactoryImpl sfi = (SessionFactoryImpl) session
+				.getSessionFactory();
+		// 得到Query转换器实现类
+		QueryTranslatorImpl queryTranslator = new QueryTranslatorImpl(hql, hql,
+				Collections.EMPTY_MAP, sfi);
+		queryTranslator.compile(Collections.EMPTY_MAP, false);
+		// 得到sql
+		String sql = queryTranslator.getSQLString();
+		// 关闭session
+		return sql;
+	}
 }
