@@ -30,16 +30,21 @@ public class RolesAuthorizationFilter extends AuthorizationFilter {
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
 			throws Exception {
+		Subject subject = getSubject(request, response);
+		
 		List<UserRole> rols = roleService.findList(0, 100, null, null);
 		if (rols != null) {
 			for (UserRole userRole : rols) {
-				logger.info("系统角色:"+userRole.getName());
+				if (subject.hasRole(userRole.getName())) {
+					logger.info("拥有角色:{}",userRole.getName());
+					return true;
+				}
 			}
 
 		}
 		
 		logger.info("进入单个角色判断过滤器");
-		Subject subject = getSubject(request, response);
+		
 		String[] rolesArray = (String[]) mappedValue;
 
 		if (rolesArray == null || rolesArray.length == 0) {

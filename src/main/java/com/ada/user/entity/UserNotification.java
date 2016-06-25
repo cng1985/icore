@@ -105,6 +105,10 @@ public class UserNotification extends AbstractEntity {
 	
 
 	public Integer getImageType() {
+		if (imageType==null) {
+			return 1;
+		}
+		
 		return imageType;
 	}
 

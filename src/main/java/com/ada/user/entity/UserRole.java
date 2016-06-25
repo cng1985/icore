@@ -47,8 +47,7 @@ public class UserRole extends AbstractEntity {
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "user_role_authority")
 	private List<String> authorities = new ArrayList<String>();
-	
-	
+
 	/**
 	 * 角色描述
 	 */
@@ -65,7 +64,20 @@ public class UserRole extends AbstractEntity {
 	@Column(length = 100)
 	private String name;
 
+	/**
+	 * 角色分类 1后台角色 2为普通角色
+	 */
+	private Integer catalog;
+
 	public UserRole() {
+	}
+
+	public Integer getCatalog() {
+		return catalog;
+	}
+
+	public void setCatalog(Integer catalog) {
+		this.catalog = catalog;
 	}
 
 	public UserRole(String name) {
