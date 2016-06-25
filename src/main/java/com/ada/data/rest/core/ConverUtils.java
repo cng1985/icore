@@ -1,6 +1,7 @@
 package com.ada.data.rest.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.ada.data.core.Pagination;
@@ -53,5 +54,15 @@ public class ConverUtils {
 		return vos;
 	}
 
+	
+	public static <R, S> List<R> coverCollect(Collection<S> source, Conver<R, S> conver) {
+		List<R> vos = new ArrayList<R>();
+		if (source != null) {
+			for (S item : source) {
+				vos.add(conver.conver(item));
+			}
+		}
+		return vos;
+	}
 
 }
