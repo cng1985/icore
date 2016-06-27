@@ -23,7 +23,7 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
-public class MenusDirective implements TemplateDirectiveModel {
+public class MenuChildsDirective implements TemplateDirectiveModel {
 
 	@Override
 	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
@@ -33,19 +33,11 @@ public class MenusDirective implements TemplateDirectiveModel {
 		Integer id = DirectiveUtils.getInt("id", params);
 		Integer size = DirectiveUtils.getInt("size", params);
 
-		List<Menu> page = menuService.findChild(id);
+		List<Menu> menus = menuService.findChild(id);
 
-		List<Menu> menus = new ArrayList<Menu>();
-		for (Menu menu : page) {
-
-//			boolean ok = SecurityUtils.getSubject().isPermitted(menu.getName());
-//			if (ok) {
-//				menus.add(menu);
-//			}
-		}
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(params);
-		paramWrap.put("list", ObjectWrapper.BEANS_WRAPPER.wrap(page));
+		paramWrap.put("list", ObjectWrapper.BEANS_WRAPPER.wrap(menus));
 		Map<String, TemplateModel> origMap = DirectiveUtils.addParamsToVariable(env, paramWrap);
 		if (body != null) {
 			body.render(env.getOut());
