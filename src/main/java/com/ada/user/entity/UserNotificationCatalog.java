@@ -19,6 +19,11 @@ public class UserNotificationCatalog extends CatalogEntity {
 	private UserNotificationCatalog parent;
 
 	/**
+	 * 是否是系统分类 0不是 1是
+	 */
+	private Integer system;
+
+	/**
 	 * 这个分类通知图标
 	 */
 	private String icon;
@@ -46,6 +51,14 @@ public class UserNotificationCatalog extends CatalogEntity {
 		} else {
 			return null;
 		}
+	}
+
+	public Integer getSystem() {
+		return system;
+	}
+
+	public void setSystem(Integer system) {
+		this.system = system;
 	}
 
 }
