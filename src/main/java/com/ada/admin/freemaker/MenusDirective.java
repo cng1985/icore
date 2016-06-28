@@ -45,7 +45,7 @@ public class MenusDirective implements TemplateDirectiveModel {
 		}
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(params);
-		paramWrap.put("list", ObjectWrapper.BEANS_WRAPPER.wrap(page));
+		paramWrap.put("list", ObjectWrapper.DEFAULT_WRAPPER.wrap(page));
 		Map<String, TemplateModel> origMap = DirectiveUtils.addParamsToVariable(env, paramWrap);
 		if (body != null) {
 			body.render(env.getOut());
