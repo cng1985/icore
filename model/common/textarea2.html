@@ -1,0 +1,25 @@
+[#macro textarea name text class]
+ <script class="${class}" id="${name!''}" name="${name}" type="text/plain">
+ ${text!""}
+ </script>
+[/#macro]
+
+[#macro textareascript name]
+<script type="text/javascript">
+var ue${name} = UE.getEditor('${name}');
+</script>
+[/#macro]
+
+[#macro textareajquery name]
+var ue${name} = UE.getEditor('${name}');
+[/#macro]
+
+
+[#macro text name text class]
+ <script class="${class}" id="${name!''}" name="${name}" type="text/plain">
+ ${text!""}
+ </script>
+ <script type="text/javascript">
+var ue${name} = UE.getEditor('${name}');
+</script>
+[/#macro]
