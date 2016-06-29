@@ -33,7 +33,7 @@ public class MenuChildsDirective implements TemplateDirectiveModel {
 		Integer id = DirectiveUtils.getInt("id", params);
 		Integer size = DirectiveUtils.getInt("size", params);
 
-		List<Menu> menus = menuService.findChild(id);
+		List<Menu> menus = menuService.childs(id);
 
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(params);

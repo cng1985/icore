@@ -96,8 +96,7 @@ public class MenuServiceImpl implements MenuService {
 		this.dao = dao;
 	}
 
-	
-	@Cacheable(value="menucache")// 缓存名叫 accountCache   
+	@Cacheable(value = "menucache") // 缓存名叫 accountCache
 	@Transactional(readOnly = true)
 	@Override
 	public List<Menu> findChild(int id) {
@@ -144,10 +143,17 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public List<Menu> childs(int id) {
-		Finder finder = Finder.create("from Menu t where t.parent.id=" + id);
-		finder.append(" order by t.sortnum asc");
-		finder.setCacheable(true);
-		List ms = dao.find(finder);
+		List ms = null;
+		Menu menu = dao.findById(id);
+		if (menu != null) {
+			Finder finder = Finder.create("from Menu t where t.lft >=:lft and t.rgt<=:rgt ");
+			finder.append(" order by t.sortnum asc");
+			finder.setParam("lft", menu.getLft());
+			finder.setParam("rgt", menu.getRgt());
+			finder.setCacheable(false);
+			ms = dao.find(finder);
+		}
+
 		return ms;
 	}
 }

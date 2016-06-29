@@ -104,9 +104,7 @@ public class UserInfo extends AbstractEntity {
 	private String registerType = "账号";
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role_links",joinColumns = {
-			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "role_id", referencedColumnName = "id") })
+	@JoinTable(name = "user_role_links")
 	private Set<UserRole> roles = new HashSet<UserRole>();
 
 	private String salt; // 加密密码的盐
