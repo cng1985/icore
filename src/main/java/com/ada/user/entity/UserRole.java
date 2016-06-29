@@ -46,7 +46,7 @@ public class UserRole extends AbstractEntity {
 
 	/** 权限 */
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "user_role_authority")
+	@CollectionTable(name = "user_role_authority",joinColumns=@JoinColumn(name = "role_id"))
 	private List<String> authorities = new ArrayList<String>();
 
 	/**
