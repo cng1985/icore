@@ -2,6 +2,8 @@ package com.ada.common.hibernate;
 
 import java.io.Serializable;
 
+import javax.persistence.FlushModeType;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.FlushMode;
@@ -53,7 +55,7 @@ public class TreeIntercptor extends EmptyInterceptor implements
 			Number parentId = tree.getParentId();
 			String beanName = tree.getClass().getName();
 			Session session = getSession();
-			FlushMode model = session.getFlushMode();
+			FlushModeType model = session.getFlushMode();
 			session.setFlushMode(FlushMode.MANUAL);
 			Integer myPosition;
 			if (parentId != null) {
@@ -144,7 +146,7 @@ public class TreeIntercptor extends EmptyInterceptor implements
 		}
 		Session session = getSession();
 		// 保存刷新模式，并设置成手动刷新
-		FlushMode model = session.getFlushMode();
+		FlushModeType model = session.getFlushMode();
 		session.setFlushMode(FlushMode.MANUAL);
 		// 先空出位置。当前父节点存在时，才需要空出位置。
 		Integer currParentRgt;
@@ -260,7 +262,7 @@ public class TreeIntercptor extends EmptyInterceptor implements
 			HibernateTree<?> tree = (HibernateTree<?>) entity;
 			String beanName = tree.getClass().getName();
 			Session session = getSession();
-			FlushMode model = session.getFlushMode();
+			FlushModeType model = session.getFlushMode();
 			session.setFlushMode(FlushMode.MANUAL);
 			String hql = "select bean." + tree.getLftName() + " from "
 					+ beanName + " bean where bean.id=:id";

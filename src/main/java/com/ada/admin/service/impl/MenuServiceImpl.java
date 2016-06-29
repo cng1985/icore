@@ -141,4 +141,13 @@ public class MenuServiceImpl implements MenuService {
 		// TODO Auto-generated method stub
 		return dao.findList(first, count, filters, orders);
 	}
+
+	@Override
+	public List<Menu> childs(int id) {
+		Finder finder = Finder.create("from Menu t where t.parent.id=" + id);
+		finder.append(" order by t.sortnum asc");
+		finder.setCacheable(true);
+		List ms = dao.find(finder);
+		return ms;
+	}
 }

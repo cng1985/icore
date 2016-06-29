@@ -28,6 +28,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
@@ -103,7 +104,9 @@ public class UserInfo extends AbstractEntity {
 	private String registerType = "账号";
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role_links")
+	@JoinTable(name = "user_role_links",joinColumns = {
+			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "role_id", referencedColumnName = "id") })
 	private Set<UserRole> roles = new HashSet<UserRole>();
 
 	private String salt; // 加密密码的盐
