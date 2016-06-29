@@ -147,7 +147,7 @@ public class MenuServiceImpl implements MenuService {
 		Menu menu = dao.findById(id);
 		if (menu != null) {
 			Finder finder = Finder.create("from Menu t where t.lft >=:lft and t.rgt<=:rgt ");
-			finder.append(" order by t.sortnum asc");
+			finder.append(" order by t.lft asc");
 			finder.setParam("lft", menu.getLft());
 			finder.setParam("rgt", menu.getRgt());
 			finder.setCacheable(false);

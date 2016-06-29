@@ -38,6 +38,10 @@ public class Menu extends CatalogEntity {
 	 * url地址
 	 */
 	private String path;
+	
+	public String getPermission(){
+		return ""+getId();
+	}
 
 	/**
 	 * 子菜单
