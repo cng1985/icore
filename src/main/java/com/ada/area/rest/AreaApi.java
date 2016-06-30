@@ -16,7 +16,8 @@ public interface AreaApi {
 	/**
 	 * 根据父id查找他的子节点
 	 * 
-	 * @param id 父id
+	 * @param id
+	 *            父id
 	 * @return 地区集合
 	 */
 	public List<AreaDto> findByPid(Integer id);
@@ -24,9 +25,18 @@ public interface AreaApi {
 	/**
 	 * 查找某个层级的数据
 	 * 
-	 * @param level 层级
+	 * @param level
+	 *            层级
 	 * @return 地区集合
 	 */
 	List<AreaDto> findByLevel(Integer level);
+
+	/**
+	 * 根据id查询他下级所有的节点不包括自己
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<AreaDto> childs(Integer id);
 
 }
