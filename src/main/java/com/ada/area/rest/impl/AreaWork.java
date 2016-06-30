@@ -54,6 +54,7 @@ public class AreaWork implements AreaApi {
 				AreaDto dto=new AreaDto();
 				dto.setId(area.getId());
 				dto.setName(area.getName());
+				dto.setLevel(area.getLevelinfo());
 				result.add(dto);
 			}
 		}

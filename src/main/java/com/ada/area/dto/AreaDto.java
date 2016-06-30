@@ -1,10 +1,22 @@
 package com.ada.area.dto;
 
-public class AreaDto {
+import java.io.Serializable;
+
+public class AreaDto implements Serializable{
 
 	private Integer id;
 
 	private String name;
+	
+	private Integer level;
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
 
 	public Integer getId() {
 		return id;

@@ -134,8 +134,17 @@ public class AreaServiceImpl implements AreaService {
 	@Transactional(readOnly = true)
 	@Override
 	public List<Area> findByChild(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		List ms = null;
+		Area menu = dao.findById(id);
+		if (menu != null) {
+			Finder finder = Finder.create("from Area t where t.lft >:lft and t.rgt<:rgt ");
+			finder.append(" order by t.lft asc");
+			finder.setParam("lft", menu.getLft());
+			finder.setParam("rgt", menu.getRgt());
+			finder.setCacheable(false);
+			ms = dao.find(finder);
+		}
+		return ms;
 	}
 
 	@Transactional(readOnly = true)

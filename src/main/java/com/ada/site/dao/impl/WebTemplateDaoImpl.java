@@ -66,6 +66,7 @@ public class WebTemplateDaoImpl extends CriteriaDaoImpl<WebTemplate, String> imp
 		WebTemplate notice = findById(templateid);
 
 		Configuration config = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
+		config.setTagSyntax(Configuration.SQUARE_BRACKET_TAG_SYNTAX );
 		try {
 			Template template = new Template(notice.getId(), notice.getNote(), config);
 			Writer out = new StringWriter();
