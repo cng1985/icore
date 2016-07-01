@@ -64,6 +64,7 @@ public class SystemVersionDaoImpl extends CriteriaDaoImpl<SystemVersion, Long> i
 			v.setLastDate(new Date());
 			v.setStep(1);
 			v.setVersionnum(0l);
+			save(v);
 		} else {
 			v = versions.get(0);
 		}
