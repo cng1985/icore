@@ -1,5 +1,6 @@
 package com.ada.site.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -16,20 +17,19 @@ public class SystemVersion extends AbstractEntity {
 	/**
 	 * 最高版本数据
 	 */
+	@Column(unique = true)
 	private Long versionnum;
 
 	/**
 	 * 版本数据
 	 */
 	private String sequence;
-	
+
 	/**
 	 * 步长 默认为1
 	 */
 	private Integer step;
 
-	
-	
 	public String getSequence() {
 		return sequence;
 	}
@@ -39,6 +39,9 @@ public class SystemVersion extends AbstractEntity {
 	}
 
 	public Integer getStep() {
+		if (step == null) {
+			return 1;
+		}
 		return step;
 	}
 
@@ -53,6 +56,5 @@ public class SystemVersion extends AbstractEntity {
 	public void setVersionnum(Long versionnum) {
 		this.versionnum = versionnum;
 	}
-
 
 }
