@@ -304,7 +304,7 @@ public abstract class CatalogDaoImpl<T, ID extends Serializable> extends Hiberna
 		return p;
 	}
 
-	public Pagination findnsql(Finder finder, int pageNo, int pageSize, Class<?> otoclass) {
+	public Pagination findnsql(Finder finder, int pageNo, int pageSize, Class<T> otoclass) {
 		int totalCount = countQuerySqlResult(finder);
 		Pagination p = new Pagination(pageNo, pageSize, totalCount);
 		if (totalCount < 1) {

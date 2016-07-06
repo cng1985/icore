@@ -25,8 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
 
-public abstract class BaseDaoImpl<T, ID extends Serializable> extends
-		HibernateDaoSupport implements BaseDao<T, ID> {
+public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateDaoSupport implements BaseDao<T, ID> {
 	/**
 	 * @see Session.get(Class,Serializable)
 	 * @param id
@@ -57,8 +56,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 	protected T get(ID id, boolean lock) {
 		T entity;
 		if (lock) {
-			entity = (T) getSession().get(getEntityClass(), id,
-					LockMode.UPGRADE);
+			entity = (T) getSession().get(getEntityClass(), id, LockMode.UPGRADE);
 		} else {
 			entity = (T) getSession().get(getEntityClass(), id);
 		}
@@ -86,8 +84,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 	protected T findUniqueByProperty(String property, Object value) {
 		Assert.hasText(property);
 		Assert.notNull(value);
-		return (T) createCriteria(Restrictions.eq(property, value))
-				.uniqueResult();
+		return (T) createCriteria(Restrictions.eq(property, value)).uniqueResult();
 	}
 
 	/**
@@ -100,9 +97,8 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 	protected int countByProperty(String property, Object value) {
 		Assert.hasText(property);
 		Assert.notNull(value);
-		return ((Number) (createCriteria(Restrictions.eq(property, value))
-				.setProjection(Projections.rowCount()).uniqueResult()))
-				.intValue();
+		return ((Number) (createCriteria(Restrictions.eq(property, value)).setProjection(Projections.rowCount())
+				.uniqueResult())).intValue();
 	}
 
 	/**
@@ -124,8 +120,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 	 */
 	@SuppressWarnings("unchecked")
 	public T updateByUpdater(Updater<T> updater) {
-		ClassMetadata cm = getSessionFactory().getClassMetadata(
-				getEntityClass());
+		ClassMetadata cm = getSessionFactory().getClassMetadata(getEntityClass());
 		T bean = updater.getBean();
 		T po = (T) getSession().get(getEntityClass(), cm.getIdentifier(bean));
 		updaterCopyToPersistentObject(updater, po, cm);
@@ -138,8 +133,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 	 * @param updater
 	 * @param po
 	 */
-	private void updaterCopyToPersistentObject(Updater<T> updater, T po,
-			ClassMetadata cm) {
+	private void updaterCopyToPersistentObject(Updater<T> updater, T po, ClassMetadata cm) {
 		String[] propNames = cm.getPropertyNames();
 		String identifierName = cm.getIdentifierPropertyName();
 		T bean = updater.getBean();
@@ -155,9 +149,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 				}
 				cm.setPropertyValue(po, propName, value);
 			} catch (Exception e) {
-				throw new RuntimeException(
-						"copy property to persistent object failed: '"
-								+ propName + "'", e);
+				throw new RuntimeException("copy property to persistent object failed: '" + propName + "'", e);
 			}
 		}
 	}
@@ -272,8 +264,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 			p.setList(new ArrayList());
 			return p;
 		}
-		Query query = getSessionFactory().getCurrentSession().createQuery(
-				finder.getOrigHql());
+		Query query = getSessionFactory().getCurrentSession().createQuery(finder.getOrigHql());
 		finder.setParamsToQuery(query);
 		query.setFirstResult(p.getFirstResult());
 		query.setMaxResults(p.getPageSize());
@@ -285,8 +276,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 		return p;
 	}
 
-	public Pagination findnsql(Finder finder, int pageNo, int pageSize,
-			Class<?> otoclass) {
+	public Pagination findnsql(Finder finder, int pageNo, int pageSize, Class<T> otoclass) {
 		int totalCount = countQuerySqlResult(finder);
 		Pagination p = new Pagination(pageNo, pageSize, totalCount);
 		if (totalCount < 1) {
@@ -298,8 +288,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 			p.setList(new ArrayList());
 			return p;
 		}
-		Query query = getSessionFactory().getCurrentSession().createSQLQuery(
-				finder.getOrigHql());
+		Query query = getSessionFactory().getCurrentSession().createSQLQuery(finder.getOrigHql());
 		finder.setParamsToQuery(query);
 		query.setFirstResult(p.getFirstResult());
 		query.setMaxResults(p.getPageSize());
@@ -321,8 +310,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 	 */
 	@SuppressWarnings("unchecked")
 	public List find(Finder finder) {
-		Query query = finder.createQuery(getSessionFactory()
-				.getCurrentSession());
+		Query query = finder.createQuery(getSessionFactory().getCurrentSession());
 		List list = query.list();
 		return list;
 	}
@@ -332,8 +320,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 	 */
 	protected Query createQuery(String queryString, Object... values) {
 		Assert.hasText(queryString);
-		Query queryObject = getSessionFactory().getCurrentSession()
-				.createQuery(queryString);
+		Query queryObject = getSessionFactory().getCurrentSession().createQuery(queryString);
 		if (values != null) {
 			for (int i = 0; i < values.length; i++) {
 				queryObject.setParameter(i, values[i]);
@@ -360,16 +347,13 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 		ResultTransformer transformer = impl.getResultTransformer();
 		List<CriteriaImpl.OrderEntry> orderEntries;
 		try {
-			orderEntries = (List) MyBeanUtils
-					.getFieldValue(impl, ORDER_ENTRIES);
+			orderEntries = (List) MyBeanUtils.getFieldValue(impl, ORDER_ENTRIES);
 			MyBeanUtils.setFieldValue(impl, ORDER_ENTRIES, new ArrayList());
 		} catch (Exception e) {
-			throw new RuntimeException(
-					"cannot read/write 'orderEntries' from CriteriaImpl", e);
+			throw new RuntimeException("cannot read/write 'orderEntries' from CriteriaImpl", e);
 		}
 
-		int totalCount = ((Number) crit.setProjection(Projections.rowCount())
-				.uniqueResult()).intValue();
+		int totalCount = ((Number) crit.setProjection(Projections.rowCount()).uniqueResult()).intValue();
 		Pagination p = new Pagination(pageNo, pageSize, totalCount);
 		if (totalCount < 1) {
 			p.setList(new ArrayList());
@@ -387,8 +371,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 		try {
 			MyBeanUtils.setFieldValue(impl, ORDER_ENTRIES, orderEntries);
 		} catch (Exception e) {
-			throw new RuntimeException(
-					"set 'orderEntries' to CriteriaImpl faild", e);
+			throw new RuntimeException("set 'orderEntries' to CriteriaImpl faild", e);
 		}
 		crit.setFirstResult(p.getFirstResult());
 		crit.setMaxResults(p.getPageSize());
@@ -405,8 +388,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 	public int countQueryResult(Finder finder) {
 		int result = 0;
 		try {
-			Query query = getSessionFactory().getCurrentSession().createQuery(
-					finder.getRowCountHql());
+			Query query = getSessionFactory().getCurrentSession().createQuery(finder.getRowCountHql());
 			finder.setParamsToQuery(query);
 			if (finder.isCacheable()) {
 				query.setCacheable(true);
@@ -417,6 +399,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 		}
 		return result;
 	}
+
 	/**
 	 * 获得Finder的记录总数
 	 * 
@@ -426,8 +409,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 	public Long countQuery(Finder finder) {
 		Long result = 0l;
 		try {
-			Query query = getSessionFactory().getCurrentSession().createQuery(
-					finder.getRowCountHql());
+			Query query = getSessionFactory().getCurrentSession().createQuery(finder.getRowCountHql());
 			finder.setParamsToQuery(query);
 			if (finder.isCacheable()) {
 				query.setCacheable(true);
@@ -438,6 +420,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 		}
 		return result;
 	}
+
 	/**
 	 * 获得Finder的记录总数
 	 * 
@@ -445,8 +428,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 	 * @return
 	 */
 	public int countQuerySqlResult(Finder finder) {
-		Query query = getSessionFactory().getCurrentSession().createSQLQuery(
-				finder.getRowCountHql());
+		Query query = getSessionFactory().getCurrentSession().createSQLQuery(finder.getRowCountHql());
 		finder.setParamsToQuery(query);
 		if (finder.isCacheable()) {
 			query.setCacheable(true);
@@ -461,18 +443,19 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 
 		}
 	}
-	public  <X> X hql(Finder finder){
-		Query query = getSessionFactory().getCurrentSession().createQuery(
-				finder.getOrigHql());
+
+	public <X> X hql(Finder finder) {
+		Query query = getSessionFactory().getCurrentSession().createQuery(finder.getOrigHql());
 		finder.setParamsToQuery(query);
 		if (finder.isCacheable()) {
 			query.setCacheable(true);
 		}
 		List<?> ls = query.list();
 		Object o = ls.get(0);
-		X result=(X)o;
+		X result = (X) o;
 		return result;
 	}
+
 	public String transHqlToSql(String hql) {
 		// 当hql为null或空时,直接返回null
 		if (hql == null || hql.equals("")) {
@@ -481,15 +464,42 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends
 		// 获取当前session
 		Session session = getSession();
 		// 得到session工厂实现类
-		SessionFactoryImpl sfi = (SessionFactoryImpl) session
-				.getSessionFactory();
+		SessionFactoryImpl sfi = (SessionFactoryImpl) session.getSessionFactory();
 		// 得到Query转换器实现类
-		QueryTranslatorImpl queryTranslator = new QueryTranslatorImpl(hql, hql,
-				Collections.EMPTY_MAP, sfi);
+		QueryTranslatorImpl queryTranslator = new QueryTranslatorImpl(hql, hql, Collections.EMPTY_MAP, sfi);
 		queryTranslator.compile(Collections.EMPTY_MAP, false);
 		// 得到sql
 		String sql = queryTranslator.getSQLString();
 		// 关闭session
 		return sql;
 	}
+
+	public <X> List<X> listSQL(String sql, Class<X> otoclass) {
+		List<X> result = null;
+		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
+		query.setResultTransformer(Transformers.aliasToBean(otoclass));
+		result = query.list();
+		return result;
+	}
+
+	public <X> X oneSQL(String sql, Class<X> otoclass) {
+		X result = null;
+		List<X> results = listSQL(sql,0,2, otoclass);
+		if (results != null && results.size() > 0) {
+			result = results.get(0);
+		}
+
+		return result;
+	}
+
+	public <X>  List<X> listSQL(String sql, Integer stat, Integer max, Class<X> otoclass) {
+		List<X> result = null;
+		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
+		query.setResultTransformer(Transformers.aliasToBean(otoclass));
+		query.setFirstResult(stat);
+		query.setMaxResults(max);
+		result = query.list();
+		return result;
+	}
+
 }
