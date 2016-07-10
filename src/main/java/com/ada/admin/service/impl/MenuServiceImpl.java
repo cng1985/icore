@@ -40,6 +40,7 @@ public class MenuServiceImpl implements MenuService {
 	@CacheEvict(allEntries = true, value = "menucache")
 	@Transactional
 	public Menu save(Menu bean) {
+		bean.setNums(0l);
 		dao.save(bean);
 		if (bean.getParentId() != null) {
 			Menu parent = dao.findById(bean.getParentId());
@@ -64,7 +65,7 @@ public class MenuServiceImpl implements MenuService {
 			bean.setLevelinfo(1);
 			bean.setIds("" + bean.getId());
 		}
-		updateNumsAndTime(bean.getId());
+		updateNumsAndTime(bean.getParentId());
 		return bean;
 	}
 
@@ -81,9 +82,8 @@ public class MenuServiceImpl implements MenuService {
 	public Menu deleteById(Integer id) {
 
 		Menu bean = dao.findById(id);
-		updateNumsAndTime(bean.getParentId());
 		dao.deleteById(id);
-
+		updateNumsAndTime(bean.getParentId());
 		return bean;
 	}
 
