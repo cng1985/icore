@@ -38,9 +38,41 @@ public class Menu extends CatalogEntity {
 	 * url地址
 	 */
 	private String path;
-	
-	public String getPermission(){
-		return ""+getId();
+
+	/**
+	 * 子节点数量
+	 */
+	private Long nums;
+
+	/**
+	 * 分类 0为菜单1为功能
+	 */
+	private Integer catalog;
+
+	public Long getNums() {
+		if (nums == null) {
+			return 0l;
+		}
+		return nums;
+	}
+
+	public void setNums(Long nums) {
+		this.nums = nums;
+	}
+
+	public Integer getCatalog() {
+		if (catalog == null) {
+			return 0;
+		}
+		return catalog;
+	}
+
+	public void setCatalog(Integer catalog) {
+		this.catalog = catalog;
+	}
+
+	public String getPermission() {
+		return "" + getId();
 	}
 
 	/**

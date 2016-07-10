@@ -1,5 +1,6 @@
 package com.ada.admin.service.impl;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ada.admin.dao.MenuDao;
 import com.ada.admin.entity.Menu;
 import com.ada.admin.service.MenuService;
+import com.ada.article.entity.ArticleCatalog;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
@@ -62,6 +64,7 @@ public class MenuServiceImpl implements MenuService {
 			bean.setLevelinfo(1);
 			bean.setIds("" + bean.getId());
 		}
+		updateNumsAndTime(bean.getId());
 		return bean;
 	}
 
@@ -76,7 +79,11 @@ public class MenuServiceImpl implements MenuService {
 	@CacheEvict(allEntries = true, value = "menucache")
 	@Transactional
 	public Menu deleteById(Integer id) {
-		Menu bean = dao.deleteById(id);
+
+		Menu bean = dao.findById(id);
+		updateNumsAndTime(bean.getParentId());
+		dao.deleteById(id);
+
 		return bean;
 	}
 
@@ -156,4 +163,34 @@ public class MenuServiceImpl implements MenuService {
 
 		return ms;
 	}
+
+	private void counts(Menu cur) {
+		Finder finder = Finder.create();
+		finder.append("from Menu a where a.parent.lft >= :lft ");
+		finder.setParam("lft", cur.getLft());
+		finder.append(" and a.parent.rgt <= :rgt");
+		finder.setParam("rgt", cur.getRgt());
+		Long size = dao.countQuery(finder);
+		cur.setNums(size);
+	}
+
+	public Integer updateNumsAndTime(Integer id) {
+		if (id == null) {
+			return 0;
+		}
+		Integer result = 0;
+		Menu cur = findById(id);
+		if (cur == null) {
+			return result;
+		}
+		do {
+			counts(cur);
+			cur.setLastDate(new Date());
+			cur = cur.getParent();
+			result++;
+		} while (cur != null);
+
+		return result;
+	}
+
 }
