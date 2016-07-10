@@ -110,7 +110,7 @@ public class UserInfo extends AbstractEntity {
 	private String salt; // 加密密码的盐
 
 	@NotNull(message = "用户名不为空")
-	@Size(min=3,message="用户名长度在3到20之间")
+	@Size(min = 3, message = "用户名长度在3到20之间")
 	private String username;
 
 	public Map<String, String> getAttributes() {
@@ -118,6 +118,9 @@ public class UserInfo extends AbstractEntity {
 	}
 
 	public Integer getCatalog() {
+		if (catalog == null) {
+			return 0;
+		}
 		return catalog;
 	}
 
