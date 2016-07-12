@@ -11,7 +11,7 @@ import com.ada.data.entity.AbstractEntity;
  * 
  */
 @Entity
-@Table(name = "config_version")
+@Table(name = "config_data_version")
 public class SystemVersion extends AbstractEntity {
 
 	/**
