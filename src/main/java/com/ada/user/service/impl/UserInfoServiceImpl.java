@@ -36,8 +36,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 */
 	public boolean checkPassword(UserInfo user, String oldPassword) {
 		byte[] salt = Encodes.decodeHex(user.getSalt());
-		byte[] hashPassword = Digests.sha1(oldPassword.getBytes(), salt,
-				HASH_INTERATIONS);
+		byte[] hashPassword = Digests.sha1(oldPassword.getBytes(), salt, HASH_INTERATIONS);
 		if (user.getPassword().equals(Encodes.encodeHex(hashPassword))) {
 			return true;
 		} else {
@@ -52,8 +51,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		byte[] salt = Digests.generateSalt(SALT_SIZE);
 		user.setSalt(Encodes.encodeHex(salt));
 
-		byte[] hashPassword = Digests.sha1(user.getPlainPassword().getBytes(),
-				salt, HASH_INTERATIONS);
+		byte[] hashPassword = Digests.sha1(user.getPlainPassword().getBytes(), salt, HASH_INTERATIONS);
 		user.setPassword(Encodes.encodeHex(hashPassword));
 	}
 
@@ -84,8 +82,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Transactional
 	public UserInfo update(UserInfo bean) {
 		Updater<UserInfo> updater = new Updater<UserInfo>(bean);
-		if (bean.getPlainPassword() != null
-				&& bean.getPlainPassword().length() > 5) {
+		if (bean.getPlainPassword() != null && bean.getPlainPassword().length() > 5) {
 			entryptPassword(bean);
 		}
 		bean = dao.updateByUpdater(updater);
@@ -120,7 +117,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		UserInfo result = null;
 		Finder finder = Finder.create();
 		finder.append("from UserInfo u where u.username ='" + username + "'");
-		// finder.append("  and  u.password = '" + password + "'");
+		// finder.append(" and u.password = '" + password + "'");
 		List<UserInfo> us = dao.find(finder);
 		if (us != null && us.size() > 0) {
 			result = us.get(0);
@@ -151,7 +148,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		int result = 0;
 		Finder finder = Finder.create();
 		finder.append("from UserInfo u where u.username ='" + username + "'");
-		// finder.append("  and  u.password = '" + password + "'");
+		// finder.append(" and u.password = '" + password + "'");
 		List<UserInfo> us = dao.find(finder);
 		if (us != null && us.size() > 0) {
 			result = -1;
@@ -202,7 +199,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		UserInfo result = null;
 		Finder finder = Finder.create();
 		finder.append("from UserInfo u where u.username ='" + username + "'");
-		// finder.append("  and  u.password = '" + password + "'");
+		// finder.append(" and u.password = '" + password + "'");
 		List<UserInfo> us = dao.find(finder);
 		if (us != null && us.size() > 0) {
 			result = new UserInfo();
@@ -252,9 +249,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public UserInfo reg(UserInfo user) {
 		UserInfo result = null;
 		Finder finder = Finder.create();
-		finder.append("from UserInfo u where u.username ='"
-				+ user.getUsername() + "'");
-		// finder.append("  and  u.password = '" + password + "'");
+		finder.append("from UserInfo u where u.username ='" + user.getUsername() + "'");
+		// finder.append(" and u.password = '" + password + "'");
 		List<UserInfo> us = dao.find(finder);
 		if (us != null && us.size() > 0) {
 			result = new UserInfo();
@@ -272,37 +268,40 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public UserInfo addRole(long id, long roleid) {
 		UserInfo entity = dao.findById(id);
-		UserRole bean = new UserRole();
-		bean.setId(roleid);
-		entity.getRoles().add(bean);
+		if (entity != null) {
+			UserRole bean = new UserRole();
+			bean.setId(roleid);
+			entity.getRoles().add(bean);
+		}
+
 		return entity;
 	}
+
 	@Transactional
 	@Override
 	public UserInfo update(String username, String phone, String email) {
-		UserInfo result=null;
+		UserInfo result = null;
 		Finder finder = Finder.create("from UserInfo u where u.username =:username ");
 		finder.setParam("username", username);
 		finder.append(" and u.phone =:phone");
 		finder.setParam("phone", phone);
 		List<UserInfo> users = dao.find(finder);
 		if (users != null && users.size() > 0) {
-			result=users.get(0);
+			result = users.get(0);
 			result.setEmail(email);
-		}else{
-			result=new UserInfo();
+		} else {
+			result = new UserInfo();
 			result.setUsername(username);
 			result.setPhone(phone);
 			result.setEmail(email);
 			result.setPlainPassword("123456");
 			entryptPassword(result);
-			result=save(result);
+			result = save(result);
 		}
-		
+
 		return result;
 	}
-	
-	
+
 	@Transactional(readOnly = true)
 	public List<String> findAuthorities(Long id) {
 		List<String> authorities = new ArrayList<String>();
@@ -329,26 +328,26 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public List<UserInfo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
 		return dao.findList(first, count, filters, orders);
 	}
-	
+
 	@Transactional
 	@Override
 	public UserInfo loginqq(String openid, String nickname, String figureurl_qq_1) {
 		UserInfo result = null;
 		Finder finder = Finder.create();
 		finder.append("from UserInfo u where u.username ='" + openid + "'");
-		// finder.append("  and  u.password = '" + password + "'");
+		// finder.append(" and u.password = '" + password + "'");
 		List<UserInfo> us = dao.find(finder);
 		if (us != null && us.size() > 0) {
-			result=us.get(0);
-		}else{
-			UserInfo user=new UserInfo();
+			result = us.get(0);
+		} else {
+			UserInfo user = new UserInfo();
 			user.setUsername(openid);
 			user.setName(nickname);
 			user.setName(nickname);
 			user.setHeadimg(figureurl_qq_1);
 			user.setPlainPassword("123456");
 			entryptPassword(user);
-			result=dao.save(user);
+			result = dao.save(user);
 		}
 		return result;
 	}

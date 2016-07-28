@@ -1,6 +1,7 @@
 package com.ada.approve.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -48,10 +49,24 @@ public class Flow extends AbstractEntity {
 	private String title;
 
 	/**
-	 * 用户
+	 * 流程开启用户
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo user;
+
+	/**
+	 * 启动哪一个流程
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	private FlowDefinition flow;
+
+	public FlowDefinition getFlow() {
+		return flow;
+	}
+
+	public void setFlow(FlowDefinition flow) {
+		this.flow = flow;
+	}
 
 	public Integer getState() {
 		return state;
