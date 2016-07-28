@@ -50,7 +50,7 @@ public class FlowServiceImpl implements FlowService {
 
 	@Autowired
 	UserInfoDao userInfoDao;
-	
+	@Transactional
 	@Override
 	public AbstractVo approve(Long taskid, Integer state, String note, Long user) {
 		AbstractVo restult = new AbstractVo();
@@ -227,6 +227,9 @@ public class FlowServiceImpl implements FlowService {
 		if (definition == null) {
 			return null;
 		}
+		flow.setCatalog(Integer.valueOf(""+definition.getId()));
+		flow.setState(0);
+		flow.setHierarchy(1);
 		flow = dao.save(flow);
 		FlowDefinition fs = flowDefinitionDao.findById(definition.getId());
 		UserInfo taskuser = null;
