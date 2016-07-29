@@ -19,26 +19,38 @@ import com.ada.data.entity.AbstractEntity;
 @Table(name = "approve_flow_definition")
 public class FlowDefinition extends AbstractEntity {
 
-	private String name;
-	
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="flow")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flow")
 	private List<FlowDefinitionItem> items;
+
+	private String name;
+
+	/**
+	 * 内容查看url
+	 */
+	private String viewurl;
+
+	public List<FlowDefinitionItem> getItems() {
+		return items;
+	}
 
 	public String getName() {
 		return name;
+	}
+
+	public String getViewurl() {
+		return viewurl;
+	}
+
+	public void setItems(List<FlowDefinitionItem> items) {
+		this.items = items;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public List<FlowDefinitionItem> getItems() {
-		return items;
+	public void setViewurl(String viewurl) {
+		this.viewurl = viewurl;
 	}
-
-	public void setItems(List<FlowDefinitionItem> items) {
-		this.items = items;
-	}
-	
 
 }

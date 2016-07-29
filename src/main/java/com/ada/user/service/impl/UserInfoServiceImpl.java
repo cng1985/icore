@@ -85,6 +85,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (bean.getPlainPassword() != null && bean.getPlainPassword().length() > 5) {
 			entryptPassword(bean);
 		}
+		updater.exclude("attributes");
+		updater.exclude("roles");
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}

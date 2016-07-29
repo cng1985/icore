@@ -95,4 +95,12 @@ public class FlowRecordServiceImpl implements FlowRecordService {
 		     return dao.findList(first,count,filters,orders);
 	
 	}
+
+	@Override
+	public List<FlowRecord> findByFlow(Long flow) {
+		Finder finder=Finder.create();
+		finder.append("from FlowRecord f where f.flow.id=:flow order by f.id desc ");
+		finder.setParam("flow", flow);
+		return dao.find(finder);
+	}
 }

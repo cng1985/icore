@@ -29,7 +29,9 @@ public interface FlowRecordService {
 	public Page<FlowRecord> findPage(Pageable pageable);
 
 	public long count(Filter... filters);
-
+	
+	public List<FlowRecord> findByFlow(Long flow);
+	
 	public List<FlowRecord> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }
