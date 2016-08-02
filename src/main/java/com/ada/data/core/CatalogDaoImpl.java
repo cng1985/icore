@@ -304,32 +304,6 @@ public abstract class CatalogDaoImpl<T, ID extends Serializable> extends Hiberna
 		return p;
 	}
 
-	public Pagination findnsql(Finder finder, int pageNo, int pageSize, Class<T> otoclass) {
-		int totalCount = countQuerySqlResult(finder);
-		Pagination p = new Pagination(pageNo, pageSize, totalCount);
-		if (totalCount < 1) {
-			p.setList(new ArrayList());
-			return p;
-		}
-		if (p.getPageNo() < pageNo) {
-
-			p.setList(new ArrayList());
-			return p;
-		}
-		Query query = getSessionFactory().getCurrentSession().createSQLQuery(finder.getOrigHql());
-		finder.setParamsToQuery(query);
-		query.setFirstResult(p.getFirstResult());
-		query.setMaxResults(p.getPageSize());
-		query.setResultTransformer(Transformers.aliasToBean(otoclass));
-		if (finder.isCacheable()) {
-			query.setCacheable(true);
-		}
-		List list = query.list();
-		p.setList(list);
-		return p;
-
-	}
-
 	/**
 	 * 通过Finder获得列表数据
 	 * 

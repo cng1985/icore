@@ -19,7 +19,7 @@ public interface BaseDao<T, ID extends Serializable> {
 
 	public Pagination<T> find(Finder finder, int pageNo, int pageSize);
 
-	public Pagination<T> findnsql(Finder finder, int pageNo, int pageSize, Class<T> otoclass);
+	public <X> Pagination<X>  findSql(Finder finder, int pageNo, int pageSize, Class<X> otoclass);
 
 	public List<T> find(Finder finder);
 

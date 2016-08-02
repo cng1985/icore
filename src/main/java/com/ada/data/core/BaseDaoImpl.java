@@ -276,7 +276,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 		return p;
 	}
 
-	public Pagination findnsql(Finder finder, int pageNo, int pageSize, Class<T> otoclass) {
+	public <X> Pagination<X> findSql(Finder finder, int pageNo, int pageSize, Class<X> otoclass) {
 		int totalCount = countQuerySqlResult(finder);
 		Pagination p = new Pagination(pageNo, pageSize, totalCount);
 		if (totalCount < 1) {
@@ -285,7 +285,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 		}
 		if (p.getPageNo() < pageNo) {
 
-			p.setList(new ArrayList());
+			p.setList(new ArrayList<X>());
 			return p;
 		}
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(finder.getOrigHql());
@@ -296,7 +296,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 		if (finder.isCacheable()) {
 			query.setCacheable(true);
 		}
-		List list = query.list();
+		List<X> list = query.list();
 		p.setList(list);
 		return p;
 

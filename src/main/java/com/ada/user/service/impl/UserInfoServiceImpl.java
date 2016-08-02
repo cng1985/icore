@@ -87,6 +87,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 		updater.exclude("attributes");
 		updater.exclude("roles");
+		updater.exclude("catalog");
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}

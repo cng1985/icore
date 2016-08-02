@@ -29,6 +29,31 @@ public class FlowDefinition extends AbstractEntity {
 	 */
 	private String viewurl;
 
+	/**
+	 * 状态改变通知url
+	 */
+	private String stateurl;
+
+	
+	private String updateurl;
+
+	
+	public String getUpdateurl() {
+		return updateurl;
+	}
+
+	public void setUpdateurl(String updateurl) {
+		this.updateurl = updateurl;
+	}
+
+	public String getStateurl() {
+		return stateurl;
+	}
+
+	public void setStateurl(String stateurl) {
+		this.stateurl = stateurl;
+	}
+
 	public List<FlowDefinitionItem> getItems() {
 		return items;
 	}

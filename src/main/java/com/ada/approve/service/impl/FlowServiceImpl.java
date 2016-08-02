@@ -1,5 +1,6 @@
 package com.ada.approve.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import com.ada.approve.entity.FlowDefinition;
 import com.ada.approve.entity.FlowDefinitionItem;
 import com.ada.approve.entity.FlowRecord;
 import com.ada.approve.entity.Task;
+import com.ada.approve.listener.HttpStateChange;
+import com.ada.approve.listener.OnStateChange;
 import com.ada.approve.page.FlowPage;
 import com.ada.approve.service.FlowService;
 import com.ada.data.core.Finder;
@@ -50,6 +53,14 @@ public class FlowServiceImpl implements FlowService {
 
 	@Autowired
 	UserInfoDao userInfoDao;
+	
+	private List<OnStateChange> changes;
+	
+	public FlowServiceImpl(){
+		changes=new ArrayList<OnStateChange>();
+		changes.add(new HttpStateChange());
+	}
+	
 	@Transactional
 	@Override
 	public AbstractVo approve(Long taskid, Integer state, String note, Long user) {
@@ -111,6 +122,12 @@ public class FlowServiceImpl implements FlowService {
 					// onFlowFinshed.finded(flow);
 					// }
 					// }
+					
+					if (changes!=null) {
+						for (OnStateChange onStateChange : changes) {
+							onStateChange.change(flow, "审核完成");
+						}
+					}
 
 				}
 			} else {
@@ -129,6 +146,12 @@ public class FlowServiceImpl implements FlowService {
 				task.setState(0);
 				task.setStyle(1);
 				taskDao.save(task);
+				
+				if (changes!=null) {
+					for (OnStateChange onStateChange : changes) {
+						onStateChange.change(flow, "审核中");
+					}
+				}
 			}
 
 		} else {
@@ -155,6 +178,13 @@ public class FlowServiceImpl implements FlowService {
 			bean.setNote(note);
 			bean.setFlow(flow);
 			flowRecordDao.save(bean);
+			
+			
+			if (changes!=null) {
+				for (OnStateChange onStateChange : changes) {
+					onStateChange.change(flow, "审核失败");
+				}
+			}
 
 		}
 
