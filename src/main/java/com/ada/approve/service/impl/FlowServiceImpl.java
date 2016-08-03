@@ -53,14 +53,14 @@ public class FlowServiceImpl implements FlowService {
 
 	@Autowired
 	UserInfoDao userInfoDao;
-	
+
 	private List<OnStateChange> changes;
-	
-	public FlowServiceImpl(){
-		changes=new ArrayList<OnStateChange>();
+
+	public FlowServiceImpl() {
+		changes = new ArrayList<OnStateChange>();
 		changes.add(new HttpStateChange());
 	}
-	
+
 	@Transactional
 	@Override
 	public AbstractVo approve(Long taskid, Integer state, String note, Long user) {
@@ -122,8 +122,8 @@ public class FlowServiceImpl implements FlowService {
 					// onFlowFinshed.finded(flow);
 					// }
 					// }
-					
-					if (changes!=null) {
+
+					if (changes != null) {
 						for (OnStateChange onStateChange : changes) {
 							onStateChange.change(flow, "审核完成");
 						}
@@ -146,8 +146,8 @@ public class FlowServiceImpl implements FlowService {
 				task.setState(0);
 				task.setStyle(1);
 				taskDao.save(task);
-				
-				if (changes!=null) {
+
+				if (changes != null) {
 					for (OnStateChange onStateChange : changes) {
 						onStateChange.change(flow, "审核中");
 					}
@@ -178,9 +178,8 @@ public class FlowServiceImpl implements FlowService {
 			bean.setNote(note);
 			bean.setFlow(flow);
 			flowRecordDao.save(bean);
-			
-			
-			if (changes!=null) {
+
+			if (changes != null) {
 				for (OnStateChange onStateChange : changes) {
 					onStateChange.change(flow, "审核失败");
 				}
@@ -241,11 +240,13 @@ public class FlowServiceImpl implements FlowService {
 		result = new FlowPage(page);
 		return result;
 	}
+
 	@Transactional
 	public Flow save(Flow bean) {
 		dao.save(bean);
 		return bean;
 	}
+
 	@Autowired
 	public void setDao(FlowDao dao) {
 		this.dao = dao;
@@ -257,7 +258,7 @@ public class FlowServiceImpl implements FlowService {
 		if (definition == null) {
 			return null;
 		}
-		flow.setCatalog(Integer.valueOf(""+definition.getId()));
+		flow.setCatalog(Integer.valueOf("" + definition.getId()));
 		flow.setState(0);
 		flow.setHierarchy(1);
 		flow = dao.save(flow);
@@ -297,5 +298,37 @@ public class FlowServiceImpl implements FlowService {
 		Updater<Flow> updater = new Updater<Flow>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
+	}
+
+	@Override
+	public AbstractVo restart(Long taskid) {
+		AbstractVo result = new AbstractVo();
+		Task task = taskDao.findById(taskid);
+		if (task!=null) {
+			task.setState(1);
+			Flow flow=task.getFlow();
+			if (flow!=null) {
+				flow.setHierarchy(1);
+				flow.setState(0);
+				for (OnStateChange onStateChange : changes) {
+					onStateChange.change(flow, "审批中");
+				}
+			}
+			FlowApproval approval=	flowApprovalDao.findNext(flow.getId(), 0);
+			if (approval!=null) {
+				Task newtask = new Task();
+				newtask.setUser(approval.getUser());
+				newtask.setCatalog(flow.getCatalog());
+				newtask.setOid(flow.getOid());
+				newtask.setTitle(flow.getTitle());
+				newtask.setNote(flow.getNote());
+				newtask.setFlow(flow);
+				newtask.setState(0);
+				newtask.setStyle(1);
+				taskDao.save(newtask);
+
+			}
+		}
+		return result;
 	}
 }

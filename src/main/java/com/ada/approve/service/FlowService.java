@@ -41,6 +41,9 @@ public interface FlowService {
 	 * @return 审批状态
 	 */
 	AbstractVo approve(Long taskid, Integer state, String note, Long user);
+	
+	AbstractVo restart(Long taskid);
+
 
 	public Flow update(Flow bean);
 
