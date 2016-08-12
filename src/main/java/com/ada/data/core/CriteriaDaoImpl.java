@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -17,6 +18,7 @@ import com.ada.data.page.Order;
 import com.ada.data.page.Order.Direction;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
+import com.sun.javafx.fxml.expression.Expression;
 
 @SuppressWarnings("rawtypes")
 public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDaoImpl<T, ID>
@@ -77,6 +79,18 @@ public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDa
 		int totalPages = (int) Math.ceil((double) total / (double) pageable.getPageSize());
 		if (totalPages < pageable.getPageNumber()) {
 			pageable.setPageNumber(totalPages);
+		}
+		
+		if (StringUtils.isNotEmpty(pageable.getSearchAliasProperty()) && pageable.getSearchAliasValue()==null) {
+			criteriaQuery.createAlias(pageable.getSearchAliasProperty().split("[.]")[0], 
+					pageable.getSearchAliasProperty().split("[.]")[0])
+//			.add(Restrictions.eq(pageable.getSearchAliasProperty(), pageable.getSearchAliasValue()))
+			.add(Restrictions.isNotNull(pageable.getSearchAliasProperty()));
+		}
+		if (StringUtils.isNotEmpty(pageable.getSearchAliasProperty()) && pageable.getSearchAliasValue()!=null) {
+			criteriaQuery.createAlias(pageable.getSearchAliasProperty().split("[.]")[0], 
+					pageable.getSearchAliasProperty().split("[.]")[0])
+			.add(Restrictions.eq(pageable.getSearchAliasProperty(), pageable.getSearchAliasValue()));
 		}
 
 		addOrders(criteriaQuery, pageable);
@@ -148,7 +162,7 @@ public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDa
 
 			} else if (filter.getOperator() == Operator.like && filter.getValue() != null
 					&& filter.getValue() instanceof String) {
-				criteriaQuery.add(Restrictions.like(filter.getProperty(), filter.getValue()));
+				criteriaQuery.add(Restrictions.like(filter.getProperty(), (String) filter.getValue(),MatchMode.ANYWHERE));
 
 			} else if (filter.getOperator() == Operator.in && filter.getValue() != null) {
 				if (filter.getValue() instanceof Collection) {

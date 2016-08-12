@@ -45,6 +45,12 @@ public class Pageable implements Serializable {
 
 	/** 搜索值 */
 	private String searchValue;
+	
+	/** 搜索别名 */
+	private String searchAliasProperty;
+	
+	/** 搜索别名值 */
+	private Object searchAliasValue;
 
 	/** 排序属性 */
 	private String orderProperty;
@@ -165,10 +171,50 @@ public class Pageable implements Serializable {
 	 * 设置搜索值
 	 * 
 	 * @param searchValue
-	 *            搜索值
+	 *            搜索别名属性
 	 */
 	public void setSearchValue(String searchValue) {
 		this.searchValue = searchValue;
+	}
+	
+	/**
+	 * 获取别名属性
+	 * 
+	 * @param searchValue
+	 *            搜索别名值属性
+	 */
+	public String getSearchAliasProperty() {
+		return searchAliasProperty;
+	}
+	
+	/**
+	 * 设置别名属性
+	 * 
+	 * @param searchValue
+	 *            搜索别名值
+	 */
+	public void setSearchAliasProperty(String searchAliasProperty) {
+		this.searchAliasProperty = searchAliasProperty;
+	}
+	
+	/**
+	 * 获取别名值
+	 * 
+	 * @param searchValue
+	 *            搜索别名值
+	 */
+	public Object getSearchAliasValue() {
+		return searchAliasValue;
+	}
+	
+	/**
+	 * 设置别名值
+	 * 
+	 * @param searchValue
+	 *            搜索值
+	 */
+	public void setSearchAliasValue(Object searchAliasValue) {
+		this.searchAliasValue = searchAliasValue;
 	}
 
 	/**
