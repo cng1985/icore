@@ -2,6 +2,7 @@ package com.ada.data.entity;
 
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import com.ada.user.entity.UserInfo;
 
@@ -11,6 +12,7 @@ import com.ada.user.entity.UserInfo;
  * @author ada
  *
  */
+@MappedSuperclass
 public class UserEntity extends AbstractEntity {
 
 	/**
