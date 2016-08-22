@@ -10,28 +10,35 @@ import java.util.List;
 
 import com.openyelp.annotation.RestFul;
 
-@RestFul(api=FlowRecordService.class,value="FlowRecordService")
+@RestFul(api = FlowRecordService.class, value = "FlowRecordService")
 public interface FlowRecordService {
 
 	public FlowRecord findById(Long id);
+
+	/**
+	 * 根据业务对象id 和类型查询流程
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public List<FlowRecord>  findByObjectId(Long id,Integer catalog);
 
 	public FlowRecord save(FlowRecord bean);
 
 	public FlowRecord update(FlowRecord bean);
 
 	public FlowRecord deleteById(Long id);
-	
+
 	public FlowRecord[] deleteByIds(Long[] ids);
-	
+
 	public FlowRecordPage getPage(int pageNo, int pageSize);
-	
-	
+
 	public Page<FlowRecord> findPage(Pageable pageable);
 
 	public long count(Filter... filters);
-	
+
 	public List<FlowRecord> findByFlow(Long flow);
-	
+
 	public List<FlowRecord> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
-	
+
 }

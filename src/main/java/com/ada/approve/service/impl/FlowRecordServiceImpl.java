@@ -18,11 +18,9 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-
 @Service
 @Transactional
 public class FlowRecordServiceImpl implements FlowRecordService {
-	
 
 	@Transactional(readOnly = true)
 	public FlowRecord findById(Long id) {
@@ -30,29 +28,29 @@ public class FlowRecordServiceImpl implements FlowRecordService {
 		return entity;
 	}
 
-    @Transactional
+	@Transactional
 	public FlowRecord save(FlowRecord bean) {
 		dao.save(bean);
 		return bean;
 	}
 
-    @Transactional
+	@Transactional
 	public FlowRecord update(FlowRecord bean) {
 		Updater<FlowRecord> updater = new Updater<FlowRecord>(bean);
 		bean = dao.updateByUpdater(updater);
 		return bean;
 	}
 
-    @Transactional
+	@Transactional
 	public FlowRecord deleteById(Long id) {
 		FlowRecord bean = dao.deleteById(id);
 		return bean;
 	}
 
-    @Transactional	
+	@Transactional
 	public FlowRecord[] deleteByIds(Long[] ids) {
 		FlowRecord[] beans = new FlowRecord[ids.length];
-		for (int i = 0,len = ids.length; i < len; i++) {
+		for (int i = 0, len = ids.length; i < len; i++) {
 			beans[i] = deleteById(ids[i]);
 		}
 		return beans;
@@ -64,43 +62,51 @@ public class FlowRecordServiceImpl implements FlowRecordService {
 	public void setDao(FlowRecordDao dao) {
 		this.dao = dao;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public FlowRecordPage getPage(int pageNo, int pageSize) {
-	    FlowRecordPage result = null;
-		Finder finder=Finder.create();
+		FlowRecordPage result = null;
+		Finder finder = Finder.create();
 		finder.append("from FlowRecord f ");
 		finder.append(" order by f.id desc  ");
-		Pagination<FlowRecord> page = dao.find(finder,pageNo, pageSize);
+		Pagination<FlowRecord> page = dao.find(finder, pageNo, pageSize);
 		result = new FlowRecordPage(page);
 		return result;
 	}
-	
-	
+
 	@Transactional(readOnly = true)
-	public Page<FlowRecord> findPage(Pageable pageable){
-	     return dao.findPage(pageable);
+	public Page<FlowRecord> findPage(Pageable pageable) {
+		return dao.findPage(pageable);
 	}
 
 	@Transactional(readOnly = true)
-	public long count(Filter... filters){
-	     
-	     return dao.count(filters);
-	     
+	public long count(Filter... filters) {
+
+		return dao.count(filters);
+
 	}
 
 	@Transactional(readOnly = true)
-	public List<FlowRecord> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders){
-	
-		     return dao.findList(first,count,filters,orders);
-	
+	public List<FlowRecord> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
+
+		return dao.findList(first, count, filters, orders);
+
 	}
 
 	@Override
 	public List<FlowRecord> findByFlow(Long flow) {
-		Finder finder=Finder.create();
+		Finder finder = Finder.create();
 		finder.append("from FlowRecord f where f.flow.id=:flow order by f.id desc ");
 		finder.setParam("flow", flow);
+		return dao.find(finder);
+	}
+
+	@Override
+	public List<FlowRecord> findByObjectId(Long id, Integer catalog) {
+		Finder finder = Finder.create();
+		finder.append("from FlowRecord f where f.flow.oid=:id  and f.flow.catalog=:catalog  order by f.id desc ");
+		finder.setParam("id", id);
+		finder.setParam("catalog", catalog);
 		return dao.find(finder);
 	}
 }
