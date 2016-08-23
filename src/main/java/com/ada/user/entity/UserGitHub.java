@@ -1,29 +1,21 @@
 package com.ada.user.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ada.data.entity.BaseEntity;
+
 
 @Entity
 @Table(name = "user_github")
-public class UserGitHub implements Serializable{
-	
-	@Id
-	private Long id;
+public class UserGitHub extends BaseEntity{
 	
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	@ManyToOne
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="userid")
 	private UserInfo user;
 	

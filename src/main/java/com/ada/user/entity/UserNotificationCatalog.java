@@ -1,6 +1,7 @@
 package com.ada.user.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,7 +15,7 @@ public class UserNotificationCatalog extends CatalogEntity {
 	/**
 	 * 父分类id
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pid")
 	private UserNotificationCatalog parent;
 

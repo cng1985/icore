@@ -1,6 +1,7 @@
 package com.ada.user.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -11,11 +12,11 @@ import com.ada.data.entity.AbstractEntity;
 @Table(name = "user_notification_member")
 public class UserNotificationMember extends AbstractEntity {
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="notificationid")
 	private UserNotification notification;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="uid")
 	private UserInfo user;
 

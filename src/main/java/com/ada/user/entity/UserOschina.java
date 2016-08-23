@@ -1,33 +1,20 @@
 package com.ada.user.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.ada.data.entity.AbstractEntity;
-import com.ada.data.entity.NumEntity;
-import com.ada.data.entity.UUIDEntity;
+import com.ada.data.entity.BaseEntity;
 
 
 
 @Entity
 @Table(name = "user_oauth_info_oschina")
-public class UserOschina implements Serializable{
-	
-	@Id
-	private Long id;
+public class UserOschina extends BaseEntity{
 	
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	/**
 	 *用户email
 	 */
@@ -60,7 +47,7 @@ public class UserOschina implements Serializable{
 	 */
 	private String url;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="userid")
 	private UserInfo user;
 	

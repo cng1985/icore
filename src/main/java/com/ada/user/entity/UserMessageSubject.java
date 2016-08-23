@@ -1,7 +1,8 @@
 package com.ada.user.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinTable;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,8 +17,8 @@ public class UserMessageSubject extends AbstractEntity {
 	 * 用户
 	 */
 	
-	@ManyToOne
-	@JoinTable(name="uid")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="uid")
 	private UserInfo user;
 
 	/**

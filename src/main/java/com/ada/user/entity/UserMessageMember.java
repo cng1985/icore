@@ -1,6 +1,7 @@
 package com.ada.user.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -15,14 +16,14 @@ public class UserMessageMember extends AbstractEntity {
 	 * 消息主题
 	 */
 	@JoinColumn(name = "subjectid")
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserMessageSubject subject;
 
 	/**
 	 * 用户
 	 */
 	@JoinColumn(name = "uid")
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo user;
 
 	/**

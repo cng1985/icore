@@ -19,6 +19,7 @@
 package com.ada.user.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -42,7 +43,7 @@ public class UserNotificationNum extends AbstractEntity {
 	 * 接收消息用户
 	 */
 	@JoinColumn(name = "uid")
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo user;
 
 	/**

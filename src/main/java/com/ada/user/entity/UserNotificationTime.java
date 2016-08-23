@@ -19,8 +19,7 @@
 package com.ada.user.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -36,7 +35,7 @@ public class UserNotificationTime extends AbstractEntity {
 	 * 接收消息用户
 	 */
 	@JoinColumn(name = "uid")
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo user;
 
 

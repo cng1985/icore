@@ -57,8 +57,9 @@ public class UserInfo extends AbstractEntity {
 
 	/** 属性 */
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "user_attribute")
-	@MapKeyColumn(name = "name", length = 100)
+	@CollectionTable(name = "user_info_attribute",joinColumns={@JoinColumn(name="user_id")})
+	@MapKeyColumn(name = "name", length = 36)
+	@Column(name="attr",length=100)
 	private Map<String, String> attributes = new HashMap<String, String>();
 	/**
 	 * 用户类型

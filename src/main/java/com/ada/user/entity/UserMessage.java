@@ -1,6 +1,7 @@
 package com.ada.user.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,13 +17,13 @@ public class UserMessage extends AbstractEntity {
 	/**
 	 * 对应的主题
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserMessageSubject subject;
 
 	/**
 	 * 发消息的用户
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo user;
 
 	/**

@@ -1,49 +1,45 @@
 package com.ada.user.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ada.data.entity.BaseEntity;
 
 @Entity
 @Table(name = "user_friend_request")
-public class UserFriendRequest implements Serializable {
+public class UserFriendRequest extends BaseEntity {
 
-	public UserFriendRequest(){
-		addDate=new Date();
-		lastDate=new Date();
+	public UserFriendRequest() {
+		addDate = new Date();
+		lastDate = new Date();
 	}
-	@Id
-	@GeneratedValue
-	private Long id;
-	
+
 	/**
-	 *   用户
+	 * 用户
 	 */
-	@ManyToOne
-	@JoinColumn(name="userid")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userid")
 	private UserInfo user;
-	
+
 	/**
-	 *  被请求用户
+	 * 被请求用户
 	 */
-	@ManyToOne
-	@JoinColumn(name="friendid")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "friendid")
 	private UserInfo friend;
-	
+
 	/**
-	 *  请求好友时间戳
+	 * 请求好友时间戳
 	 */
 	private Date addDate;
-	
+
 	/**
-	 *  请求好友修改时间戳
+	 * 请求好友修改时间戳
 	 */
 	private Date lastDate;
 
@@ -58,10 +54,6 @@ public class UserFriendRequest implements Serializable {
 
 	public UserInfo getFriend() {
 		return friend;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getNote() {
@@ -80,10 +72,6 @@ public class UserFriendRequest implements Serializable {
 		this.friend = friend;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
@@ -99,7 +87,5 @@ public class UserFriendRequest implements Serializable {
 	public void setLastDate(Date lastDate) {
 		this.lastDate = lastDate;
 	}
-	
-	
-	
+
 }

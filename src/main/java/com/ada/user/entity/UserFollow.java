@@ -18,33 +18,30 @@
  */
 package com.ada.user.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ada.data.entity.BaseEntity;
+
 @Entity
 @Table(name = "user_follow")
-public class UserFollow implements Serializable {
+public class UserFollow extends BaseEntity {
 
 	public UserFollow(){
 		addDate=new Date();
 		lastDate=new Date();
 	}
-	@Id
-	@GeneratedValue
-	private Long id;
 	
 	/**
 	 * 用户
 	 */
 	@JoinColumn(name="userid")
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo user;
 	
 	
@@ -52,20 +49,13 @@ public class UserFollow implements Serializable {
 	 * 用户
 	 */
 	@JoinColumn(name="followid")
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo follower;
 	
 	private Date addDate;
 	
 	private Date lastDate;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 
 	public UserInfo getUser() {
