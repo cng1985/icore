@@ -41,6 +41,8 @@ public interface UserInfoService {
 	public int register(String email, String username, String password);
 
 	public UserInfo reg(String email, String username, String password);
+	
+
 
 	public UserInfo reg(UserInfo user);
 
