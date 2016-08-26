@@ -1,16 +1,23 @@
 package com.ada.data.core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Fetch;
+import javax.persistence.criteria.From;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
+
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
+import org.springframework.util.Assert;
 
 import com.ada.data.page.Filter;
 import com.ada.data.page.Filter.Operator;
@@ -18,164 +25,304 @@ import com.ada.data.page.Order;
 import com.ada.data.page.Order.Direction;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
-import com.sun.javafx.fxml.expression.Expression;
+
 
 @SuppressWarnings("rawtypes")
 public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDaoImpl<T, ID>
 		implements CriteriaDao<T, ID> {
 
-	public Page<T> findPage(Pageable pageable) {
-
-		Criteria criteriaBuilder = createCriteria();
-		return findPage(criteriaBuilder, pageable);
+	public List<T> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery =criteriaBuilder.createQuery(getEntityClass());
+		criteriaQuery.select(criteriaQuery.from(getEntityClass()));
+		return findList(criteriaQuery, first, count, filters, orders);
 	}
 
-	public List<T> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
-		Criteria criteriaBuilder = createCriteria();
-		addRestrictions(criteriaBuilder, filters);
-		addOrders(criteriaBuilder, orders);
+	public Page<T> findPage(Pageable pageable) {
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(getEntityClass());
+		criteriaQuery.select(criteriaQuery.from(getEntityClass()));
+		return findPage(criteriaQuery, pageable);
+	}
+
+	public long count(Filter... filters) {
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(getEntityClass());
+		criteriaQuery.select(criteriaQuery.from(getEntityClass()));
+		return count(criteriaQuery, filters != null ? Arrays.asList(filters) : null);
+	}
+
+	protected List<T> findList(CriteriaQuery<T> criteriaQuery, Integer first, Integer count, List<Filter> filters, List<Order> orders) {
+		Assert.notNull(criteriaQuery);
+		Assert.notNull(criteriaQuery.getSelection());
+		Assert.notEmpty(criteriaQuery.getRoots());
+
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		Root<T> root = getRoot(criteriaQuery);
+		addRestrictions(criteriaQuery, filters);
+		addOrders(criteriaQuery, orders);
+//		if (criteriaQuery.getOrderList().isEmpty()) {
+//			if (OrderEntity.class.isAssignableFrom(entityClass)) {
+//				criteriaQuery.orderBy(criteriaBuilder.asc(root.get(OrderEntity.ORDER_PROPERTY_NAME)));
+//			} else {
+//				criteriaQuery.orderBy(criteriaBuilder.desc(root.get(OrderEntity.CREATE_DATE_PROPERTY_NAME)));
+//			}
+//		}
+		TypedQuery<T> query = getSession().createQuery(criteriaQuery).setFlushMode(FlushModeType.COMMIT);
 		if (first != null) {
-			criteriaBuilder.setFirstResult(first);
+			query.setFirstResult(first);
 		}
 		if (count != null) {
-			criteriaBuilder.setMaxResults(count);
+			query.setMaxResults(count);
 		}
-		return criteriaBuilder.list();
+		return query.getResultList();
 	}
 
-	private void addOrders(Criteria criteriaQuery, List<Order> orders) {
-		if (criteriaQuery == null || orders == null || orders.isEmpty()) {
-			return;
-		}
-		for (Order order : orders) {
-			if (order.getDirection() == Direction.asc) {
-				criteriaQuery.addOrder(org.hibernate.criterion.Order.asc(order.getProperty()));
-			} else if (order.getDirection() == Direction.desc) {
-				criteriaQuery.addOrder(org.hibernate.criterion.Order.desc(order.getProperty()));
-			}
-		}
-	}
-
-	protected Page<T> findPage(Criteria criteriaQuery, Pageable pageable) {
+	protected Page<T> findPage(CriteriaQuery<T> criteriaQuery, Pageable pageable) {
+		Assert.notNull(criteriaQuery);
+		Assert.notNull(criteriaQuery.getSelection());
+		Assert.notEmpty(criteriaQuery.getRoots());
 
 		if (pageable == null) {
 			pageable = new Pageable();
 		}
-
-		Criteria countQuery = createCriteria();
-		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
-			countQuery.add(Restrictions.like(pageable.getSearchProperty(), "%" + pageable.getSearchValue() + "%"));
-		}
-
-		Long total = count(countQuery, pageable.getFilters());
-		if (total == null) {
-			total = 0l;
-		}
-
-		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
-			criteriaQuery.add(Restrictions.like(pageable.getSearchProperty(), "%" + pageable.getSearchValue() + "%"));
-		}
-		addRestrictions(criteriaQuery, pageable.getFilters());
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		Root<T> root = getRoot(criteriaQuery);
+		addRestrictions(criteriaQuery, pageable);
+		addOrders(criteriaQuery, pageable);
+//		if (criteriaQuery.getOrderList().isEmpty()) {
+//			if (OrderEntity.class.isAssignableFrom(entityClass)) {
+//				criteriaQuery.orderBy(criteriaBuilder.asc(root.get(OrderEntity.ORDER_PROPERTY_NAME)));
+//			} else {
+//				criteriaQuery.orderBy(criteriaBuilder.desc(root.get(OrderEntity.CREATE_DATE_PROPERTY_NAME)));
+//			}
+//		}
+		long total = count(criteriaQuery, null);
 		int totalPages = (int) Math.ceil((double) total / (double) pageable.getPageSize());
 		if (totalPages < pageable.getPageNumber()) {
 			pageable.setPageNumber(totalPages);
 		}
-		
-		if (StringUtils.isNotEmpty(pageable.getSearchAliasProperty()) && pageable.getSearchAliasValue()==null) {
-			criteriaQuery.createAlias(pageable.getSearchAliasProperty().split("[.]")[0], 
-					pageable.getSearchAliasProperty().split("[.]")[0])
-//			.add(Restrictions.eq(pageable.getSearchAliasProperty(), pageable.getSearchAliasValue()))
-			.add(Restrictions.isNotNull(pageable.getSearchAliasProperty()));
-		}
-		if (StringUtils.isNotEmpty(pageable.getSearchAliasProperty()) && pageable.getSearchAliasValue()!=null) {
-			criteriaQuery.createAlias(pageable.getSearchAliasProperty().split("[.]")[0], 
-					pageable.getSearchAliasProperty().split("[.]")[0])
-			.add(Restrictions.eq(pageable.getSearchAliasProperty(), pageable.getSearchAliasValue()));
-		}
-
-		addOrders(criteriaQuery, pageable);
-		criteriaQuery.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
-		criteriaQuery.setMaxResults(pageable.getPageSize());
-		return new Page<T>(criteriaQuery.list(), total, pageable);
+		TypedQuery<T> query = getSession().createQuery(criteriaQuery).setFlushMode(FlushModeType.COMMIT);
+		query.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize());
+		query.setMaxResults(pageable.getPageSize());
+		return new Page<T>(query.getResultList(), total, pageable);
 	}
-
-	public long count(Filter... filters) {
-		Criteria criteriaBuilder = createCriteria();
-		return count(criteriaBuilder, filters != null ? Arrays.asList(filters) : null);
-	}
-
-	private void addOrders(Criteria criteriaQuery, Pageable pageable) {
-		if (criteriaQuery == null || pageable == null) {
-			return;
-		}
-		if (StringUtils.isNotEmpty(pageable.getOrderProperty()) && pageable.getOrderDirection() != null) {
-			if (pageable.getOrderDirection() == Direction.asc) {
-				criteriaQuery.addOrder(org.hibernate.criterion.Order.asc(pageable.getOrderProperty()));
-			} else if (pageable.getOrderDirection() == Direction.desc) {
-				criteriaQuery.addOrder(org.hibernate.criterion.Order.desc(pageable.getOrderProperty()));
-			}
-		}
-		if (pageable.getOrders() != null) {
-			for (Order order : pageable.getOrders()) {
-				if (order.getDirection() == Direction.asc) {
-					criteriaQuery.addOrder(org.hibernate.criterion.Order.asc(order.getProperty()));
-				} else if (order.getDirection() == Direction.desc) {
-					criteriaQuery.addOrder(org.hibernate.criterion.Order.desc(order.getProperty()));
+	/** 别名数 */
+	private static volatile long aliasCount = 0;
+	
+	private synchronized String getAlias(Selection<?> selection) {
+		if (selection != null) {
+			String alias = selection.getAlias();
+			if (alias == null) {
+				if (aliasCount >= 1000) {
+					aliasCount = 0;
 				}
+				alias = "shopxxGeneratedAlias" + aliasCount++;
+				selection.alias(alias);
 			}
+			return alias;
+		}
+		return null;
+	}
+	protected Long count(CriteriaQuery<T> criteriaQuery, List<Filter> filters) {
+		Assert.notNull(criteriaQuery);
+		Assert.notNull(criteriaQuery.getSelection());
+		Assert.notEmpty(criteriaQuery.getRoots());
+
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		addRestrictions(criteriaQuery, filters);
+
+		CriteriaQuery<Long> countCriteriaQuery = criteriaBuilder.createQuery(Long.class);
+		for (Root<?> root : criteriaQuery.getRoots()) {
+			Root<?> dest = countCriteriaQuery.from(root.getJavaType());
+			dest.alias(getAlias(root));
+			copyJoins(root, dest);
+		}
+
+		Root<?> countRoot = getRoot(countCriteriaQuery, criteriaQuery.getResultType());
+		countCriteriaQuery.select(criteriaBuilder.count(countRoot));
+
+		if (criteriaQuery.getGroupList() != null) {
+			countCriteriaQuery.groupBy(criteriaQuery.getGroupList());
+		}
+		if (criteriaQuery.getGroupRestriction() != null) {
+			countCriteriaQuery.having(criteriaQuery.getGroupRestriction());
+		}
+		if (criteriaQuery.getRestriction() != null) {
+			countCriteriaQuery.where(criteriaQuery.getRestriction());
+		}
+		return getSession().createQuery(countCriteriaQuery).setFlushMode(FlushModeType.COMMIT).getSingleResult();
+	}
+	private void copyJoins(From<?, ?> from, From<?, ?> to) {
+		for (Join<?, ?> join : from.getJoins()) {
+			Join<?, ?> toJoin = to.join(join.getAttribute().getName(), join.getJoinType());
+			toJoin.alias(getAlias(join));
+			copyJoins(join, toJoin);
+		}
+		for (Fetch<?, ?> fetch : from.getFetches()) {
+			Fetch<?, ?> toFetch = to.fetch(fetch.getAttribute().getName());
+			copyFetches(fetch, toFetch);
 		}
 	}
 
-	protected Long count(Criteria criteriaQuery, List<Filter> filters) {
-		addRestrictions(criteriaQuery, filters);
-		criteriaQuery.setProjection(Projections.rowCount());
-		return (Long) criteriaQuery.uniqueResult();
+	private void copyFetches(Fetch<?, ?> from, Fetch<?, ?> to) {
+		for (Fetch<?, ?> fetch : from.getFetches()) {
+			Fetch<?, ?> toFetch = to.fetch(fetch.getAttribute().getName());
+			copyFetches(fetch, toFetch);
+		}
 	}
 
-	private void addRestrictions(Criteria criteriaQuery, List<Filter> filters) {
+	private void addRestrictions(CriteriaQuery<T> criteriaQuery, List<Filter> filters) {
 		if (criteriaQuery == null || filters == null || filters.isEmpty()) {
 			return;
 		}
-
+		Root<T> root = getRoot(criteriaQuery);
+		if (root == null) {
+			return;
+		}
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		Predicate restrictions = criteriaQuery.getRestriction() != null ? criteriaQuery.getRestriction() : criteriaBuilder.conjunction();
 		for (Filter filter : filters) {
 			if (filter == null || StringUtils.isEmpty(filter.getProperty())) {
 				continue;
 			}
 			if (filter.getOperator() == Operator.eq && filter.getValue() != null) {
-				criteriaQuery.add(Restrictions.eq(filter.getProperty(), filter.getValue()));
-
-			} else if (filter.getOperator() == Operator.ne && filter.getValue() != null) {
-				criteriaQuery.add(Restrictions.ne(filter.getProperty(), filter.getValue()));
-
-			} else if (filter.getOperator() == Operator.gt && filter.getValue() != null) {
-				criteriaQuery.add(Restrictions.gt(filter.getProperty(), filter.getValue()));
-
-			} else if (filter.getOperator() == Operator.lt && filter.getValue() != null) {
-
-				criteriaQuery.add(Restrictions.lt(filter.getProperty(), filter.getValue()));
-
-			} else if (filter.getOperator() == Operator.ge && filter.getValue() != null) {
-				criteriaQuery.add(Restrictions.ge(filter.getProperty(), filter.getValue()));
-
-			} else if (filter.getOperator() == Operator.le && filter.getValue() != null) {
-				criteriaQuery.add(Restrictions.le(filter.getProperty(), filter.getValue()));
-
-			} else if (filter.getOperator() == Operator.like && filter.getValue() != null
-					&& filter.getValue() instanceof String) {
-				criteriaQuery.add(Restrictions.like(filter.getProperty(), (String) filter.getValue(),MatchMode.ANYWHERE));
-
-			} else if (filter.getOperator() == Operator.in && filter.getValue() != null) {
-				if (filter.getValue() instanceof Collection) {
-					criteriaQuery.add(Restrictions.in(filter.getProperty(), (Collection) filter.getValue()));
+				if (filter.getIgnoreCase() != null && filter.getIgnoreCase() && filter.getValue() instanceof String) {
+					restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(criteriaBuilder.lower(root.<String> get(filter.getProperty())), ((String) filter.getValue()).toLowerCase()));
+				} else {
+					restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get(filter.getProperty()), filter.getValue()));
 				}
+			} else if (filter.getOperator() == Operator.ne && filter.getValue() != null) {
+				if (filter.getIgnoreCase() != null && filter.getIgnoreCase() && filter.getValue() instanceof String) {
+					restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(criteriaBuilder.lower(root.<String> get(filter.getProperty())), ((String) filter.getValue()).toLowerCase()));
+				} else {
+					restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(root.get(filter.getProperty()), filter.getValue()));
+				}
+			} else if (filter.getOperator() == Operator.gt && filter.getValue() != null) {
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.gt(root.<Number> get(filter.getProperty()), (Number) filter.getValue()));
+			} else if (filter.getOperator() == Operator.lt && filter.getValue() != null) {
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.lt(root.<Number> get(filter.getProperty()), (Number) filter.getValue()));
+			} else if (filter.getOperator() == Operator.ge && filter.getValue() != null) {
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.ge(root.<Number> get(filter.getProperty()), (Number) filter.getValue()));
+			} else if (filter.getOperator() == Operator.le && filter.getValue() != null) {
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.le(root.<Number> get(filter.getProperty()), (Number) filter.getValue()));
+			} else if (filter.getOperator() == Operator.like && filter.getValue() != null && filter.getValue() instanceof String) {
+				restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.like(root.<String> get(filter.getProperty()), (String) filter.getValue()));
+			} else if (filter.getOperator() == Operator.in && filter.getValue() != null) {
+				restrictions = criteriaBuilder.and(restrictions, root.get(filter.getProperty()).in(filter.getValue()));
 			} else if (filter.getOperator() == Operator.isNull) {
-				criteriaQuery.add(Restrictions.isNull(filter.getProperty()));
-
+				restrictions = criteriaBuilder.and(restrictions, root.get(filter.getProperty()).isNull());
 			} else if (filter.getOperator() == Operator.isNotNull) {
-				criteriaQuery.add(Restrictions.isNotNull(filter.getProperty()));
+				restrictions = criteriaBuilder.and(restrictions, root.get(filter.getProperty()).isNotNull());
 			}
 		}
-		// criteriaQuery.where(restrictions);
+		criteriaQuery.where(restrictions);
 	}
 
+	private void addRestrictions(CriteriaQuery<T> criteriaQuery, Pageable pageable) {
+		if (criteriaQuery == null || pageable == null) {
+			return;
+		}
+		Root<T> root = getRoot(criteriaQuery);
+		if (root == null) {
+			return;
+		}
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		Predicate restrictions = criteriaQuery.getRestriction() != null ? criteriaQuery.getRestriction() : criteriaBuilder.conjunction();
+		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.like(root.<String> get(pageable.getSearchProperty()), "%" + pageable.getSearchValue() + "%"));
+		}
+		if (pageable.getFilters() != null) {
+			for (Filter filter : pageable.getFilters()) {
+				if (filter == null || StringUtils.isEmpty(filter.getProperty())) {
+					continue;
+				}
+				if (filter.getOperator() == Operator.eq && filter.getValue() != null) {
+					if (filter.getIgnoreCase() != null && filter.getIgnoreCase() && filter.getValue() instanceof String) {
+						restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(criteriaBuilder.lower(root.<String> get(filter.getProperty())), ((String) filter.getValue()).toLowerCase()));
+					} else {
+						restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get(filter.getProperty()), filter.getValue()));
+					}
+				} else if (filter.getOperator() == Operator.ne && filter.getValue() != null) {
+					if (filter.getIgnoreCase() != null && filter.getIgnoreCase() && filter.getValue() instanceof String) {
+						restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(criteriaBuilder.lower(root.<String> get(filter.getProperty())), ((String) filter.getValue()).toLowerCase()));
+					} else {
+						restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.notEqual(root.get(filter.getProperty()), filter.getValue()));
+					}
+				} else if (filter.getOperator() == Operator.gt && filter.getValue() != null) {
+					restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.gt(root.<Number> get(filter.getProperty()), (Number) filter.getValue()));
+				} else if (filter.getOperator() == Operator.lt && filter.getValue() != null) {
+					restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.lt(root.<Number> get(filter.getProperty()), (Number) filter.getValue()));
+				} else if (filter.getOperator() == Operator.ge && filter.getValue() != null) {
+					restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.ge(root.<Number> get(filter.getProperty()), (Number) filter.getValue()));
+				} else if (filter.getOperator() == Operator.le && filter.getValue() != null) {
+					restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.le(root.<Number> get(filter.getProperty()), (Number) filter.getValue()));
+				} else if (filter.getOperator() == Operator.like && filter.getValue() != null && filter.getValue() instanceof String) {
+					restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.like(root.<String> get(filter.getProperty()), (String) filter.getValue()));
+				} else if (filter.getOperator() == Operator.in && filter.getValue() != null) {
+					restrictions = criteriaBuilder.and(restrictions, root.get(filter.getProperty()).in(filter.getValue()));
+				} else if (filter.getOperator() == Operator.isNull) {
+					restrictions = criteriaBuilder.and(restrictions, root.get(filter.getProperty()).isNull());
+				} else if (filter.getOperator() == Operator.isNotNull) {
+					restrictions = criteriaBuilder.and(restrictions, root.get(filter.getProperty()).isNotNull());
+				}
+			}
+		}
+		criteriaQuery.where(restrictions);
+	}
+
+	private void addOrders(CriteriaQuery<T> criteriaQuery, List<Order> orders) {
+		if (criteriaQuery == null || orders == null || orders.isEmpty()) {
+			return;
+		}
+		Root<T> root = getRoot(criteriaQuery);
+		if (root == null) {
+			return;
+		}
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		List<javax.persistence.criteria.Order> orderList = new ArrayList<javax.persistence.criteria.Order>();
+		if (!criteriaQuery.getOrderList().isEmpty()) {
+			orderList.addAll(criteriaQuery.getOrderList());
+		}
+		for (Order order : orders) {
+			if (order.getDirection() == Direction.asc) {
+				orderList.add(criteriaBuilder.asc(root.get(order.getProperty())));
+			} else if (order.getDirection() == Direction.desc) {
+				orderList.add(criteriaBuilder.desc(root.get(order.getProperty())));
+			}
+		}
+		criteriaQuery.orderBy(orderList);
+	}
+
+	private void addOrders(CriteriaQuery<T> criteriaQuery, Pageable pageable) {
+		if (criteriaQuery == null || pageable == null) {
+			return;
+		}
+		Root<T> root = getRoot(criteriaQuery);
+		if (root == null) {
+			return;
+		}
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		List<javax.persistence.criteria.Order> orderList = new ArrayList<javax.persistence.criteria.Order>();
+		if (!criteriaQuery.getOrderList().isEmpty()) {
+			orderList.addAll(criteriaQuery.getOrderList());
+		}
+		if (StringUtils.isNotEmpty(pageable.getOrderProperty()) && pageable.getOrderDirection() != null) {
+			if (pageable.getOrderDirection() == Direction.asc) {
+				orderList.add(criteriaBuilder.asc(root.get(pageable.getOrderProperty())));
+			} else if (pageable.getOrderDirection() == Direction.desc) {
+				orderList.add(criteriaBuilder.desc(root.get(pageable.getOrderProperty())));
+			}
+		}
+		if (pageable.getOrders() != null) {
+			for (Order order : pageable.getOrders()) {
+				if (order.getDirection() == Direction.asc) {
+					orderList.add(criteriaBuilder.asc(root.get(order.getProperty())));
+				} else if (order.getDirection() == Direction.desc) {
+					orderList.add(criteriaBuilder.desc(root.get(order.getProperty())));
+				}
+			}
+		}
+		criteriaQuery.orderBy(orderList);
+	}
 }

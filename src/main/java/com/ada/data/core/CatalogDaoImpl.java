@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.LockMode;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
@@ -15,11 +14,11 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.CriteriaImpl;
 import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.query.Query;
 import org.hibernate.transform.ResultTransformer;
-import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
 
 import com.ada.data.entity.CatalogEntity;
@@ -86,19 +85,6 @@ public abstract class CatalogDaoImpl<T, ID extends Serializable> extends Hiberna
 		return (T) createCriteria(Restrictions.eq(property, value)).uniqueResult();
 	}
 
-	/**
-	 * 按属性统计记录数
-	 * 
-	 * @param property
-	 * @param value
-	 * @return
-	 */
-	protected int countByProperty(String property, Object value) {
-		Assert.hasText(property);
-		Assert.notNull(value);
-		return ((Number) (createCriteria(Restrictions.eq(property, value)).setProjection(Projections.rowCount())
-				.uniqueResult())).intValue();
-	}
 
 	/**
 	 * 按Criterion查询列表数据.

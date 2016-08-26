@@ -5,19 +5,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.FlushModeType;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Criteria;
 import org.hibernate.LockMode;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.hql.internal.ast.QueryTranslatorImpl;
 import org.hibernate.internal.CriteriaImpl;
 import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 import org.hibernate.transform.ResultTransformer;
 import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
@@ -37,9 +45,9 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 
 	public T findOne(Finder finder) {
 		T entity = null;
-		List list = find(finder);
+		List<T> list = find(finder);
 		if (list != null && list.size() > 0) {
-			entity = (T) list.get(0);
+			entity =  list.get(0);
 		}
 		return entity;
 	}
@@ -52,11 +60,10 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 	 *            是否锁定，使用LockMode.UPGRADE
 	 * @return 持久化对象
 	 */
-	@SuppressWarnings("unchecked")
 	protected T get(ID id, boolean lock) {
 		T entity;
 		if (lock) {
-			entity = (T) getSession().get(getEntityClass(), id, LockMode.UPGRADE);
+			entity = (T) getSession().get(getEntityClass(), id, LockMode.PESSIMISTIC_WRITE);
 		} else {
 			entity = (T) getSession().get(getEntityClass(), id);
 		}
@@ -67,24 +74,54 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 		// TODO Auto-generated method stub
 		return getSessionFactory().getCurrentSession();
 	}
-
+	protected Root<T> getRoot(CriteriaQuery<T> criteriaQuery) {
+		if (criteriaQuery != null) {
+			return getRoot(criteriaQuery, criteriaQuery.getResultType());
+		}
+		return null;
+	}
+	protected Root<T> getRoot(CriteriaQuery<?> criteriaQuery, Class<T> clazz) {
+		if (criteriaQuery != null && criteriaQuery.getRoots() != null && clazz != null) {
+			for (Root<?> root : criteriaQuery.getRoots()) {
+				if (clazz.equals(root.getJavaType())) {
+					return (Root<T>) root.as(clazz);
+				}
+			}
+		}
+		return null;
+	}
 	/**
 	 * 按属性查找对象列表
 	 */
-	@SuppressWarnings("unchecked")
 	public List<T> findByProperty(String property, Object value) {
 		Assert.hasText(property);
-		return createCriteria(Restrictions.eq(property, value)).list();
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery =criteriaBuilder.createQuery(getEntityClass());
+		criteriaQuery.select(criteriaQuery.from(getEntityClass()));
+		Root<T> root = getRoot(criteriaQuery);
+		Predicate restrictions = criteriaQuery.getRestriction() != null ? criteriaQuery.getRestriction() : criteriaBuilder.conjunction();
+		if (value instanceof String) {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(criteriaBuilder.lower(root.<String> get(property)), ((String) value).toLowerCase()));
+		} else {
+			restrictions = criteriaBuilder.and(restrictions, criteriaBuilder.equal(root.get(property), value));
+		}
+		criteriaQuery.where(restrictions);
+		TypedQuery<T> query = getSession().createQuery(criteriaQuery).setFlushMode(FlushModeType.COMMIT);
+		return query.getResultList();
 	}
 
 	/**
 	 * 按属性查找唯一对象
 	 */
-	@SuppressWarnings("unchecked")
 	protected T findUniqueByProperty(String property, Object value) {
 		Assert.hasText(property);
 		Assert.notNull(value);
-		return (T) createCriteria(Restrictions.eq(property, value)).uniqueResult();
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery =criteriaBuilder.createQuery(getEntityClass());
+		Root<T> root = getRoot(criteriaQuery);
+		criteriaQuery.select(criteriaQuery.from(getEntityClass()));
+		criteriaQuery.where(criteriaBuilder.equal(root.get(property),value));
+		return  getSession().createQuery(criteriaQuery).getSingleResult();
 	}
 
 	/**
@@ -94,23 +131,18 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 	 * @param value
 	 * @return
 	 */
-	protected int countByProperty(String property, Object value) {
+	public Long countByProperty(String property, Object value) {
 		Assert.hasText(property);
 		Assert.notNull(value);
-		return ((Number) (createCriteria(Restrictions.eq(property, value)).setProjection(Projections.rowCount())
-				.uniqueResult())).intValue();
+		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
+		CriteriaQuery<Long> criteriaQuery =criteriaBuilder.createQuery(Long.class);
+		Root<T> root=criteriaQuery.from(getEntityClass());
+		Expression<Long> where=criteriaBuilder.count(root);
+		criteriaQuery.select(where);
+		criteriaQuery.where(criteriaBuilder.equal(root.get(property),value));
+		return  getSession().createQuery(criteriaQuery).getSingleResult();
 	}
 
-	/**
-	 * 按Criterion查询列表数据.
-	 * 
-	 * @param criterion
-	 *            数量可变的Criterion.
-	 */
-	@SuppressWarnings("unchecked")
-	public List findByCriteria(Criterion... criterion) {
-		return createCriteria(criterion).list();
-	}
 
 	/**
 	 * 通过Updater更新对象
@@ -118,7 +150,6 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 	 * @param updater
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public T updateByUpdater(Updater<T> updater) {
 		ClassMetadata cm = getSessionFactory().getClassMetadata(getEntityClass());
 		T bean = updater.getBean();
@@ -156,7 +187,9 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 
 	/**
 	 * 根据Criterion条件创建Criteria,后续可进行更多处理,辅助函数.
+	 * 		CriteriaQuery criteriaQuery=		getSession().getCriteriaBuilder().createQuery(getEntityClass());
 	 */
+	@Deprecated
 	protected Criteria createCriteria(Criterion... criterions) {
 		Criteria criteria = getSession().createCriteria(getEntityClass());
 		for (Criterion c : criterions) {
@@ -309,7 +342,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List find(Finder finder) {
+	public List<T> find(Finder finder) {
 		Query query = finder.createQuery(getSessionFactory().getCurrentSession());
 		List list = query.list();
 		return list;
@@ -318,9 +351,9 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 	/**
 	 * 根据查询函数与参数列表创建Query对象,后续可进行更多处理,辅助函数.
 	 */
-	protected Query createQuery(String queryString, Object... values) {
+	protected Query<T> createQuery(String queryString, Object... values) {
 		Assert.hasText(queryString);
-		Query queryObject = getSessionFactory().getCurrentSession().createQuery(queryString);
+		Query<T> queryObject = getSessionFactory().getCurrentSession().createQuery(queryString,getEntityClass());
 		if (values != null) {
 			for (int i = 0; i < values.length; i++) {
 				queryObject.setParameter(i, values[i]);
@@ -428,12 +461,12 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 	 * @return
 	 */
 	public int countQuerySqlResult(Finder finder) {
-		Query query = getSessionFactory().getCurrentSession().createSQLQuery(finder.getRowCountHql());
+		Query<?> query = getSessionFactory().getCurrentSession().createNativeQuery(finder.getRowCountHql());
 		finder.setParamsToQuery(query);
 		if (finder.isCacheable()) {
 			query.setCacheable(true);
 		}
-		List<?> ls = query.list();
+		List<?> ls = query.getResultList();
 		Object o = ls.get(0);
 		if (o instanceof Number) {
 			return ((Number) o).intValue();
@@ -445,7 +478,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 	}
 
 	public <X> X hql(Finder finder) {
-		Query query = getSessionFactory().getCurrentSession().createQuery(finder.getOrigHql());
+		Query query =getSession().createQuery(finder.getOrigHql());
 		finder.setParamsToQuery(query);
 		if (finder.isCacheable()) {
 			query.setCacheable(true);
@@ -476,9 +509,9 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 
 	public <X> List<X> listSQL(String sql, Class<X> otoclass) {
 		List<X> result = null;
-		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
-		query.setResultTransformer(Transformers.aliasToBean(otoclass));
-		result = query.list();
+		NativeQuery<X> query = getSessionFactory().getCurrentSession().createNativeQuery(sql,otoclass);
+		//query.setResultTransformer(Transformers.aliasToBean(otoclass));
+		result = query.getResultList();
 		return result;
 	}
 
@@ -494,11 +527,11 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 
 	public <X>  List<X> listSQL(String sql, Integer stat, Integer max, Class<X> otoclass) {
 		List<X> result = null;
-		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
-		query.setResultTransformer(Transformers.aliasToBean(otoclass));
+		Query<X> query = getSessionFactory().getCurrentSession().createNativeQuery(sql,otoclass);
+		//query.setResultTransformer(Transformers.aliasToBean(otoclass));
 		query.setFirstResult(stat);
 		query.setMaxResults(max);
-		result = query.list();
+		result = query.getResultList();
 		return result;
 	}
 

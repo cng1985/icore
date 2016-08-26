@@ -29,6 +29,8 @@ public interface BaseDao<T, ID extends Serializable> {
 
 	public List<T> findByProperty(String property, Object value);
 
+	public Long countByProperty(String property, Object value);
+	
 	public int countQueryResult(Finder finder);
 
 	public Long countQuery(Finder finder);
