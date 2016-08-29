@@ -19,6 +19,7 @@ import javax.persistence.criteria.Selection;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
+import com.ada.data.entity.AbstractEntity;
 import com.ada.data.page.Filter;
 import com.ada.data.page.Filter.Operator;
 import com.ada.data.page.Order;
@@ -90,13 +91,13 @@ public abstract class CriteriaDaoImpl<T, ID extends Serializable> extends BaseDa
 		Root<T> root = getRoot(criteriaQuery);
 		addRestrictions(criteriaQuery, pageable);
 		addOrders(criteriaQuery, pageable);
-//		if (criteriaQuery.getOrderList().isEmpty()) {
-//			if (OrderEntity.class.isAssignableFrom(entityClass)) {
-//				criteriaQuery.orderBy(criteriaBuilder.asc(root.get(OrderEntity.ORDER_PROPERTY_NAME)));
-//			} else {
-//				criteriaQuery.orderBy(criteriaBuilder.desc(root.get(OrderEntity.CREATE_DATE_PROPERTY_NAME)));
-//			}
-//		}
+		if (criteriaQuery.getOrderList().isEmpty()) {
+			if (AbstractEntity.class.isAssignableFrom(getClass())) {
+				criteriaQuery.orderBy(criteriaBuilder.asc(root.get("id")));
+			} else {
+				//criteriaQuery.orderBy(criteriaBuilder.desc(root.get(OrderEntity.CREATE_DATE_PROPERTY_NAME)));
+			}
+		}
 		long total = count(criteriaQuery, null);
 		int totalPages = (int) Math.ceil((double) total / (double) pageable.getPageSize());
 		if (totalPages < pageable.getPageNumber()) {
