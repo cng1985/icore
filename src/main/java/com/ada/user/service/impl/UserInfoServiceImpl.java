@@ -3,6 +3,7 @@ package com.ada.user.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -353,5 +354,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 			result = dao.save(user);
 		}
 		return result;
+	}
+
+	@Override
+	public UserInfo update(Long userid, Map<String, String> attrs) {
+		UserInfo entity = dao.findById(userid);
+		if (attrs!=null) {
+			entity.getAttributes().putAll(attrs);
+		}
+		return entity;
 	}
 }

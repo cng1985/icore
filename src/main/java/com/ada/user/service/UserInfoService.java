@@ -1,13 +1,13 @@
 package com.ada.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ada.data.core.Pagination;
 import com.ada.data.page.Filter;
 import com.ada.data.page.Order;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
-import com.ada.user.entity.UserDevice;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserRole;
 import com.openyelp.annotation.RestFul;
@@ -27,6 +27,9 @@ public interface UserInfoService {
 	public UserInfo update(String username, String phone, String email);
 
 	public UserInfo save(UserInfo bean);
+	
+	public UserInfo update(Long userid,Map<String,String> attrs);
+
 
 	public UserInfo update(UserInfo bean);
 
