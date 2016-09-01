@@ -25,6 +25,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
 
+import com.ada.data.page.Filter;
+import com.ada.data.page.Filter.Operator;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
+
 public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateDaoSupport implements BaseDao<T, ID> {
 	/**
 	 * @see Session.get(Class,Serializable)
@@ -34,7 +39,61 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 	protected T get(ID id) {
 		return get(id, false);
 	}
-
+	
+	public Page<T> page(Pageable pageable) {
+		Page<T> result = null;
+		Finder finder = Finder.create();
+		finder.append("from " + getEntityClass().getSimpleName());
+		finder.append(" model where 1= 1 ");
+		List<Filter> filters = pageable.getFilters();
+		if (filters != null) {
+			for (Filter filter : filters) {
+				finder.append(" and  model." + filter.getProperty());
+				if (filter.getOperator() == Operator.eq) {
+					finder.append(" =:" + getProperty(filter));
+				}
+				else if (filter.getOperator() == Operator.ne) {
+					finder.append(" !=:" + getProperty(filter));
+				}
+				else if (filter.getOperator() == Operator.ge) {
+					finder.append(" >=:" + getProperty(filter));
+				}
+				else if (filter.getOperator() == Operator.gt) {
+					finder.append(" >:" + getProperty(filter));
+				}
+				else if (filter.getOperator() == Operator.le) {
+					finder.append(" <=:" + getProperty(filter));
+				}
+				else if (filter.getOperator() == Operator.lt) {
+					finder.append(" <:" + getProperty(filter));
+				}
+				else if (filter.getOperator() == Operator.like) {
+					finder.append(" like:" + getProperty(filter));
+				}
+				
+				
+				if (filter.getOperator() == Operator.like) {
+					finder.setParam(getProperty(filter), "%"+filter.getValue()+"%");
+				}else{
+					finder.setParam(getProperty(filter), filter.getValue());
+				}
+			}
+		}
+		Pagination<T> page = find(finder, pageable.getPageNumber(), pageable.getPageSize());
+		result = new Page<T>(page.getList(), page.getTotalCount(), pageable);
+		return result;
+	}
+	/**
+	 * @param filter
+	 * @return
+	 */
+	private String getProperty(Filter filter) {
+		String result=filter.getProperty();
+		result=result.replaceAll("\\.", "");
+		return result;
+	}
+	
+	
 	public T findOne(Finder finder) {
 		T entity = null;
 		List list = find(finder);

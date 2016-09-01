@@ -5,8 +5,13 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
+
 public interface BaseDao<T, ID extends Serializable> {
 
+	public Page<T> page(Pageable pageable);
+	
 	public abstract T add(T t);
 
 	public abstract T delete(T t);
