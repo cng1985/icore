@@ -54,7 +54,7 @@ public class AppDaoImpl extends CriteriaDaoImpl<App, Long> implements AppDao {
 	public App findByPackage(String packageName) {
 		
 		Finder finder=Finder.create();
-		finder.append("from App app where app.packageName =:packageName ");
+		finder.append("from App app where app.packageName =:packageName and app.system = 'android'");
 		finder.setParam("packageName", packageName);
 		
 		return findOne(finder);
