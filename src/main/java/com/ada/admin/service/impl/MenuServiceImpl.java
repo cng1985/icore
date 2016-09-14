@@ -150,7 +150,7 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public List<Menu> childs(int id) {
-		List ms = null;
+		List<Menu> ms = null;
 		Menu menu = dao.findById(id);
 		if (menu != null) {
 			Finder finder = Finder.create("from Menu t where t.lft >=:lft and t.rgt<=:rgt ");
