@@ -385,4 +385,10 @@ public class Filter implements Serializable {
 		return new HashCodeBuilder(17, 37).append(getProperty()).append(getOperator()).append(getValue()).toHashCode();
 	}
 
+	@Override
+	public String toString() {
+		return "Filter [property=" + property + ", operator=" + operator + ", value=" + value + ", ignoreCase="
+				+ ignoreCase + "]";
+	}
+
 }
