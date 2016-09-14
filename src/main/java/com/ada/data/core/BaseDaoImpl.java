@@ -27,6 +27,8 @@ import org.springframework.util.Assert;
 
 import com.ada.data.page.Filter;
 import com.ada.data.page.Filter.Operator;
+import com.ada.data.page.Order;
+import com.ada.data.page.Order.Direction;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 
@@ -43,7 +45,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 	public Page<T> page(Pageable pageable) {
 		Page<T> result = null;
 		Finder finder = Finder.create();
-		finder.append("from " + getEntityClass().getSimpleName());
+		finder.append("select distinct model from " + getEntityClass().getSimpleName());
 		finder.append(" model where 1= 1 ");
 		List<Filter> filters = pageable.getFilters();
 		if (filters != null) {
@@ -79,6 +81,31 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 				}
 			}
 		}
+		
+		List<Order> orders=	pageable.getOrders();
+		if (orders!=null&&orders.size()>0) {
+			
+			finder.append(" order by ");
+			int num=0;
+			int all=orders.size();
+			for (Order order : orders) {
+				num++;
+				finder.append(" model."+order.getProperty());
+				if (order.getDirection()==Direction.asc) {
+					finder.append(" asc ");
+				}
+				else{
+					finder.append(" desc ");
+				}
+				
+				if (num!=all) {
+					finder.append(" , ");
+				}
+			}
+		}
+		
+		
+		
 		Pagination<T> page = find(finder, pageable.getPageNumber(), pageable.getPageSize());
 		result = new Page<T>(page.getList(), page.getTotalCount(), pageable);
 		return result;

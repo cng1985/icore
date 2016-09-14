@@ -6,15 +6,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.ada.data.page.Filter.Operator;
 import com.ada.data.page.Order.Direction;
 
-@Target({ ElementType.FIELD })
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Search {
-
-	Operator operator() default Operator.eq;
+public @interface SearchOrder {
+	
+	Direction direction() default Direction.desc;
 
 	String name() default "";
+
 }
