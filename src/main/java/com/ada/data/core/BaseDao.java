@@ -5,13 +5,23 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 
+import com.ada.data.page.Filter;
+import com.ada.data.page.Order;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 
 public interface BaseDao<T, ID extends Serializable> {
 
+	/**
+	 * 根据条件查询数据，返回分页结果
+	 * 
+	 * @param pageable
+	 * @return
+	 */
 	public Page<T> page(Pageable pageable);
-	
+
+	public List<T> list(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+
 	public abstract T add(T t);
 
 	public abstract T delete(T t);
@@ -24,7 +34,7 @@ public interface BaseDao<T, ID extends Serializable> {
 
 	public Pagination<T> find(Finder finder, int pageNo, int pageSize);
 
-	public <X> Pagination<X>  findSql(Finder finder, int pageNo, int pageSize, Class<X> otoclass);
+	public <X> Pagination<X> findSql(Finder finder, int pageNo, int pageSize, Class<X> otoclass);
 
 	public List<T> find(Finder finder);
 
@@ -60,10 +70,8 @@ public interface BaseDao<T, ID extends Serializable> {
 	 */
 	public <X> List<X> listSQL(String sql, Class<X> otoclass);
 
-	
-	public  <X> List<X> listSQL(String sql,Integer stat,Integer max, Class<X> otoclass);
+	public <X> List<X> listSQL(String sql, Integer stat, Integer max, Class<X> otoclass);
 
-	
 	/**
 	 * 
 	 * @param sql

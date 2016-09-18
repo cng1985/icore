@@ -42,12 +42,40 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 		return get(id, false);
 	}
 	
+	public List<T> list(Integer first, Integer count, List<Filter> filters, List<Order> orders){
+		List<T> result = null;
+		Finder finder = makeFinder(filters, orders);
+		
+		
+		finder.setFirstResult(first);
+		finder.setMaxResults(count);
+		result =  find(finder);
+		return result;
+	}
+
 	public Page<T> page(Pageable pageable) {
 		Page<T> result = null;
+		List<Filter> filters = pageable.getFilters();
+		List<Order> orders=	pageable.getOrders();
+
+		Finder finder = makeFinder(filters, orders);
+		
+		
+		
+		Pagination<T> page = find(finder, pageable.getPageNumber(), pageable.getPageSize());
+		result = new Page<T>(page.getList(), page.getTotalCount(), pageable);
+		return result;
+	}
+
+	/**
+	 * @param filters
+	 * @param orders
+	 * @return
+	 */
+	private Finder makeFinder(List<Filter> filters, List<Order> orders) {
 		Finder finder = Finder.create();
 		finder.append("select distinct model from " + getEntityClass().getSimpleName());
 		finder.append(" model where 1= 1 ");
-		List<Filter> filters = pageable.getFilters();
 		if (filters != null) {
 			for (Filter filter : filters) {
 				finder.append(" and  model." + filter.getProperty());
@@ -82,7 +110,6 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 			}
 		}
 		
-		List<Order> orders=	pageable.getOrders();
 		if (orders!=null&&orders.size()>0) {
 			
 			finder.append(" order by ");
@@ -103,12 +130,7 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 				}
 			}
 		}
-		
-		
-		
-		Pagination<T> page = find(finder, pageable.getPageNumber(), pageable.getPageSize());
-		result = new Page<T>(page.getList(), page.getTotalCount(), pageable);
-		return result;
+		return finder;
 	}
 	/**
 	 * @param filter
