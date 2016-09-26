@@ -9,12 +9,34 @@ import java.lang.annotation.Target;
 import com.ada.data.page.Filter.Operator;
 import com.ada.data.page.Order.Direction;
 
+/**
+ * 搜索条件
+ * 
+ * @author ada
+ *
+ */
+
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Search {
 
+	/**
+	 * 表达式操作符
+	 * 
+	 * @return
+	 */
 	Operator operator() default Operator.eq;
 
+	/**
+	 * bean对象属性
+	 * 
+	 * @return
+	 */
 	String name() default "";
+
+	/**
+	 * 表达式前缀
+	 */
+	String prefix() default "";
 }

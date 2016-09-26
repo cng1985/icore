@@ -37,9 +37,11 @@ public class FilterUtils {
 					}
 					if (item.operator() == Operator.like) {
 						filter = new Filter(item.name(), item.operator(), "%" + object + "%");
+						filter.setPrefix(item.prefix());
 						filters.add(filter);
 					} else {
 						filter = new Filter(item.name(), item.operator(), object);
+						filter.setPrefix(item.prefix());
 						filters.add(filter);
 					}
 

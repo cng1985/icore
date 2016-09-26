@@ -78,34 +78,36 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 		finder.append(" model where 1= 1 ");
 		if (filters != null) {
 			for (Filter filter : filters) {
+				
 				finder.append(" and  model." + filter.getProperty());
+				String cname=filter.getPrefix()+getProperty(filter);
 				if (filter.getOperator() == Operator.eq) {
-					finder.append(" =:" + getProperty(filter));
+					finder.append(" =:" + cname);
 				}
 				else if (filter.getOperator() == Operator.ne) {
-					finder.append(" !=:" + getProperty(filter));
+					finder.append(" !=:" + cname);
 				}
 				else if (filter.getOperator() == Operator.ge) {
-					finder.append(" >=:" + getProperty(filter));
+					finder.append(" >=:" + cname);
 				}
 				else if (filter.getOperator() == Operator.gt) {
-					finder.append(" >:" + getProperty(filter));
+					finder.append(" >:" + cname);
 				}
 				else if (filter.getOperator() == Operator.le) {
-					finder.append(" <=:" + getProperty(filter));
+					finder.append(" <=:" + cname);
 				}
 				else if (filter.getOperator() == Operator.lt) {
-					finder.append(" <:" + getProperty(filter));
+					finder.append(" <:" + cname);
 				}
 				else if (filter.getOperator() == Operator.like) {
-					finder.append(" like:" + getProperty(filter));
+					finder.append(" like:" + cname);
 				}
 				
 				
 				if (filter.getOperator() == Operator.like) {
-					finder.setParam(getProperty(filter), "%"+filter.getValue()+"%");
+					finder.setParam(cname, "%"+filter.getValue()+"%");
 				}else{
-					finder.setParam(getProperty(filter), filter.getValue());
+					finder.setParam(cname, filter.getValue());
 				}
 			}
 		}

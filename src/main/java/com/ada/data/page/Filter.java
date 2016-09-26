@@ -78,9 +78,22 @@ public class Filter implements Serializable {
 
 	/** 值 */
 	private Object value;
+	
+	/**
+	 * 表达式前缀
+	 */
+	private String prefix="";
 
 	/** 是否忽略大小写 */
 	private Boolean ignoreCase = DEFAULT_IGNORE_CASE;
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
 
 	/**
 	 * 初始化一个新创建的Filter对象
