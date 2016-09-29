@@ -1,11 +1,12 @@
 package com.ada.approve.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * 流程审批节点
@@ -20,13 +21,13 @@ public class FlowApproval extends AbstractEntity {
 	/**
 	 * 审批人
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo user;
 
 	/**
 	 * 流程
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Flow flow;
 
 	/**

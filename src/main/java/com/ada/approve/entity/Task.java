@@ -1,11 +1,12 @@
 package com.ada.approve.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 /**
@@ -26,7 +27,7 @@ public class Task extends AbstractEntity {
 	/**
 	 * 流程
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Flow flow;
 	
 	/**
@@ -57,7 +58,7 @@ public class Task extends AbstractEntity {
 	/**
 	 * 用户
 	 */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo user;
 	
 	

@@ -1,86 +1,94 @@
 package com.ada.approve.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "approve_flow_record")
 public class FlowRecord extends AbstractEntity {
 
-	/**
-	 * 用户
-	 */
-	@ManyToOne
-	private UserInfo user;
+    /**
+     * 用户
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserInfo user;
 
-	/**
-	 * 
-	 * 审批状态 0为不同意 1为同意
-	 * 
-	 */
-	private Integer state;
-	
-	/**
-	 * 层级
-	 */
-	private Integer hierarchy;
+    /**
+     * 审批状态 0为不同意 1为同意
+     */
+    private Integer state;
 
-	/**
-	 * 审批意见
-	 */
-	private String note;
-	
-	
-	/**
-	 * 流程
-	 */
-	@ManyToOne
-	private Flow flow;
+    /**
+     * 层级
+     */
+    private Integer hierarchy;
+    /**
+     * 节点名称
+     */
+    private String name;
 
-	public Flow getFlow() {
-		return flow;
-	}
+    /**
+     * 审批意见
+     */
+    private String note;
 
-	public void setFlow(Flow flow) {
-		this.flow = flow;
-	}
 
-	public UserInfo getUser() {
-		return user;
-	}
+    /**
+     * 流程
+     */
+    @ManyToOne
+    private Flow flow;
 
-	public void setUser(UserInfo user) {
-		this.user = user;
-	}
+    public Flow getFlow() {
+        return flow;
+    }
 
-	public Integer getState() {
-		return state;
-	}
+    public void setFlow(Flow flow) {
+        this.flow = flow;
+    }
 
-	public void setState(Integer state) {
-		this.state = state;
-	}
+    public UserInfo getUser() {
+        return user;
+    }
 
-	public String getNote() {
-		return note;
-	}
+    public void setUser(UserInfo user) {
+        this.user = user;
+    }
 
-	public void setNote(String note) {
-		this.note = note;
-	}
+    public Integer getState() {
+        return state;
+    }
 
-	public Integer getHierarchy() {
-		return hierarchy;
-	}
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
-	public void setHierarchy(Integer hierarchy) {
-		this.hierarchy = hierarchy;
-	}
-	
-	
-	
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Integer getHierarchy() {
+        return hierarchy;
+    }
+
+    public void setHierarchy(Integer hierarchy) {
+        this.hierarchy = hierarchy;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
