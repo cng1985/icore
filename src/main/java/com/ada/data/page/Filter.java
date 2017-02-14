@@ -5,10 +5,10 @@
  */
 package com.ada.data.page;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.io.Serializable;
 
 /**
  * 筛选
@@ -78,6 +78,11 @@ public class Filter implements Serializable {
 
 	/** 值 */
 	private Object value;
+
+	/**
+     * 条件
+	 */
+	private String condition="and";
 	
 	/**
 	 * 表达式前缀
@@ -404,4 +409,11 @@ public class Filter implements Serializable {
 				+ ignoreCase + "]";
 	}
 
+	public String getCondition() {
+		return condition;
+	}
+
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
 }

@@ -39,4 +39,9 @@ public @interface Search {
 	 * 表达式前缀
 	 */
 	String prefix() default "";
+
+	/**
+	 * 计算条件，且和或，默认为且
+	 */
+	Condition condition() default Condition.AND;
 }

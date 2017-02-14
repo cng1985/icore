@@ -78,8 +78,8 @@ public abstract class BaseDaoImpl<T, ID extends Serializable> extends HibernateD
 		finder.append(" model where 1= 1 ");
 		if (filters != null) {
 			for (Filter filter : filters) {
-				
-				finder.append(" and  model." + filter.getProperty());
+
+				finder.append(" "+filter.getCondition()+"  model." + filter.getProperty());
 				String cname=filter.getPrefix()+getProperty(filter);
 				if (filter.getOperator() == Operator.eq) {
 					finder.append(" =:" + cname);
