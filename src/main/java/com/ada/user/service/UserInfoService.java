@@ -10,9 +10,7 @@ import com.ada.data.page.Pageable;
 import com.ada.user.entity.UserDevice;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserRole;
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api = UserInfoService.class, value = "UserInfoService")
 public interface UserInfoService {
 
 	/** 加密方法 */

@@ -17,8 +17,6 @@ import javax.crypto.NoSuchPaddingException;
 
 import com.young.security.utils.Base64;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 public class RSAMakePrivateKey {
 

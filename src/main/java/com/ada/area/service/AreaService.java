@@ -10,9 +10,7 @@ import com.ada.data.page.Filter;
 import com.ada.data.page.Order;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=AreaService.class,value="AreaService")
 public interface AreaService {
 
 	public Area findById(Integer id);

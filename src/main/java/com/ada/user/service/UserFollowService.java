@@ -2,13 +2,11 @@ package com.ada.user.service;
 
 import com.ada.data.core.Pagination;
 import com.ada.user.entity.UserFollow;
-import com.openyelp.annotation.RestFul;
 
 
 
 
 
-@RestFul(api=UserFollowService.class,value="UserFollowService")
 public interface UserFollowService {
 	public Pagination getPage(int pageNo, int pageSize);
 

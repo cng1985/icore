@@ -7,9 +7,7 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=SensitiveWordService.class,value="SensitiveWordService")
 public interface SensitiveWordService {
 
 	public SensitiveWord findById(Long id);

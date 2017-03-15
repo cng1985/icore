@@ -8,9 +8,7 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=UserNotificationMemberService.class,value="UserNotificationMemberService")
 public interface UserNotificationMemberService {
 
 	public UserNotificationMember findById(Long id);

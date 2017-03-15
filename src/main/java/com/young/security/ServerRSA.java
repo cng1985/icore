@@ -1,5 +1,9 @@
 package com.young.security;
 
+
+
+import com.young.security.utils.Base64;
+
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -15,13 +19,8 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 public class ServerRSA {
-	private static BASE64Decoder base64decoder = new BASE64Decoder();
-
-	private static BASE64Encoder base64encoder = new BASE64Encoder();
 	String privatekey  =  "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAN7S9ByCdSoQ6x01"
 			+ "7k4iRh1NFUsksJg1Jxrv68gwXU94Uzzgze0vwj6lut3QrWJEJD2aTRoqwxpSSGtf"
 			+ "tl4IjOJlybS1Lfrj91Dh5AECb3wzikSP0iO7CaGXgtscNcl7+eHXB3v7JwMH0va2"
@@ -56,7 +55,7 @@ public class ServerRSA {
 			RSAPrivateKey p = getPrivateKey(privatekey);
 			byte[] y;
 			y = encrypt(p, r.getBytes());
-			reslut = base64encoder.encode(y);
+			reslut = new String(Base64.encode(y));
 
 		} catch (InvalidKeyException e) {
 			// TODO Auto-generated catch block
@@ -88,7 +87,7 @@ public class ServerRSA {
 		try {
 			RSAPrivateKey p = getPrivateKey(privatekey);
 			byte[] y;
-			y = decrypt(p, base64decoder.decodeBuffer(r));
+			y = decrypt(p, com.young.security.utils.Base64.decode(r));
 			reslut=new String(y);
 		} catch (InvalidKeyException e) {
 			// TODO Auto-generated catch block
@@ -200,7 +199,7 @@ public class ServerRSA {
 
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		PKCS8EncodedKeySpec priPKCS8 = new PKCS8EncodedKeySpec(
-				base64decoder.decodeBuffer(x));
+				Base64.decode(x));
 		RSAPrivateKey privateKey = (RSAPrivateKey) keyFactory
 				.generatePrivate(priPKCS8);
 		return privateKey;
@@ -212,7 +211,7 @@ public class ServerRSA {
 
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		X509EncodedKeySpec priPKCS8 = new X509EncodedKeySpec(
-				base64decoder.decodeBuffer(x));
+				Base64.decode(x));
 		RSAPublicKey privateKey = (RSAPublicKey) keyFactory
 				.generatePublic(priPKCS8);
 		return privateKey;

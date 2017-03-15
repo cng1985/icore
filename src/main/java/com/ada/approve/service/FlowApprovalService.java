@@ -8,9 +8,7 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=FlowApprovalService.class,value="FlowApprovalService")
 public interface FlowApprovalService {
 
 	public FlowApproval findById(Long id);

@@ -6,11 +6,9 @@ import com.ada.article.page.ArticleCommentPage;
 import com.ada.data.core.Pagination;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
-import com.openyelp.annotation.RestFul;
 
 
 
-@RestFul(api=ArticleCommentService.class,value="ArticleCommentService")
 public interface ArticleCommentService {
 	public Pagination getPage(int pageNo, int pageSize);
 

@@ -3,11 +3,9 @@ package com.ada.user.service;
 import com.ada.data.core.Pagination;
 import com.ada.user.entity.UserFriend;
 import com.ada.user.page.UserFriendPage;
-import com.openyelp.annotation.RestFul;
 
 
 
-@RestFul(api=UserFriendService.class,value="UserFriendService")
 public interface UserFriendService {
 	public Pagination getPage(int pageNo, int pageSize);
 

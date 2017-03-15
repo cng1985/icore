@@ -2,9 +2,7 @@ package com.ada.question.service;
 
 import com.ada.question.entity.QuestionVote;
 import com.ada.question.page.QuestionVotePage;
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=QuestionVoteService.class,value="QuestionVoteService")
 public interface QuestionVoteService {
 	public QuestionVotePage getPage(int pageNo, int pageSize);
 

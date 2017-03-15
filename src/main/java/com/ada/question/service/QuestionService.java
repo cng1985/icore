@@ -4,9 +4,7 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import com.ada.question.entity.Question;
 import com.ada.question.page.QuestionPage;
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=QuestionService.class,value="QuestionService")
 public interface QuestionService {
 	public QuestionPage getPage(int pageNo, int pageSize);
 

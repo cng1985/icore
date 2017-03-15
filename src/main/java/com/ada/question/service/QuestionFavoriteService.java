@@ -4,9 +4,7 @@ import com.ada.question.entity.QuestionFavorite;
 import com.ada.question.page.QuestionFavoritePage;
 
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=QuestionFavoriteService.class,value="QuestionFavoriteService")
 public interface QuestionFavoriteService {
 
 	public QuestionFavorite findById(Long id);

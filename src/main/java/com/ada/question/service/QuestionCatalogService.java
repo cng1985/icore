@@ -7,9 +7,7 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import com.ada.question.entity.QuestionCatalog;
 import com.ada.question.page.QuestionCatalogPage;
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=QuestionCatalogService.class,value="QuestionCatalogService")
 public interface QuestionCatalogService {
 	
 	

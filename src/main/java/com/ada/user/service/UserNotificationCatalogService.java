@@ -8,9 +8,7 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import com.ada.user.entity.UserNotificationCatalog;
 import com.ada.user.page.UserNotificationCatalogPage;
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=UserNotificationCatalogService.class,value="UserNotificationCatalogService")
 public interface UserNotificationCatalogService {
 
 	public UserNotificationCatalog findById(Integer id);

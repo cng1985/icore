@@ -4,9 +4,7 @@ import com.ada.feed.entity.FeedComment;
 import com.ada.feed.page.FeedCommentPage;
 
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=FeedCommentService.class,value="FeedCommentService")
 public interface FeedCommentService {
 
 	public FeedComment findById(Long id);

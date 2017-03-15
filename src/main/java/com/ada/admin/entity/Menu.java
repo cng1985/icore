@@ -1,5 +1,6 @@
 package com.ada.admin.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -21,44 +22,38 @@ import com.ada.data.entity.CatalogEntity;
 @Entity
 @Table(name = "menu")
 public class Menu extends CatalogEntity {
-
+	/**
+	 * 分类 0为菜单1为功能
+	 */
+	private Integer catalog;
+	/**
+	 * 子菜单
+	 */
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+	private List<Menu> childrens;
+	/**
+	 * 图标
+	 */
+	private String icon;
+	/**
+	 * 子节点数量
+	 */
+	private Long nums;
 	/**
 	 * 父分类
 	 */
 	@JoinColumn(name = "pid")
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Menu parent;
-
-	/**
-	 * 图标
-	 */
-	private String icon;
-
 	/**
 	 * url地址
 	 */
 	private String path;
 
 	/**
-	 * 子节点数量
+	 * 该功能的权限
 	 */
-	private Long nums;
-
-	/**
-	 * 分类 0为菜单1为功能
-	 */
-	private Integer catalog;
-
-	public Long getNums() {
-		if (nums == null) {
-			return 0l;
-		}
-		return nums;
-	}
-
-	public void setNums(Long nums) {
-		this.nums = nums;
-	}
+	private String permission;
 
 	public Integer getCatalog() {
 		if (catalog == null) {
@@ -71,16 +66,6 @@ public class Menu extends CatalogEntity {
 		this.catalog = catalog;
 	}
 
-	public String getPermission() {
-		return "" + getId();
-	}
-
-	/**
-	 * 子菜单
-	 */
-	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
-	private List<Menu> childrens;
-
 	public List<Menu> getChildrens() {
 		if (childrens != null && childrens.size() > 0) {
 			return childrens;
@@ -91,12 +76,53 @@ public class Menu extends CatalogEntity {
 		}
 	}
 
+	public void setChildrens(List<Menu> childrens) {
+		this.childrens = childrens;
+	}
+
 	public String getIcon() {
 		return icon;
 	}
 
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public List<Menu> getMenus() {
+		if (childrens != null && childrens.size() > 0) {
+			List<Menu> menus = new ArrayList<Menu>();
+			for (Menu menu : childrens) {
+				if (menu.getCatalog() == 0) {
+					menus.add(menu);
+				}
+			}
+			if (menus.size() > 0) {
+				return menus;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+
+	public Long getNums() {
+		if (nums == null) {
+			return 0l;
+		}
+		return nums;
+	}
+
+	public void setNums(Long nums) {
+		this.nums = nums;
+	}
+
 	public Menu getParent() {
 		return parent;
+	}
+
+	public void setParent(Menu parent) {
+		this.parent = parent;
 	}
 
 	@Override
@@ -112,19 +138,24 @@ public class Menu extends CatalogEntity {
 		return path;
 	}
 
-	public void setChildrens(List<Menu> childrens) {
-		this.childrens = childrens;
-	}
-
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-
-	public void setParent(Menu parent) {
-		this.parent = parent;
-	}
-
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	/**
+	 * 获取权限，要是没有设置，用id当权限
+	 *
+	 * @return
+	 */
+	public String getPermission() {
+		if (permission == null || permission.length() < 1) {
+			return "" + getId();
+		} else {
+			return permission;
+		}
+	}
+
+	public void setPermission(String permission) {
+		this.permission = permission;
 	}
 }

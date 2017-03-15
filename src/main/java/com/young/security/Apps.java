@@ -1,5 +1,7 @@
 package com.young.security;
 
+import com.young.security.utils.Base64;
+
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -16,13 +18,9 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 public class Apps {
-	private static BASE64Decoder base64decoder = new BASE64Decoder();
 
-	private static BASE64Encoder base64encoder = new BASE64Encoder();
 
 	public static void main(String[] args) throws NoSuchAlgorithmException,
 			InvalidKeySpecException, InvalidKeyException,
@@ -74,7 +72,7 @@ public class Apps {
 
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		PKCS8EncodedKeySpec priPKCS8 = new PKCS8EncodedKeySpec(
-				base64decoder.decodeBuffer(x));
+				Base64.decode(x));
 		RSAPrivateKey privateKey = (RSAPrivateKey) keyFactory
 				.generatePrivate(priPKCS8);
 		return privateKey;
@@ -86,7 +84,7 @@ public class Apps {
 
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		X509EncodedKeySpec priPKCS8 = new X509EncodedKeySpec(
-				base64decoder.decodeBuffer(x));
+				Base64.decode(x));
 		RSAPublicKey privateKey = (RSAPublicKey) keyFactory
 				.generatePublic(priPKCS8);
 		return privateKey;

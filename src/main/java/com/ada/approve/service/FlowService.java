@@ -9,9 +9,7 @@ import com.ada.data.page.Order;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import com.ada.data.rest.domain.AbstractVo;
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api = FlowService.class, value = "FlowService")
 public interface FlowService {
 
 	public Flow findById(Long id);

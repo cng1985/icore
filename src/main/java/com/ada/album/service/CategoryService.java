@@ -8,9 +8,7 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=CategoryService.class,value="CategoryService")
 public interface CategoryService {
 
 	public Category findById(String id);

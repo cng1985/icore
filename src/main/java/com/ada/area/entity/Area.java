@@ -17,7 +17,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.ada.common.hibernate.HibernateTree;
 import com.ada.data.entity.CatalogEntity;
-import com.openyelp.annotation.NoGson;
 
 /**
  * 地区
@@ -29,10 +28,6 @@ import com.openyelp.annotation.NoGson;
 @Table(name = "area")
 public class Area extends CatalogEntity {
 
-	/**
-	 * 城市编码
-	 */
-	private Integer code;
 
 
 	/**
@@ -51,7 +46,6 @@ public class Area extends CatalogEntity {
 	/**
 	 *下属地区
 	 */
-	@NoGson
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
 	private List<Area> childrens;
 
@@ -65,9 +59,6 @@ public class Area extends CatalogEntity {
 		}
 	}
 
-	public Integer getCode() {
-		return code;
-	}
 
 	public Area getParent() {
 		return parent;
@@ -90,9 +81,6 @@ public class Area extends CatalogEntity {
 		this.childrens = childrens;
 	}
 
-	public void setCode(Integer code) {
-		this.code = code;
-	}
 
 	public void setParent(Area parent) {
 		this.parent = parent;

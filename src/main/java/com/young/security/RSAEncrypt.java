@@ -1,5 +1,7 @@
 package com.young.security;
 
+import com.young.security.utils.Base64;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +23,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import sun.misc.BASE64Decoder;
 
 public class RSAEncrypt {
 	private static final String DEFAULT_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDe0vQcgnUqEOsdNe5OIkYdTRVL"
@@ -132,8 +133,7 @@ public class RSAEncrypt {
 	 */
 	public void loadPublicKey(String publicKeyStr) throws Exception {
 		try {
-			BASE64Decoder base64Decoder = new BASE64Decoder();
-			byte[] buffer = base64Decoder.decodeBuffer(publicKeyStr);
+			byte[] buffer = Base64.decode(publicKeyStr);
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(buffer);
 			this.publicKey = (RSAPublicKey) keyFactory.generatePublic(keySpec);
@@ -141,9 +141,7 @@ public class RSAEncrypt {
 			throw new Exception("无此算法");
 		} catch (InvalidKeySpecException e) {
 			throw new Exception("公钥非法");
-		} catch (IOException e) {
-			throw new Exception("公钥数据内容读取错误");
-		} catch (NullPointerException e) {
+		}  catch (NullPointerException e) {
 			throw new Exception("公钥数据为空");
 		}
 	}
@@ -179,8 +177,7 @@ public class RSAEncrypt {
 
 	public void loadPrivateKey(String privateKeyStr) throws Exception {
 		try {
-			BASE64Decoder base64Decoder = new BASE64Decoder();
-			byte[] buffer = base64Decoder.decodeBuffer(privateKeyStr);
+			byte[] buffer =Base64.decode(privateKeyStr);
 			PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(buffer);
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			this.privateKey = (RSAPrivateKey) keyFactory.generatePrivate(keySpec);
@@ -189,9 +186,7 @@ public class RSAEncrypt {
 		} catch (InvalidKeySpecException e) {
 			e.printStackTrace();
 			throw new Exception("私钥非法");
-		} catch (IOException e) {
-			throw new Exception("私钥数据内容读取错误");
-		} catch (NullPointerException e) {
+		}  catch (NullPointerException e) {
 			throw new Exception("私钥数据为空");
 		}
 	}

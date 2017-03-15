@@ -7,11 +7,9 @@ import com.ada.article.entity.ArticleComment;
 import com.ada.data.core.Pagination;
 import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
-import com.openyelp.annotation.RestFul;
 
 
 
-@RestFul(api=ArticleCatalogService.class,value="ArticleCatalogService")
 public interface ArticleCatalogService {
 	public Pagination getPage(int pageNo, int pageSize);
 

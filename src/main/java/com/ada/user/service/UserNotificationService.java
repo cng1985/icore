@@ -8,9 +8,7 @@ import com.ada.data.page.Pageable;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserNotification;
 import com.ada.user.page.UserNotificationPage;
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=UserNotificationService.class,value="UserNotificationService")
 public interface UserNotificationService {
 	public Pagination getPage(int pageNo, int pageSize);
 

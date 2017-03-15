@@ -8,9 +8,7 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=UserQQService.class,value="UserQQService")
 public interface UserQQService {
 
 	public UserQQ findById(Long id);

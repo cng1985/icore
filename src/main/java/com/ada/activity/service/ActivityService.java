@@ -9,9 +9,7 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=ActivityService.class,value="ActivityService")
 public interface ActivityService {
 
 	public Activity findById(Long id);

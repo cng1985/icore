@@ -13,7 +13,6 @@ import com.ada.approve.entity.FlowApproval;
 import com.ada.data.core.CriteriaDaoImpl;
 import com.ada.data.core.Finder;
 import com.ada.data.core.Pagination;
-import com.sun.org.apache.regexp.internal.recompile;
 
 @Repository
 public class FlowApprovalDaoImpl extends CriteriaDaoImpl<FlowApproval, Long> implements FlowApprovalDao {

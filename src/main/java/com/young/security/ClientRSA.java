@@ -1,5 +1,7 @@
 package com.young.security;
 
+import com.young.security.utils.Base64;
+
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -15,13 +17,9 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 public class ClientRSA {
-	private static BASE64Decoder base64decoder = new BASE64Decoder();
 
-	private static BASE64Encoder base64encoder = new BASE64Encoder();
 	String privatekey  = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDe0vQcgnUqEOsdNe5OIkYdTRVL"
 					+ "JLCYNSca7+vIMF1PeFM84M3tL8I+pbrd0K1iRCQ9mk0aKsMaUkhrX7ZeCIziZcm0"
 					+ "tS364/dQ4eQBAm98M4pEj9Ijuwmhl4LbHDXJe/nh1wd7+ycDB9L2tkKJAybB0fP8"
@@ -39,7 +37,7 @@ public class ClientRSA {
 			RSAPublicKey p = getPublicKey(privatekey);
 			byte[] y;
 			y = encrypt(p, r.getBytes());
-			reslut = base64encoder.encode(y);
+			reslut = Base64.encode(y);
 
 		} catch (InvalidKeyException e) {
 			// TODO Auto-generated catch block
@@ -73,7 +71,7 @@ public class ClientRSA {
 		try {
 			RSAPublicKey p = getPublicKey(privatekey);
 			byte[] y;
-			y = decrypt(p, base64decoder.decodeBuffer(r));
+			y = decrypt(p, Base64.decode(r));
 			reslut=new String(y);
 		} catch (InvalidKeyException e) {
 			// TODO Auto-generated catch block
@@ -209,7 +207,7 @@ public class ClientRSA {
 
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		PKCS8EncodedKeySpec priPKCS8 = new PKCS8EncodedKeySpec(
-				base64decoder.decodeBuffer(x));
+				Base64.decode(x));
 		RSAPrivateKey privateKey = (RSAPrivateKey) keyFactory
 				.generatePrivate(priPKCS8);
 		return privateKey;
@@ -221,7 +219,7 @@ public class ClientRSA {
 
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		X509EncodedKeySpec priPKCS8 = new X509EncodedKeySpec(
-				base64decoder.decodeBuffer(x));
+				Base64.decode(x));
 		RSAPublicKey privateKey = (RSAPublicKey) keyFactory
 				.generatePublic(priPKCS8);
 		return privateKey;

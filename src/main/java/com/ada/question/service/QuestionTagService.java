@@ -4,9 +4,7 @@ import com.ada.question.entity.QuestionTag;
 import com.ada.question.page.QuestionTagPage;
 
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=QuestionTagService.class,value="QuestionTagService")
 public interface QuestionTagService {
 
 	public QuestionTag findById(Long id);

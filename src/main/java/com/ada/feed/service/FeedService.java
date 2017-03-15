@@ -3,9 +3,7 @@ package com.ada.feed.service;
 import com.ada.feed.entity.Feed;
 import com.ada.feed.page.FeedDtoPage;
 import com.ada.feed.page.FeedPage;
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=FeedService.class,value="FeedService")
 public interface FeedService {
 
 	public Feed findById(Long id);

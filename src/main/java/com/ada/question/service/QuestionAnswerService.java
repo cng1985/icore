@@ -7,9 +7,7 @@ import com.ada.question.entity.QuestionAnswer;
 import com.ada.question.page.QuestionAnswerPage;
 
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=QuestionAnswerService.class,value="QuestionAnswerService")
 public interface QuestionAnswerService {
 	public QuestionAnswerPage getPage(int pageNo, int pageSize);
 

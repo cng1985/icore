@@ -11,7 +11,6 @@ import javax.persistence.Table;
 
 import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
-import com.openyelp.annotation.NoGson;
 
 /**
  * 文章
@@ -24,7 +23,6 @@ import com.openyelp.annotation.NoGson;
 public class Article extends AbstractEntity {
 
 
-	@NoGson
 	@ManyToOne
 	private ArticleCatalog catalog;
 
@@ -43,7 +41,6 @@ public class Article extends AbstractEntity {
 	private String introduction;
 	
 
-	@NoGson
 	@JoinTable(name = "article_link_tag")
 	@ManyToMany
 	private Set<ArticleTag> tags;

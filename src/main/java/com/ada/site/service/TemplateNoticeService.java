@@ -8,9 +8,7 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-import com.openyelp.annotation.RestFul;
 
-@RestFul(api=TemplateNoticeService.class,value="TemplateNoticeService")
 public interface TemplateNoticeService {
 
 	public TemplateNotice findById(String id);
