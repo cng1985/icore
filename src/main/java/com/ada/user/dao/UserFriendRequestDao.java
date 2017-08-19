@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.user.entity.UserFriendRequest;
 
 public interface UserFriendRequestDao extends BaseDao<UserFriendRequest, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserFriendRequest findById(Long id);
+	UserFriendRequest findById(Long id);
 
-	public UserFriendRequest save(UserFriendRequest bean);
+	UserFriendRequest save(UserFriendRequest bean);
 
-	public UserFriendRequest updateByUpdater(Updater<UserFriendRequest> updater);
+	UserFriendRequest updateByUpdater(Updater<UserFriendRequest> updater);
 
-	public UserFriendRequest deleteById(Long id);
+	UserFriendRequest deleteById(Long id);
 }

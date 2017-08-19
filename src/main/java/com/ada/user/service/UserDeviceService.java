@@ -8,26 +8,25 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-
 public interface UserDeviceService {
 
-	public UserDevice findById(Long id);
+	UserDevice findById(Long id);
 
-	public UserDevice save(UserDevice bean);
+	UserDevice save(UserDevice bean);
 
-	public UserDevice update(UserDevice bean);
+	UserDevice update(UserDevice bean);
 
-	public UserDevice deleteById(Long id);
+	UserDevice deleteById(Long id);
 	
-	public UserDevice[] deleteByIds(Long[] ids);
+	UserDevice[] deleteByIds(Long[] ids);
 	
-	public UserDevicePage getPage(int pageNo, int pageSize);
+	UserDevicePage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserDevice> findPage(Pageable pageable);
+	Page<UserDevice> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserDevice> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserDevice> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

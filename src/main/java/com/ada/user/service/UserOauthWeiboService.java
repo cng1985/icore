@@ -12,27 +12,27 @@ import java.util.List;
 
 public interface UserOauthWeiboService {
 
-	public UserOauthWeibo findById(Long id);
+	UserOauthWeibo findById(Long id);
 
-	public UserOauthWeibo save(UserOauthWeibo bean);
+	UserOauthWeibo save(UserOauthWeibo bean);
 
-	public UserOauthWeibo update(UserOauthWeibo bean);
+	UserOauthWeibo update(UserOauthWeibo bean);
 
-	public UserOauthWeibo deleteById(Long id);
+	UserOauthWeibo deleteById(Long id);
 	
-	public UserOauthWeibo[] deleteByIds(Long[] ids);
+	UserOauthWeibo[] deleteByIds(Long[] ids);
 	
-	public UserOauthWeiboPage getPage(int pageNo, int pageSize);
-	
-	
-	public UserInfo login(String  token);
-
+	UserOauthWeiboPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserOauthWeibo> findPage(Pageable pageable);
+	UserInfo login(String token);
 
-	public long count(Filter... filters);
+	
+	
+	Page<UserOauthWeibo> findPage(Pageable pageable);
 
-	public List<UserOauthWeibo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	long count(Filter... filters);
+
+	List<UserOauthWeibo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

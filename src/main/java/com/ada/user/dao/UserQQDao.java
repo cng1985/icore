@@ -8,20 +8,20 @@ import com.ada.user.entity.UserInfo;
 import  com.ada.user.entity.UserQQ;
 
 public interface UserQQDao extends CriteriaDao<UserQQ, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserQQ findById(Long id);
+	UserQQ findById(Long id);
 
-	public UserQQ save(UserQQ bean);
+	UserQQ save(UserQQ bean);
 
-	public UserQQ updateByUpdater(Updater<UserQQ> updater);
+	UserQQ updateByUpdater(Updater<UserQQ> updater);
 
-	public UserQQ deleteById(Long id);
+	UserQQ deleteById(Long id);
 	
 	
-	public UserQQ login(String access_token, String openid, String oauth_consumer_key)throws Exception;
+	UserQQ login(String access_token, String openid, String oauth_consumer_key)throws Exception;
 
 	
-	public UserInfo loginOauth(String access_token, String openid, String oauth_consumer_key);
+	UserInfo loginOauth(String access_token, String openid, String oauth_consumer_key);
 
 }

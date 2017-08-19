@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface TemplatePushService {
 
-	public TemplatePush findById(String id);
+	TemplatePush findById(String id);
 
-	public TemplatePush save(TemplatePush bean);
+	TemplatePush save(TemplatePush bean);
 
-	public TemplatePush update(TemplatePush bean);
+	TemplatePush update(TemplatePush bean);
 
-	public TemplatePush deleteById(String id);
+	TemplatePush deleteById(String id);
 	
-	public TemplatePush[] deleteByIds(String[] ids);
+	TemplatePush[] deleteByIds(String[] ids);
 	
-	public TemplatePushPage getPage(int pageNo, int pageSize);
+	TemplatePushPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<TemplatePush> findPage(Pageable pageable);
+	Page<TemplatePush> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<TemplatePush> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<TemplatePush> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

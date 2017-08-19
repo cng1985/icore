@@ -18,26 +18,14 @@
  */
 package com.ada.user.entity;
 
+import com.ada.data.entity.AbstractEntity;
+import com.ada.data.enums.State;
+
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import com.ada.data.entity.AbstractEntity;
 
 /**
  * 用户
@@ -57,44 +45,43 @@ public class UserInfo extends AbstractEntity {
 
 	/** 属性 */
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "user_info_attribute",joinColumns={@JoinColumn(name="user_id")})
+	@CollectionTable(name = "user_info_attribute", joinColumns = { @JoinColumn(name = "user_id") })
 	@MapKeyColumn(name = "name", length = 36)
-	@Column(name="attr",length=100)
+	@Column(name = "attr", length = 100)
 	private Map<String, String> attributes = new HashMap<String, String>();
+
+	/**
+	 * 用户头像
+	 */
+	private String avatar;
+
 	/**
 	 * 用户类型
 	 */
 	private Integer catalog;
 
-	/**
-	 * 点评数量
-	 */
-	private Integer comments;
-
-	@Column(nullable = true)
-	private String email;
 
 	/**
-	 * 朋友数量
+	 * 手机号码
 	 */
-	private Integer friends;
-
-	/**
-	 * 精英点评数量
-	 */
-	private Integer goods;
-
-	private String headimg;
-
-	private Integer logintimes;
-
-	private String macaddress;
-	private String name;
-	private String password;
-
+	@Column(length = 15)
 	private String phone;
 
-	private String phonenum;
+	/**
+	 * 用户登录次数
+	 */
+	private Integer loginSize = 0;
+
+	/**
+	 * 用户真实姓名
+	 */
+	@Column(length = 20)
+	private String name;
+
+	/**
+	 * 用户密码
+	 */
+	private String password;
 
 	@Transient
 	private String plainPassword;
@@ -102,20 +89,35 @@ public class UserInfo extends AbstractEntity {
 	/**
 	 * 注册
 	 */
+	@Column(length = 20)
 	private String registerType = "账号";
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role_links")
+	@JoinTable(name = "user_role_links", joinColumns = { @JoinColumn(name = "user_id") })
 	private Set<UserRole> roles = new HashSet<UserRole>();
 
-	private String salt; // 加密密码的盐
+	/**
+	 * 加密密码的盐
+	 */
+	private String salt;
 
-	@NotNull(message = "用户名不为空")
-	@Size(min = 3, message = "用户名长度在3到20之间")
+	/**
+	 * 用户状态
+	 */
+	@Enumerated()
+	private State state;
+
+	/**
+	 * 用户名
+	 */
 	private String username;
 
 	public Map<String, String> getAttributes() {
 		return attributes;
+	}
+
+	public String getAvatar() {
+		return avatar;
 	}
 
 	public Integer getCatalog() {
@@ -125,52 +127,12 @@ public class UserInfo extends AbstractEntity {
 		return catalog;
 	}
 
-	public Integer getComments() {
-		return comments;
-	}
-
-	public String getCredentialsSalt() {
-		return username + salt;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public Integer getFriends() {
-		return friends;
-	}
-
-	public Integer getGoods() {
-		return goods;
-	}
-
-	public String getHeadimg() {
-		return headimg;
-	}
-
-	public Integer getLogintimes() {
-		return logintimes;
-	}
-
-	public String getMacaddress() {
-		return macaddress;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public String getPassword() {
 		return password;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public String getPhonenum() {
-		return phonenum;
 	}
 
 	public String getPlainPassword() {
@@ -197,36 +159,20 @@ public class UserInfo extends AbstractEntity {
 		this.attributes = attributes;
 	}
 
+	public Integer getLoginSize() {
+		return loginSize;
+	}
+
+	public void setLoginSize(Integer loginSize) {
+		this.loginSize = loginSize;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	public void setCatalog(Integer catalog) {
 		this.catalog = catalog;
-	}
-
-	public void setComments(Integer comments) {
-		this.comments = comments;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setFriends(Integer friends) {
-		this.friends = friends;
-	}
-
-	public void setGoods(Integer goods) {
-		this.goods = goods;
-	}
-
-	public void setHeadimg(String headimg) {
-		this.headimg = headimg;
-	}
-
-	public void setLogintimes(Integer logintimes) {
-		this.logintimes = logintimes;
-	}
-
-	public void setMacaddress(String macaddress) {
-		this.macaddress = macaddress;
 	}
 
 	public void setName(String name) {
@@ -235,14 +181,6 @@ public class UserInfo extends AbstractEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public void setPhonenum(String phonenum) {
-		this.phonenum = phonenum;
 	}
 
 	public void setPlainPassword(String plainPassword) {
@@ -265,4 +203,19 @@ public class UserInfo extends AbstractEntity {
 		this.username = username;
 	}
 
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }

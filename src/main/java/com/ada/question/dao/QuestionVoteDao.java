@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.question.entity.QuestionVote;
 
 public interface QuestionVoteDao extends BaseDao<QuestionVote, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public QuestionVote findById(Long id);
+	QuestionVote findById(Long id);
 
-	public QuestionVote save(QuestionVote bean);
+	QuestionVote save(QuestionVote bean);
 
-	public QuestionVote updateByUpdater(Updater<QuestionVote> updater);
+	QuestionVote updateByUpdater(Updater<QuestionVote> updater);
 
-	public QuestionVote deleteById(Long id);
+	QuestionVote deleteById(Long id);
 }

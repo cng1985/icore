@@ -13,35 +13,37 @@ import com.ada.data.page.Pageable;
 
 public interface AreaService {
 
-	public Area findById(Integer id);
+	Area findById(Integer id);
 
-	public Area save(Area bean);
+	Area save(Area bean);
 
-	public Area update(Area bean);
+	Area update(Area bean);
 
-	public Area deleteById(Integer id);
+	Area deleteById(Integer id);
 	
-	public Area[] deleteByIds(Integer[] ids);
+	Area[] deleteByIds(Integer[] ids);
 	
-	public AreaPage getPage(int pageNo, int pageSize);
+	AreaPage getPage(int pageNo, int pageSize);
 	
-	public Area findByName(String name);
-	public Area findByNames(String name);
+	Area findByName(String name);
+	Area findByNames(String name);
 
-	public List<Area> findByLevel(Integer id);
+	List<Area> findByLevel(Integer id);
 
-	public List<Area> findByParent(Integer id);
-	public List<Area> findByChild(Integer id);
-	public List<Area> findByTops(Integer id);
+	List<Area> findByParent(Integer id);
+	List<Area> findByChild(Integer id);
+	List<Area> findByTops(Integer id);
 
-	public List<Area> findByHot(Integer id);
+	List<Area> findByHot(Integer id);
 
-	public Page<Area> findPage(Pageable pageable);
-	public List<Area> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	Page<Area> page(Pageable pageable);
+
+	Page<Area> findPage(Pageable pageable);
+	List<Area> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 
 	List<Area> findByPids();
 
-	public AreaPage pageByLevel(int level,int pageNo, int pageSize);
+	AreaPage pageByLevel(int level, int pageNo, int pageSize);
 	
 	
 	/**
@@ -59,7 +61,7 @@ public interface AreaService {
 	 * @return
 
 	 */
-	public AreaPage pageByLevel(Integer areaid,int level,int pageNo, int pageSize);
+	AreaPage pageByLevel(Integer areaid, int level, int pageNo, int pageSize);
 	
 	
 
@@ -78,7 +80,7 @@ public interface AreaService {
 	 * @return
 
 	 */
-	public AreaPage pageByLevelState(int level,int state,int pageNo, int pageSize);
+	AreaPage pageByLevelState(int level, int state, int pageNo, int pageSize);
 
 	
 }

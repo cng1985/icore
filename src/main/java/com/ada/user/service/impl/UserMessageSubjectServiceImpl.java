@@ -46,6 +46,7 @@ public class UserMessageSubjectServiceImpl implements UserMessageSubjectService 
     @Transactional
 	public UserMessageSubject deleteById(Long id) {
 		UserMessageSubject bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

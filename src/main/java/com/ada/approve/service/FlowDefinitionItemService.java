@@ -10,20 +10,20 @@ import java.util.List;
 
 public interface FlowDefinitionItemService {
 
-	public FlowDefinitionItem findById(Long id);
+	FlowDefinitionItem findById(Long id);
 
-	public FlowDefinitionItem save(FlowDefinitionItem bean);
+	FlowDefinitionItem save(FlowDefinitionItem bean);
 
-	public FlowDefinitionItem update(FlowDefinitionItem bean);
+	FlowDefinitionItem update(FlowDefinitionItem bean);
 
-	public FlowDefinitionItem deleteById(Long id);
+	FlowDefinitionItem deleteById(Long id);
 	
-	public FlowDefinitionItem[] deleteByIds(Long[] ids);
+	FlowDefinitionItem[] deleteByIds(Long[] ids);
 	
-	public Page<FlowDefinitionItem> findPage(Pageable pageable);
+	Page<FlowDefinitionItem> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<FlowDefinitionItem> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<FlowDefinitionItem> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

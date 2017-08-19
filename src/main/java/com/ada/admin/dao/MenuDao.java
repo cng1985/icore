@@ -7,14 +7,14 @@ import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
 
 public interface MenuDao extends CriteriaDao<Menu, Integer>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public Menu findById(Integer id);
+	Menu findById(Integer id);
 
-	public Menu save(Menu bean);
+	Menu save(Menu bean);
 
-	public Menu updateByUpdater(Updater<Menu> updater);
+	Menu updateByUpdater(Updater<Menu> updater);
 
-	public Menu deleteById(Integer id);
+	Menu deleteById(Integer id);
 
 }

@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface AlbumService {
 
-	public Album findById(String id);
+	Album findById(String id);
 
-	public Album save(Album bean);
+	Album save(Album bean);
 
-	public Album update(Album bean);
+	Album update(Album bean);
 
-	public Album deleteById(String id);
+	Album deleteById(String id);
 	
-	public Album[] deleteByIds(String[] ids);
+	Album[] deleteByIds(String[] ids);
 	
-	public AlbumPage getPage(int pageNo, int pageSize);
+	AlbumPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<Album> findPage(Pageable pageable);
+	Page<Album> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<Album> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<Album> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

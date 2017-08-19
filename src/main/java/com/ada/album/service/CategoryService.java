@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface CategoryService {
 
-	public Category findById(String id);
+	Category findById(String id);
 
-	public Category save(Category bean);
+	Category save(Category bean);
 
-	public Category update(Category bean);
+	Category update(Category bean);
 
-	public Category deleteById(String id);
+	Category deleteById(String id);
 	
-	public Category[] deleteByIds(String[] ids);
+	Category[] deleteByIds(String[] ids);
 	
-	public CategoryPage getPage(int pageNo, int pageSize);
+	CategoryPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<Category> findPage(Pageable pageable);
+	Page<Category> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<Category> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<Category> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

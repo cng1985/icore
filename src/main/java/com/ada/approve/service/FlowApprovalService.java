@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface FlowApprovalService {
 
-	public FlowApproval findById(Long id);
+	FlowApproval findById(Long id);
 
-	public FlowApproval save(FlowApproval bean);
+	FlowApproval save(FlowApproval bean);
 
-	public FlowApproval update(FlowApproval bean);
+	FlowApproval update(FlowApproval bean);
 
-	public FlowApproval deleteById(Long id);
+	FlowApproval deleteById(Long id);
 	
-	public FlowApproval[] deleteByIds(Long[] ids);
+	FlowApproval[] deleteByIds(Long[] ids);
 	
-	public FlowApprovalPage getPage(int pageNo, int pageSize);
+	FlowApprovalPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<FlowApproval> findPage(Pageable pageable);
+	Page<FlowApproval> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<FlowApproval> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<FlowApproval> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

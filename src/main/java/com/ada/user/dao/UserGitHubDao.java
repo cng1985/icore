@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.user.entity.UserGitHub;
 
 public interface UserGitHubDao extends CriteriaDao<UserGitHub, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserGitHub findById(Long id);
+	UserGitHub findById(Long id);
 
-	public UserGitHub save(UserGitHub bean);
+	UserGitHub save(UserGitHub bean);
 
-	public UserGitHub updateByUpdater(Updater<UserGitHub> updater);
+	UserGitHub updateByUpdater(Updater<UserGitHub> updater);
 
-	public UserGitHub deleteById(Long id);
+	UserGitHub deleteById(Long id);
 }

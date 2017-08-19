@@ -7,13 +7,13 @@ import  com.ada.data.core.Updater;
 import  com.ada.user.entity.UserNotification;
 
 public interface UserNotificationDao extends CriteriaDao<UserNotification, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserNotification findById(Long id);
+	UserNotification findById(Long id);
 
-	public UserNotification save(UserNotification bean);
+	UserNotification save(UserNotification bean);
 
-	public UserNotification updateByUpdater(Updater<UserNotification> updater);
+	UserNotification updateByUpdater(Updater<UserNotification> updater);
 
-	public UserNotification deleteById(Long id);
+	UserNotification deleteById(Long id);
 }

@@ -11,23 +11,31 @@ import java.util.List;
 
 public interface AppService {
 
-	public App findById(Long id);
 
-	public App save(App bean);
+	public String key();
 
-	public App update(App bean);
+	public String secret();
 
-	public App deleteById(Long id);
+	App findById(Long id);
+
+	App visit(Long id);
+
+
+	App save(App bean);
+
+	App update(App bean);
+
+	App deleteById(Long id);
 	
-	public App[] deleteByIds(Long[] ids);
-	
-	public AppPage getPage(int pageNo, int pageSize);
-	
-	
-	public Page<App> findPage(Pageable pageable);
+	App[] deleteByIds(Long[] ids);
 
-	public long count(Filter... filters);
 
-	public List<App> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	Page<App> page(Pageable pageable);
+
+	Page<App> findPage(Pageable pageable);
+
+	long count(Filter... filters);
+
+	List<App> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

@@ -11,25 +11,25 @@ import java.util.List;
 
 public interface UserQQService {
 
-	public UserQQ findById(Long id);
+	UserQQ findById(Long id);
 
-	public UserQQ save(UserQQ bean);
+	UserQQ save(UserQQ bean);
 
-	public UserQQ update(UserQQ bean);
+	UserQQ update(UserQQ bean);
 
-	public UserQQ deleteById(Long id);
+	UserQQ deleteById(Long id);
 	
-	public UserQQ[] deleteByIds(Long[] ids);
+	UserQQ[] deleteByIds(Long[] ids);
 	
-	public UserQQPage getPage(int pageNo, int pageSize);
+	UserQQPage getPage(int pageNo, int pageSize);
 	
 	
-	public UserQQ login(String access_token, String openid, String oauth_consumer_key)throws Exception ;
+	UserQQ login(String access_token, String openid, String oauth_consumer_key)throws Exception ;
 	
-	public Page<UserQQ> findPage(Pageable pageable);
+	Page<UserQQ> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserQQ> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserQQ> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

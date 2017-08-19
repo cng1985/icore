@@ -46,6 +46,7 @@ public class UserTokenServiceImpl implements UserTokenService {
     @Transactional
 	public UserToken deleteById(Long id) {
 		UserToken bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

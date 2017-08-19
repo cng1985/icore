@@ -23,37 +23,40 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
+/**
+ * 查找某个节点下一层的菜单
+ */
 public class MenusDirective implements TemplateDirectiveModel {
 
-	@Override
-	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
-			throws TemplateException, IOException {
+    @Autowired
+    MenuService menuService;
 
-		// 其实完全可以不用它，params是个Map，自己通过key取值就可以了，做一下空值判断
-		Integer id = DirectiveUtils.getInt("id", params);
-		Integer size = DirectiveUtils.getInt("size", params);
+    @Override
+    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
+            throws TemplateException, IOException {
 
-		List<Menu> page = menuService.findChild(id);
+        // 其实完全可以不用它，params是个Map，自己通过key取值就可以了，做一下空值判断
+        Integer id = DirectiveUtils.getInt("id", params);
+        Integer size = DirectiveUtils.getInt("size", params);
 
-		List<Menu> menus = new ArrayList<Menu>();
-		for (Menu menu : page) {
+        List<Menu> page = menuService.findChildMenu(id);
+
+        List<Menu> menus = new ArrayList<Menu>();
+        for (Menu menu : page) {
 
 //			boolean ok = SecurityUtils.getSubject().isPermitted(menu.getName());
 //			if (ok) {
 //				menus.add(menu);
 //			}
-		}
+        }
 
-		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(params);
-		paramWrap.put("list", ObjectWrapper.DEFAULT_WRAPPER.wrap(page));
-		Map<String, TemplateModel> origMap = DirectiveUtils.addParamsToVariable(env, paramWrap);
-		if (body != null) {
-			body.render(env.getOut());
-		}
-		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
+        Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(params);
+        paramWrap.put("list", ObjectWrapper.DEFAULT_WRAPPER.wrap(page));
+        Map<String, TemplateModel> origMap = DirectiveUtils.addParamsToVariable(env, paramWrap);
+        if (body != null) {
+            body.render(env.getOut());
+        }
+        DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
 
-	}
-
-	@Autowired
-	MenuService menuService;
+    }
 }

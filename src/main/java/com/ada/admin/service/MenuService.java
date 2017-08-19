@@ -10,40 +10,45 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 
 public interface MenuService {
-	public Pagination getPage(int pageNo, int pageSize);
+    List<Menu> childMenus(int id);
 
-	public Menu findById(Integer id);
+    /**
+     * 查找该节点下的所有节点包括自己
+     *
+     * @param id
+     * @return
+     */
+    List<Menu> childs(int id);
 
-	public Menu save(Menu bean);
+    long count(Filter... filters);
 
-	public Menu update(Menu bean);
+    Menu deleteById(Integer id);
 
-	public Menu deleteById(Integer id);
+    Menu[] deleteByIds(Integer[] ids);
 
-	public Menu[] deleteByIds(Integer[] ids);
+    Menu findById(Integer id);
 
-	/**
-	 * 查询下一级节点
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public List<Menu> findChild(int id);
+    /**
+     * 查询下一级节点
+     *
+     * @param id
+     * @return
+     */
+    List<Menu> findChild(int id);
 
-	/**
-	 * 查找该节点下的所有节点包括自己
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public List<Menu> childs(int id);
+    List<Menu> findChildMenu(int id);
 
-	public List<Menu> findTop(Integer id);
 
-	public Page<Menu> findPage(Pageable pageable);
+    List<Menu> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 
-	public long count(Filter... filters);
+    Page<Menu> findPage(Pageable pageable);
 
-	public List<Menu> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+    List<Menu> findTop(Integer id);
+
+    Pagination getPage(int pageNo, int pageSize);
+
+    Menu save(Menu bean);
+
+    Menu update(Menu bean);
 
 }

@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.user.entity.UserMessage;
 
 public interface UserMessageDao extends CriteriaDao<UserMessage, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserMessage findById(Long id);
+	UserMessage findById(Long id);
 
-	public UserMessage save(UserMessage bean);
+	UserMessage save(UserMessage bean);
 
-	public UserMessage updateByUpdater(Updater<UserMessage> updater);
+	UserMessage updateByUpdater(Updater<UserMessage> updater);
 
-	public UserMessage deleteById(Long id);
+	UserMessage deleteById(Long id);
 }

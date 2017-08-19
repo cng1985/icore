@@ -1,5 +1,7 @@
 package com.ada.article.entity;
 
+import com.ada.data.entity.AbstractEntity;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -16,23 +18,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "article_tag")
-public class ArticleTag implements Serializable {
+public class ArticleTag extends AbstractEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
 
 	private String name;
 
 	private Integer size;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

@@ -8,17 +8,17 @@ import com.ada.user.entity.UserQQ;
 import com.ada.user.entity.UserWeiXin;
 
 public interface UserWeiXinDao extends CriteriaDao<UserWeiXin, Long> {
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserWeiXin findById(Long id);
+	UserWeiXin findById(Long id);
 
-	public UserWeiXin save(UserWeiXin bean);
+	UserWeiXin save(UserWeiXin bean);
 
-	public UserWeiXin updateByUpdater(Updater<UserWeiXin> updater);
+	UserWeiXin updateByUpdater(Updater<UserWeiXin> updater);
 
-	public UserWeiXin deleteById(Long id);
+	UserWeiXin deleteById(Long id);
 
-	public UserWeiXin login(String access_token, String openid) throws Exception;
+	UserWeiXin login(String access_token, String openid) throws Exception;
 
 	/**
 	 * 微信登陆返回用户
@@ -26,6 +26,6 @@ public interface UserWeiXinDao extends CriteriaDao<UserWeiXin, Long> {
 	 * @param access_token
 	 * @return
 	 */
-	public UserInfo loginOauth(String access_token, String openid);
+	UserInfo loginOauth(String access_token, String openid);
 
 }

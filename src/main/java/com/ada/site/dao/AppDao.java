@@ -7,17 +7,17 @@ import com.ada.data.core.Pagination;
 import  com.ada.site.entity.App;
 
 public interface AppDao extends CriteriaDao<App, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public App findById(Long id);
-
-	
-	public App findByPackage(String packageName);
+	App findById(Long id);
 
 	
-	public App save(App bean);
+	App findByPackage(String packageName);
 
-	public App updateByUpdater(Updater<App> updater);
+	
+	App save(App bean);
 
-	public App deleteById(Long id);
+	App updateByUpdater(Updater<App> updater);
+
+	App deleteById(Long id);
 }

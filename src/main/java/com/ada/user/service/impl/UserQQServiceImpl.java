@@ -46,6 +46,7 @@ public class UserQQServiceImpl implements UserQQService {
     @Transactional
 	public UserQQ deleteById(Long id) {
 		UserQQ bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

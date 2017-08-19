@@ -32,19 +32,19 @@ class Shared {
 	
 	public static void main(String[] args) {
 		System.out.println(Base64.encode("ada.young","utf-8"));
-		System.out.println(Base64.decode("YWRhLnlvdW5n"));
-		String a="刘德华a";
+		System.out.println(Base64.decode("YWRhLnlvdW5n\uE938"));
+		String a="测试\uE938";
+		System.out.println(a);
 		byte[] bs=	a.getBytes();
+		System.out.println("___"+bs.length);
 		for (byte b : bs) {
 			System.out.println(b);
 		}
-		System.out.println(new String(bs));
-		
-		byte[] bss=	{-27,-120,-104};
-		System.out.println(new String(bss));
-		for (int i = 0; i < 65526; i++) {
-			System.out.println((char)i);
-		}
+
+//		for (int i = 0; i < 65526; i++) {
+//			System.out.println((char)i);
+//		}
+		System.out.println("\uE938");
 	}
 
 }

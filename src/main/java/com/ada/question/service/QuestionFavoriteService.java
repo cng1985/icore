@@ -7,21 +7,21 @@ import com.ada.question.page.QuestionFavoritePage;
 
 public interface QuestionFavoriteService {
 
-	public QuestionFavorite findById(Long id);
-	public QuestionFavorite findByUser(Long uid,Long questionid);
+	QuestionFavorite findById(Long id);
+	QuestionFavorite findByUser(Long uid, Long questionid);
 
-	public QuestionFavorite save(QuestionFavorite bean);
+	QuestionFavorite save(QuestionFavorite bean);
 
-	public QuestionFavorite update(QuestionFavorite bean);
+	QuestionFavorite update(QuestionFavorite bean);
 
-	public QuestionFavorite deleteById(Long id);
+	QuestionFavorite deleteById(Long id);
 	
-	public QuestionFavorite[] deleteByIds(Long[] ids);
+	QuestionFavorite[] deleteByIds(Long[] ids);
 	
-	public QuestionFavoritePage getPage(int pageNo, int pageSize);
+	QuestionFavoritePage getPage(int pageNo, int pageSize);
 	
-	public QuestionFavoritePage pageByUser(Long uid,int pageNo, int pageSize);
+	QuestionFavoritePage pageByUser(Long uid, int pageNo, int pageSize);
 
-	public QuestionFavoritePage pageByQuestion(Long qid,int pageNo, int pageSize);
+	QuestionFavoritePage pageByQuestion(Long qid, int pageNo, int pageSize);
 
 }

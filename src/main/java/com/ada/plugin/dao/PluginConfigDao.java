@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.plugin.entity.PluginConfig;
 
 public interface PluginConfigDao extends CriteriaDao<PluginConfig, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public PluginConfig findById(Long id);
+	PluginConfig findById(Long id);
 
-	public PluginConfig save(PluginConfig bean);
+	PluginConfig save(PluginConfig bean);
 
-	public PluginConfig updateByUpdater(Updater<PluginConfig> updater);
+	PluginConfig updateByUpdater(Updater<PluginConfig> updater);
 
-	public PluginConfig deleteById(Long id);
+	PluginConfig deleteById(Long id);
 }

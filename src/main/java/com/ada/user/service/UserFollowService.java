@@ -8,26 +8,26 @@ import com.ada.user.entity.UserFollow;
 
 
 public interface UserFollowService {
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserFollow findById(Long id);
+	UserFollow findById(Long id);
 
-	public UserFollow save(UserFollow bean);
+	UserFollow save(UserFollow bean);
 
-	public UserFollow update(UserFollow bean);
+	UserFollow update(UserFollow bean);
 
-	public UserFollow deleteById(Long id);
+	UserFollow deleteById(Long id);
 	
-	public UserFollow[] deleteByIds(Long[] ids);
+	UserFollow[] deleteByIds(Long[] ids);
 	
 	
-	public UserFollow follow(UserFollow bean);
-	public UserFollow follow(long  userid,long followid);
-	public UserFollow unFollow(UserFollow bean);
-	public UserFollow unFollow(long  userid,long followid);
+	UserFollow follow(UserFollow bean);
+	UserFollow follow(long userid, long followid);
+	UserFollow unFollow(UserFollow bean);
+	UserFollow unFollow(long userid, long followid);
 	
-	public Pagination pageByUser(long userid,int pageNo, int pageSize);
+	Pagination pageByUser(long userid, int pageNo, int pageSize);
 
-	public UserFollow remove(UserFollow follow);
+	UserFollow remove(UserFollow follow);
 
 }

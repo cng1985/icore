@@ -45,6 +45,7 @@ public class UserFollowServiceImpl implements UserFollowService {
     @Transactional
 	public UserFollow deleteById(Long id) {
 		UserFollow bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 
@@ -98,7 +99,7 @@ public class UserFollowServiceImpl implements UserFollowService {
 	public UserFollow follow(long userid, long followid) {
 		if(userid==followid){
 			UserFollow f=new UserFollow();
-			f.setId(-2l);;
+			f.setId(-2l);
 			return f;
 		}
 		UserFollow result=null;

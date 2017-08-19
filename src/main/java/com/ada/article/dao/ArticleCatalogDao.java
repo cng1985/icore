@@ -1,12 +1,14 @@
 package com.ada.article.dao;
 
-import com.ada.article.entity.ArticleCatalog;
-import com.ada.data.core.CriteriaDao;
-import com.ada.data.core.Pagination;
-import com.ada.data.core.Updater;
 
-public interface ArticleCatalogDao extends CriteriaDao<ArticleCatalog, Integer> {
-	public Pagination getPage(int pageNo, int pageSize);
+import  com.ada.data.core.CriteriaDao;
+import  com.ada.data.core.Updater;
+import  com.ada.article.entity.ArticleCatalog;
+
+/**
+* Created by imake on 2017年05月30日09:19:28.
+*/
+public interface ArticleCatalogDao extends CriteriaDao<ArticleCatalog,Integer>{
 
 	public ArticleCatalog findById(Integer id);
 
@@ -16,22 +18,23 @@ public interface ArticleCatalogDao extends CriteriaDao<ArticleCatalog, Integer> 
 
 	public ArticleCatalog deleteById(Integer id);
 
+
 	/**
 	 * 从子节点更新到根节点
-	 * 
+	 *
 	 * @param id
 	 *            子节点id
 	 * @return 更新节点层数
 	 */
-	public Integer updateNums(Integer id);
-	
+	Integer updateNums(Integer id);
+
 	/**
 	 * 从子节点更新到根节点
-	 * 
+	 *
 	 * @param id
 	 *            子节点id
 	 * @return 更新节点层数
 	 */
-	public Integer updateNumsAndTime(Integer id);
+	Integer updateNumsAndTime(Integer id);
 
 }

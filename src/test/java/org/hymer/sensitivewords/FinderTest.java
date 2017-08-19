@@ -10,7 +10,6 @@ import org.junit.After;
 import org.junit.Test;
 
 
-
 public class FinderTest {
 	public static String[] words = null;
 	public static String text5k = null;

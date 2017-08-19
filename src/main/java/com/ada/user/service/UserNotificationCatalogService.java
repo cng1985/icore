@@ -9,32 +9,33 @@ import com.ada.data.page.Pageable;
 import com.ada.user.entity.UserNotificationCatalog;
 import com.ada.user.page.UserNotificationCatalogPage;
 
+
 public interface UserNotificationCatalogService {
 
-	public UserNotificationCatalog findById(Integer id);
+	UserNotificationCatalog findById(Integer id);
 	
 	
-	public List<UserNotificationCatalog> findByPid(Integer id);
+	List<UserNotificationCatalog> findByPid(Integer id);
 
 
-	public UserNotificationCatalog save(UserNotificationCatalog bean);
+	UserNotificationCatalog save(UserNotificationCatalog bean);
 
-	public UserNotificationCatalog update(UserNotificationCatalog bean);
+	UserNotificationCatalog update(UserNotificationCatalog bean);
 
-	public UserNotificationCatalog deleteById(Integer id);
+	UserNotificationCatalog deleteById(Integer id);
 	
-	public UserNotificationCatalog[] deleteByIds(Integer[] ids);
+	UserNotificationCatalog[] deleteByIds(Integer[] ids);
 	
-	public UserNotificationCatalogPage getPage(int pageNo, int pageSize);
+	UserNotificationCatalogPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserNotificationCatalog> findPage(Pageable pageable);
+	Page<UserNotificationCatalog> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserNotificationCatalog> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserNotificationCatalog> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 
 
-	public UserNotificationCatalogPage searchPage(String name);
+	UserNotificationCatalogPage searchPage(String name);
 	
 }

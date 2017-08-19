@@ -1,63 +1,77 @@
 package com.ada.question.service.impl;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import com.ada.data.core.Finder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ada.admin.entity.Menu;
-import com.ada.data.core.Finder;
-import com.ada.data.core.Pagination;
 import com.ada.data.core.Updater;
-import com.ada.data.entity.CatalogEntity;
-import com.ada.data.page.Page;
-import com.ada.data.page.Pageable;
-import com.ada.data.utils.CatalogUtils;
 import com.ada.question.dao.QuestionCatalogDao;
 import com.ada.question.entity.QuestionCatalog;
-import com.ada.question.page.QuestionCatalogPage;
 import com.ada.question.service.QuestionCatalogService;
 
+import com.ada.data.page.Filter;
+import com.ada.data.page.Order;
+import com.ada.data.page.Page;
+import com.ada.data.page.Pageable;
+import java.util.List;
+import java.util.LinkedList;
+import com.ada.data.utils.FilterUtils;
+
+
+/**
+* Created by imake on 2017年05月30日09:15:17.
+*/
 @Service
 @Transactional
 public class QuestionCatalogServiceImpl implements QuestionCatalogService {
+
+	private QuestionCatalogDao dao;
+
+
+	@Override
 	@Transactional(readOnly = true)
-	public QuestionCatalogPage getPage(int pageNo, int pageSize) {
-	    QuestionCatalogPage result=null;
-		Pagination<QuestionCatalog> page = dao.getPage(pageNo, pageSize);
-		result=new QuestionCatalogPage(page);
+	public QuestionCatalog findById(Integer id) {
+		return dao.findById(id);
+	}
+
+	@Override
+	public List<QuestionCatalog> findByTops(Integer pid) {
+		LinkedList<QuestionCatalog> result = new LinkedList<QuestionCatalog>();
+		QuestionCatalog catalog = dao.findById(pid);
+	    if(catalog != null){
+			while ( catalog != null && catalog.getParent() != null ) {
+				result.addFirst(catalog);
+				catalog = dao.findById(catalog.getParentId());
+			}
+			result.addFirst(catalog);
+	    }
 		return result;
 	}
 
-	@Transactional(readOnly = true)
-	public QuestionCatalog findById(Integer id) {
-		QuestionCatalog entity = dao.findById(id);
-		return entity;
-	}
-
+	@Override
     @Transactional
 	public QuestionCatalog save(QuestionCatalog bean) {
 		dao.save(bean);
-		CatalogEntity parent=dao.findById(bean.getParentId());
-		CatalogUtils.updateParent(bean, parent);
 		return bean;
 	}
 
+	@Override
     @Transactional
 	public QuestionCatalog update(QuestionCatalog bean) {
 		Updater<QuestionCatalog> updater = new Updater<QuestionCatalog>(bean);
-		bean = dao.updateByUpdater(updater);
-		return bean;
+		return dao.updateByUpdater(updater);
 	}
 
+	@Override
     @Transactional
 	public QuestionCatalog deleteById(Integer id) {
-		QuestionCatalog bean = dao.deleteById(id);
+		QuestionCatalog bean = dao.findById(id);
+        dao.deleteById(id);
 		return bean;
 	}
 
+	@Override
     @Transactional	
 	public QuestionCatalog[] deleteByIds(Integer[] ids) {
 		QuestionCatalog[] beans = new QuestionCatalog[ids.length];
@@ -67,19 +81,50 @@ public class QuestionCatalogServiceImpl implements QuestionCatalogService {
 		return beans;
 	}
 
-	private QuestionCatalogDao dao;
 
 	@Autowired
 	public void setDao(QuestionCatalogDao dao) {
 		this.dao = dao;
 	}
 
-	
+	@Override
+	@Transactional(readOnly = true)
+	public Page<QuestionCatalog> findPage(Pageable pageable){
+	     return dao.findPage(pageable);
+	}
+
+	@Override
+    public Page<QuestionCatalog> page(Pageable pageable){
+         return dao.page(pageable);
+    }
+
+	@Override
+	@Transactional(readOnly = true)
+	public long count(Filter... filters){
+	     return dao.count(filters);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<QuestionCatalog> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders){
+		return dao.findList(first,count,filters,orders);
+	}
+
+    @Override
+	public Page<QuestionCatalog> page(Pageable pageable, Object search) {
+		List<Filter> filters=	FilterUtils.getFilters(search);
+		if (filters!=null) {
+			pageable.getFilters().addAll(filters);
+		}
+		return dao.page(pageable);
+	}
+
+
 	@Transactional
 	@Override
 	public List<QuestionCatalog> findChild(int pid) {
 		Finder finder = Finder.create("from QuestionCatalog t where t.parent.id=" + pid);
-		finder.append(" order by t.sortnum asc");
+		finder.append(" order by t.sortNum asc");
 		finder.setCacheable(true);
 		return dao.find(finder);
 	}
@@ -100,9 +145,4 @@ public class QuestionCatalogServiceImpl implements QuestionCatalogService {
 		return catalogs;
 	}
 
-	@Override
-	public Page<QuestionCatalog> findPage(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return dao.findPage(pageable);
-	}
 }

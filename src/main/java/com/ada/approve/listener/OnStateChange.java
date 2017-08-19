@@ -4,6 +4,6 @@ import com.ada.approve.entity.Flow;
 
 public interface OnStateChange {
 	
-	public void change(Flow flow,String state);
+	void change(Flow flow, String state);
 
 }

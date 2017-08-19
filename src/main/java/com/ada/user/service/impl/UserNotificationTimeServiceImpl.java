@@ -46,6 +46,7 @@ public class UserNotificationTimeServiceImpl implements UserNotificationTimeServ
     @Transactional
 	public UserNotificationTime deleteById(Long id) {
 		UserNotificationTime bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

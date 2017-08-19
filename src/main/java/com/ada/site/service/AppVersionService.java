@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface AppVersionService {
 
-	public AppVersion findById(Long id);
+	AppVersion findById(Long id);
 
-	public AppVersion save(AppVersion bean);
+	AppVersion save(AppVersion bean);
 
-	public AppVersion update(AppVersion bean);
+	AppVersion update(AppVersion bean);
 
-	public AppVersion deleteById(Long id);
+	AppVersion deleteById(Long id);
 	
-	public AppVersion[] deleteByIds(Long[] ids);
+	AppVersion[] deleteByIds(Long[] ids);
 	
-	public AppVersionPage getPage(int pageNo, int pageSize);
+	AppVersionPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<AppVersion> findPage(Pageable pageable);
+	Page<AppVersion> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<AppVersion> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<AppVersion> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

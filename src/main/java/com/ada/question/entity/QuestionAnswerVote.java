@@ -1,12 +1,8 @@
 package com.ada.question.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
 
 /**
@@ -17,24 +13,21 @@ import com.ada.user.entity.UserInfo;
  */
 @Entity
 @Table(name = "question_answer_vote")
-public class QuestionAnswerVote {
+public class QuestionAnswerVote extends AbstractEntity{
 
-	@Id
-	@GeneratedValue
-	private Long id;
 
 	/**
 	 * 用户
 	 */
 	@JoinColumn(name = "userid")
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	private UserInfo user;
 
 	/**
 	 * 问题的回答
 	 */
 	@JoinColumn
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	private QuestionAnswer answer;
 	
 	/**
@@ -55,9 +48,6 @@ public class QuestionAnswerVote {
 		return flag;
 	}
 
-	public Long getId() {
-		return id;
-	}
 
 	public UserInfo getUser() {
 		return user;
@@ -76,9 +66,6 @@ public class QuestionAnswerVote {
 		this.flag = flag;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public void setUser(UserInfo user) {
 		this.user = user;

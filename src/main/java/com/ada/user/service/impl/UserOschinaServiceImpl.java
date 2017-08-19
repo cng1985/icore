@@ -55,6 +55,7 @@ public class UserOschinaServiceImpl implements UserOschinaService {
 	@Transactional
 	public UserOschina deleteById(Long id) {
 		UserOschina bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 
@@ -167,7 +168,7 @@ public class UserOschinaServiceImpl implements UserOschinaService {
 					user.setUsername(username);
 					user.setPlainPassword("123456");
 					user.setRegisterType("oschina");
-					user.setHeadimg(oschina.getAvatar());
+					user.setAvatar(oschina.getAvatar());
 					user.setName(oschina.getName());
 					entryptPassword(user);
 					user = userInfoDao.save(user);

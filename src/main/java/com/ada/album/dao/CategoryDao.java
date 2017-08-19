@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.album.entity.Category;
 
 public interface CategoryDao extends CriteriaDao<Category, String>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public Category findById(String id);
+	Category findById(String id);
 
-	public Category save(Category bean);
+	Category save(Category bean);
 
-	public Category updateByUpdater(Updater<Category> updater);
+	Category updateByUpdater(Updater<Category> updater);
 
-	public Category deleteById(String id);
+	Category deleteById(String id);
 }

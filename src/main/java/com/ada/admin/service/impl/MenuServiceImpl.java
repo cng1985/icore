@@ -25,6 +25,7 @@ import com.ada.data.page.Pageable;
 @Service
 @Transactional
 public class MenuServiceImpl implements MenuService {
+
 	@Transactional(readOnly = true)
 	public Pagination getPage(int pageNo, int pageSize) {
 		Pagination page = dao.getPage(pageNo, pageSize);
@@ -45,10 +46,10 @@ public class MenuServiceImpl implements MenuService {
 		if (bean.getParentId() != null) {
 			Menu parent = dao.findById(bean.getParentId());
 			if (parent != null) {
-				if (parent.getLevelinfo() != null) {
-					bean.setLevelinfo(parent.getLevelinfo() + 1);
+				if (parent.getLevelInfo() != null) {
+					bean.setLevelInfo(parent.getLevelInfo() + 1);
 				} else {
-					bean.setLevelinfo(2);
+					bean.setLevelInfo(2);
 				}
 				if (parent.getIds() != null) {
 					bean.setIds(parent.getIds() + "," + bean.getId());
@@ -58,11 +59,11 @@ public class MenuServiceImpl implements MenuService {
 				}
 
 			} else {
-				bean.setLevelinfo(1);
+				bean.setLevelInfo(1);
 				bean.setIds("" + bean.getId());
 			}
 		} else {
-			bean.setLevelinfo(1);
+			bean.setLevelInfo(1);
 			bean.setIds("" + bean.getId());
 		}
 		updateNumsAndTime(bean.getParentId());
@@ -108,7 +109,17 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public List<Menu> findChild(int id) {
 		Finder finder = Finder.create("from Menu t where t.parent.id=" + id);
-		finder.append(" order by t.sortnum asc");
+		finder.append(" order by t.sortNum asc");
+		finder.setCacheable(true);
+		List ms = dao.find(finder);
+		return ms;
+	}
+
+	@Override
+	public List<Menu> findChildMenu(int id) {
+		Finder finder = Finder.create("from Menu t where t.parent.id=" + id);
+		finder.append(" and t.catalog =0 ");
+		finder.append(" order by t.sortNum asc");
 		finder.setCacheable(true);
 		List ms = dao.find(finder);
 		return ms;
@@ -146,6 +157,23 @@ public class MenuServiceImpl implements MenuService {
 	public List<Menu> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
 		// TODO Auto-generated method stub
 		return dao.findList(first, count, filters, orders);
+	}
+
+	@Override
+	public List<Menu> childMenus(int id) {
+		List<Menu> ms = null;
+		Menu menu = dao.findById(id);
+		if (menu != null) {
+			Finder finder = Finder.create("from Menu t where t.lft >=:lft and t.rgt<=:rgt ");
+			finder.append(" and t.catalog =0 ");
+			finder.append(" order by t.lft asc");
+			finder.setParam("lft", menu.getLft());
+			finder.setParam("rgt", menu.getRgt());
+			finder.setCacheable(false);
+			ms = dao.find(finder);
+		}
+
+		return ms;
 	}
 
 	@Override

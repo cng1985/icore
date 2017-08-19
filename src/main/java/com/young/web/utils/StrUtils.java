@@ -287,12 +287,9 @@ public class StrUtils {
 		if (StringUtils.isBlank(str)) {
 			return false;
 		}
-		if (str.contains("'") || str.contains("\"") || str.contains("\r")
+		return str.contains("'") || str.contains("\"") || str.contains("\r")
 				|| str.contains("\n") || str.contains("\t")
-				|| str.contains("\b") || str.contains("\f")) {
-			return true;
-		}
-		return false;
+				|| str.contains("\b") || str.contains("\f");
 	}
 	
 	

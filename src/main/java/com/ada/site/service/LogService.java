@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface LogService {
 
-	public Log findById(Long id);
+	Log findById(Long id);
 
-	public Log save(Log bean);
+	Log save(Log bean);
 
-	public Log update(Log bean);
+	Log update(Log bean);
 
-	public Log deleteById(Long id);
+	Log deleteById(Long id);
 	
-	public Log[] deleteByIds(Long[] ids);
+	Log[] deleteByIds(Long[] ids);
 	
-	public LogPage getPage(int pageNo, int pageSize);
+	LogPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<Log> findPage(Pageable pageable);
+	Page<Log> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<Log> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<Log> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

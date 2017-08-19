@@ -10,5 +10,5 @@ import com.ada.article.rest.page.ArticleCommentPageVo;
  */
 public interface ArticleCommentApi {
 
-	public ArticleCommentPageVo page(Long articleid, Integer pageNo, Integer pageSize);
+	ArticleCommentPageVo page(Long articleid, Integer pageNo, Integer pageSize);
 }

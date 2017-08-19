@@ -8,26 +8,25 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-
 public interface UserFeedBackService {
 
-	public UserFeedBack findById(Long id);
+	UserFeedBack findById(Long id);
 
-	public UserFeedBack save(UserFeedBack bean);
+	UserFeedBack save(UserFeedBack bean);
 
-	public UserFeedBack update(UserFeedBack bean);
+	UserFeedBack update(UserFeedBack bean);
 
-	public UserFeedBack deleteById(Long id);
+	UserFeedBack deleteById(Long id);
 	
-	public UserFeedBack[] deleteByIds(Long[] ids);
+	UserFeedBack[] deleteByIds(Long[] ids);
 	
-	public UserFeedBackPage getPage(int pageNo, int pageSize);
+	UserFeedBackPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserFeedBack> findPage(Pageable pageable);
+	Page<UserFeedBack> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserFeedBack> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserFeedBack> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

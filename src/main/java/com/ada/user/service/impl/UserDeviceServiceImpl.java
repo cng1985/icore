@@ -46,6 +46,7 @@ public class UserDeviceServiceImpl implements UserDeviceService {
     @Transactional
 	public UserDevice deleteById(Long id) {
 		UserDevice bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

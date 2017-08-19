@@ -88,7 +88,7 @@ public class Category implements Serializable{
 	public String toString() {
 		return "Category [id=" + id + ", count=" + count + ", icover=" + icover
 				+ ", rname=" + rname + ", atime=" + atime + ", cover_temp="
-				+ cover_temp + ", name=" + name + ", cover=" + cover
+				+ cover_temp + ", name=" + name + ", conver=" + cover
 				+ ", rank=" + rank + ", type=" + type + "]";
 	}
 

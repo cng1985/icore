@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.plugin.entity.SystemPayment;
 
 public interface SystemPaymentDao extends CriteriaDao<SystemPayment, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public SystemPayment findById(Long id);
+	SystemPayment findById(Long id);
 
-	public SystemPayment save(SystemPayment bean);
+	SystemPayment save(SystemPayment bean);
 
-	public SystemPayment updateByUpdater(Updater<SystemPayment> updater);
+	SystemPayment updateByUpdater(Updater<SystemPayment> updater);
 
-	public SystemPayment deleteById(Long id);
+	SystemPayment deleteById(Long id);
 }

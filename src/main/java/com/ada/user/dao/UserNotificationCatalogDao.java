@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.user.entity.UserNotificationCatalog;
 
 public interface UserNotificationCatalogDao extends CriteriaDao<UserNotificationCatalog, Integer>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserNotificationCatalog findById(Integer id);
+	UserNotificationCatalog findById(Integer id);
 
-	public UserNotificationCatalog save(UserNotificationCatalog bean);
+	UserNotificationCatalog save(UserNotificationCatalog bean);
 
-	public UserNotificationCatalog updateByUpdater(Updater<UserNotificationCatalog> updater);
+	UserNotificationCatalog updateByUpdater(Updater<UserNotificationCatalog> updater);
 
-	public UserNotificationCatalog deleteById(Integer id);
+	UserNotificationCatalog deleteById(Integer id);
 }

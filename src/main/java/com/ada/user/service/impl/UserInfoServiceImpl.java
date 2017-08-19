@@ -27,6 +27,8 @@ import com.young.security.Encodes;
 @Transactional
 public class UserInfoServiceImpl implements UserInfoService {
 
+
+
 	/**
 	 * 验证原密码是否正确
 	 * 
@@ -37,11 +39,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public boolean checkPassword(UserInfo user, String oldPassword) {
 		byte[] salt = Encodes.decodeHex(user.getSalt());
 		byte[] hashPassword = Digests.sha1(oldPassword.getBytes(), salt, HASH_INTERATIONS);
-		if (user.getPassword().equals(Encodes.encodeHex(hashPassword))) {
-			return true;
-		} else {
-			return false;
-		}
+		return user.getPassword().equals(Encodes.encodeHex(hashPassword));
 	}
 
 	/**
@@ -95,6 +93,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Transactional
 	public UserInfo deleteById(Long id) {
 		UserInfo bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 
@@ -125,14 +124,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (us != null && us.size() > 0) {
 			result = us.get(0);
 			if (checkPassword(result, password)) {
-				result.setMacaddress(macaddress);
 				result.setLastDate(new Date());
-				Integer logintime = result.getLogintimes();
+				Integer logintime = result.getLoginSize();
 				if (logintime == null) {
 					logintime = 0;
 				}
 				logintime++;
-				result.setLogintimes(logintime);
+				result.setLoginSize(logintime);
 			} else {
 				result = new UserInfo();
 				result.setId(-1l);
@@ -187,12 +185,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public UserInfo updateUserLogin(UserInfo user) {
 		user = dao.findById(user.getId());
 		user.setLastDate(new Date());
-		Integer times = user.getLogintimes();
+		Integer times = user.getLoginSize();
 		if (times == null) {
 			times = 0;
 		}
 		times++;
-		user.setLogintimes(times);
+		user.setLoginSize(times);
 		return update(user);
 	}
 
@@ -250,21 +248,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Transactional
 	@Override
 	public UserInfo reg(UserInfo user) {
-		UserInfo result = null;
-		Finder finder = Finder.create();
-		finder.append("from UserInfo u where u.username ='" + user.getUsername() + "'");
-		// finder.append(" and u.password = '" + password + "'");
-		List<UserInfo> us = dao.find(finder);
-		if (us != null && us.size() > 0) {
-			result = new UserInfo();
-			result.setId(-1l);
-		} else {
-
-			entryptPassword(user);
-
-			result = dao.save(user);
-		}
-		return result;
+		return dao.reg(user).getUser();
 	}
 
 	@Transactional
@@ -291,12 +275,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 		List<UserInfo> users = dao.find(finder);
 		if (users != null && users.size() > 0) {
 			result = users.get(0);
-			result.setEmail(email);
 		} else {
 			result = new UserInfo();
 			result.setUsername(username);
-			result.setPhone(phone);
-			result.setEmail(email);
 			result.setPlainPassword("123456");
 			entryptPassword(result);
 			result = save(result);
@@ -322,9 +303,19 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return dao.findPage(pageable);
 	}
 
-	@Override
+    @Override
+    public Page<UserInfo> page(Pageable pageable) {
+        return dao.page(pageable);
+    }
+
+    @Override
 	public long count(Filter... filters) {
 		return dao.count(filters);
+	}
+
+	@Override
+	public List<UserInfo> list(Integer first, Integer count, List<Filter> filters, List<Order> orders) {
+		return dao.list(first, count, filters, orders);
 	}
 
 	@Override
@@ -347,7 +338,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			user.setUsername(openid);
 			user.setName(nickname);
 			user.setName(nickname);
-			user.setHeadimg(figureurl_qq_1);
+			user.setAvatar(figureurl_qq_1);
 			user.setPlainPassword("123456");
 			entryptPassword(user);
 			result = dao.save(user);

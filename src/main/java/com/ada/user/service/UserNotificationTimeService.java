@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface UserNotificationTimeService {
 
-	public UserNotificationTime findById(Long id);
+	UserNotificationTime findById(Long id);
 
-	public UserNotificationTime save(UserNotificationTime bean);
+	UserNotificationTime save(UserNotificationTime bean);
 
-	public UserNotificationTime update(UserNotificationTime bean);
+	UserNotificationTime update(UserNotificationTime bean);
 
-	public UserNotificationTime deleteById(Long id);
+	UserNotificationTime deleteById(Long id);
 	
-	public UserNotificationTime[] deleteByIds(Long[] ids);
+	UserNotificationTime[] deleteByIds(Long[] ids);
 	
-	public UserNotificationTimePage getPage(int pageNo, int pageSize);
+	UserNotificationTimePage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserNotificationTime> findPage(Pageable pageable);
+	Page<UserNotificationTime> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserNotificationTime> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserNotificationTime> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

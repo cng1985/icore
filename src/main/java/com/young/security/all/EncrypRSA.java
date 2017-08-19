@@ -128,7 +128,7 @@ public class EncrypRSA {
 
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		PKCS8EncodedKeySpec priPKCS8 = new PKCS8EncodedKeySpec(
-				base64.decodeBase64(x));
+				Base64.decodeBase64(x));
 		RSAPrivateKey privateKey = (RSAPrivateKey) keyFactory
 				.generatePrivate(priPKCS8);
 		return privateKey;
@@ -140,7 +140,7 @@ public class EncrypRSA {
 
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		X509EncodedKeySpec  priPKCS8 = new X509EncodedKeySpec (
-				base64.decodeBase64(x));
+				Base64.decodeBase64(x));
 		RSAPublicKey privateKey = (RSAPublicKey) keyFactory
 				.generatePublic(priPKCS8);
 		return privateKey;

@@ -11,23 +11,27 @@ import java.util.List;
 
 public interface UserOauthTokenService {
 
-	public UserOauthToken findById(Long id);
+	UserOauthToken findById(Long id);
 
-	public UserOauthToken save(UserOauthToken bean);
 
-	public UserOauthToken update(UserOauthToken bean);
+	UserOauthToken findByUid(String uid);
 
-	public UserOauthToken deleteById(Long id);
+
+	UserOauthToken save(UserOauthToken bean);
+
+	UserOauthToken update(UserOauthToken bean);
+
+	UserOauthToken deleteById(Long id);
 	
-	public UserOauthToken[] deleteByIds(Long[] ids);
+	UserOauthToken[] deleteByIds(Long[] ids);
 	
-	public UserOauthTokenPage getPage(int pageNo, int pageSize);
+	UserOauthTokenPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserOauthToken> findPage(Pageable pageable);
+	Page<UserOauthToken> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserOauthToken> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserOauthToken> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.user.entity.UserOschina;
 
 public interface UserOschinaDao extends CriteriaDao<UserOschina, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserOschina findById(Long id);
+	UserOschina findById(Long id);
 
-	public UserOschina save(UserOschina bean);
+	UserOschina save(UserOschina bean);
 
-	public UserOschina updateByUpdater(Updater<UserOschina> updater);
+	UserOschina updateByUpdater(Updater<UserOschina> updater);
 
-	public UserOschina deleteById(Long id);
+	UserOschina deleteById(Long id);
 }

@@ -6,22 +6,22 @@ import com.ada.feed.page.FeedPage;
 
 public interface FeedService {
 
-	public Feed findById(Long id);
+	Feed findById(Long id);
 
-	public Feed save(Feed bean);
+	Feed save(Feed bean);
 	
-	public Feed push(String template,Object object,Long userid);
+	Feed push(String template, Object object, Long userid);
 
 
-	public Feed update(Feed bean);
+	Feed update(Feed bean);
 
-	public Feed deleteById(Long id);
+	Feed deleteById(Long id);
 	
-	public Feed[] deleteByIds(Long[] ids);
+	Feed[] deleteByIds(Long[] ids);
 	
-	public FeedPage getPage(int pageNo, int pageSize);
+	FeedPage getPage(int pageNo, int pageSize);
 	
 	
-	public FeedDtoPage page(int pageNo, int pageSize);
+	FeedDtoPage page(int pageNo, int pageSize);
 
 }

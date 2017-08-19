@@ -46,6 +46,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Transactional
 	public UserRole deleteById(Long id) {
 		UserRole bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

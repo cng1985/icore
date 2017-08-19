@@ -178,7 +178,7 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 						user.setUsername(username);
 						user.setPlainPassword("123456");
 						user.setRegisterType("qq");
-						user.setHeadimg(qq.getFigureurl_2());
+						user.setAvatar(qq.getFigureurl_2());
 						user.setName(qq.getNickname());
 						entryptPassword(user);
 						user = userInfoDao.save(user);
@@ -202,12 +202,12 @@ public class UserQQDaoImpl extends CriteriaDaoImpl<UserQQ, Long> implements User
 					utoken.setLastDate(new Date());
 					utoken.setAccess_token(access_token);
 					result = utoken.getUser();
-					Integer sizes = result.getLogintimes();
+					Integer sizes = result.getLoginSize();
 					if (sizes==null) {
 						sizes=1;
 					}
 					sizes++;
-					result.setLogintimes(sizes);
+					result.setLoginSize(sizes);
 					result.setLastDate(new Date());
 				}
 

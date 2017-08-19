@@ -8,13 +8,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.question.entity.Question;
 
 public interface QuestionDao extends CriteriaDao<Question, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public Question findById(Long id);
+	Question findById(Long id);
 
-	public Question save(Question bean);
+	Question save(Question bean);
 
-	public Question updateByUpdater(Updater<Question> updater);
+	Question updateByUpdater(Updater<Question> updater);
 
-	public Question deleteById(Long id);
+	Question deleteById(Long id);
 }

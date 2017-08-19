@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface PhotoFeedService {
 
-	public PhotoFeed findById(String id);
+	PhotoFeed findById(String id);
 
-	public PhotoFeed save(PhotoFeed bean);
+	PhotoFeed save(PhotoFeed bean);
 
-	public PhotoFeed update(PhotoFeed bean);
+	PhotoFeed update(PhotoFeed bean);
 
-	public PhotoFeed deleteById(String id);
+	PhotoFeed deleteById(String id);
 	
-	public PhotoFeed[] deleteByIds(String[] ids);
+	PhotoFeed[] deleteByIds(String[] ids);
 	
-	public PhotoFeedPage getPage(int pageNo, int pageSize);
+	PhotoFeedPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<PhotoFeed> findPage(Pageable pageable);
+	Page<PhotoFeed> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<PhotoFeed> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<PhotoFeed> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

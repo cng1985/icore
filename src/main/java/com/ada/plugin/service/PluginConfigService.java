@@ -11,27 +11,27 @@ import java.util.List;
 
 public interface PluginConfigService {
 
-	public PluginConfig findById(Long id);
+	PluginConfig findById(Long id);
 
-	public PluginConfig save(PluginConfig bean);
+	PluginConfig save(PluginConfig bean);
 
-	public PluginConfig update(PluginConfig bean);
+	PluginConfig update(PluginConfig bean);
 
-	public PluginConfig deleteById(Long id);
+	PluginConfig deleteById(Long id);
 	
-	public PluginConfig[] deleteByIds(Long[] ids);
+	PluginConfig[] deleteByIds(Long[] ids);
 	
-	public PluginConfigPage getPage(int pageNo, int pageSize);
+	PluginConfigPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<PluginConfig> findPage(Pageable pageable);
+	Page<PluginConfig> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<PluginConfig> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<PluginConfig> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 
-	public boolean pluginIdExists(String id);
+	boolean pluginIdExists(String id);
 
-	public PluginConfig findByPluginId(String id);
+	PluginConfig findByPluginId(String id);
 	
 }

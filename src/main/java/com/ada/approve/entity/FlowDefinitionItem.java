@@ -3,10 +3,7 @@ package com.ada.approve.entity;
 import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 流程定义节点
@@ -40,6 +37,17 @@ public class FlowDefinitionItem extends AbstractEntity {
      * 层级
      */
     private Integer hierarchy;
+
+    /**
+     * 工作url
+     */
+    private String workUrl;
+
+    /**
+     * 类型
+     */
+    @Column(length = 20)
+    private String catalog;
 
     public String getType() {
         return type;
@@ -79,5 +87,21 @@ public class FlowDefinitionItem extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getWorkUrl() {
+        return workUrl;
+    }
+
+    public void setWorkUrl(String workUrl) {
+        this.workUrl = workUrl;
+    }
+
+    public String getCatalog() {
+        return catalog;
+    }
+
+    public void setCatalog(String catalog) {
+        this.catalog = catalog;
     }
 }

@@ -31,10 +31,10 @@ public class AreaDaoImpl extends CriteriaDaoImpl<Area, Integer> implements AreaD
 		if (bean.getParentId() != null) {
 			Area parent =findById(bean.getParentId());
 			if (parent != null) {
-				if (parent.getLevelinfo() != null) {
-					bean.setLevelinfo(parent.getLevelinfo() + 1);
+				if (parent.getLevelInfo() != null) {
+					bean.setLevelInfo(parent.getLevelInfo() + 1);
 				} else {
-					bean.setLevelinfo(2);
+					bean.setLevelInfo(2);
 				}
 				if (parent.getIds() != null) {
 					bean.setIds(parent.getIds() + "," + bean.getId());
@@ -44,11 +44,11 @@ public class AreaDaoImpl extends CriteriaDaoImpl<Area, Integer> implements AreaD
 				}
 
 			} else {
-				bean.setLevelinfo(1);
+				bean.setLevelInfo(1);
 				bean.setIds("" + bean.getId());
 			}
 		} else {
-			bean.setLevelinfo(1);
+			bean.setLevelInfo(1);
 			bean.setIds("" + bean.getId());
 		}		
 		return bean;

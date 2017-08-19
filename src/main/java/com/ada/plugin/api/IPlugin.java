@@ -119,7 +119,7 @@ public abstract class IPlugin implements Comparable<IPlugin>{
 	 */
 	public Integer getOrder() {
 		PluginConfig pluginConfig = getPluginConfig();
-		return pluginConfig != null ? pluginConfig.getSortnum() : null;
+		return pluginConfig != null ? pluginConfig.getSortNum() : null;
 	}
 	
 

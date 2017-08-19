@@ -215,12 +215,10 @@ public class Base64 {
 			try {
 				inputStream.close();
 			} catch (Throwable t) {
-				;
 			}
 			try {
 				outputStream.close();
 			} catch (Throwable t) {
-				;
 			}
 		}
 		return outputStream.toByteArray();
@@ -254,12 +252,10 @@ public class Base64 {
 			try {
 				inputStream.close();
 			} catch (Throwable t) {
-				;
 			}
 			try {
 				outputStream.close();
 			} catch (Throwable t) {
-				;
 			}
 		}
 		return outputStream.toByteArray();
@@ -377,14 +373,12 @@ public class Base64 {
 				try {
 					outputStream.close();
 				} catch (Throwable t) {
-					;
 				}
 			}
 			if (inputStream != null) {
 				try {
 					inputStream.close();
 				} catch (Throwable t) {
-					;
 				}
 			}
 		}
@@ -416,14 +410,12 @@ public class Base64 {
 				try {
 					outputStream.close();
 				} catch (Throwable t) {
-					;
 				}
 			}
 			if (inputStream != null) {
 				try {
 					inputStream.close();
 				} catch (Throwable t) {
-					;
 				}
 			}
 		}
@@ -455,14 +447,12 @@ public class Base64 {
 				try {
 					outputStream.close();
 				} catch (Throwable t) {
-					;
 				}
 			}
 			if (inputStream != null) {
 				try {
 					inputStream.close();
 				} catch (Throwable t) {
-					;
 				}
 			}
 		}

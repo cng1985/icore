@@ -12,9 +12,9 @@ import com.ada.data.rest.domain.AbstractVo;
 
 public interface FlowService {
 
-	public Flow findById(Long id);
+	Flow findById(Long id);
 
-	public Flow save(Flow bean);
+	Flow save(Flow bean);
 
 	/**
 	 * 启动一个流程
@@ -22,7 +22,7 @@ public interface FlowService {
 	 * @param bean
 	 * @return
 	 */
-	public Flow start(Flow bean);
+	Flow start(Flow bean);
 
 	/**
 	 * 审批
@@ -43,18 +43,18 @@ public interface FlowService {
 	AbstractVo restart(Long taskid);
 
 
-	public Flow update(Flow bean);
+	Flow update(Flow bean);
 
-	public Flow deleteById(Long id);
+	Flow deleteById(Long id);
 
-	public Flow[] deleteByIds(Long[] ids);
+	Flow[] deleteByIds(Long[] ids);
 
-	public FlowPage getPage(int pageNo, int pageSize);
+	FlowPage getPage(int pageNo, int pageSize);
 
-	public Page<Flow> findPage(Pageable pageable);
+	Page<Flow> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<Flow> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<Flow> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 
 }

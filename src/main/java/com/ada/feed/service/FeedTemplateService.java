@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface FeedTemplateService {
 
-	public FeedTemplate findById(String id);
+	FeedTemplate findById(String id);
 
-	public FeedTemplate save(FeedTemplate bean);
+	FeedTemplate save(FeedTemplate bean);
 
-	public FeedTemplate update(FeedTemplate bean);
+	FeedTemplate update(FeedTemplate bean);
 
-	public FeedTemplate deleteById(String id);
+	FeedTemplate deleteById(String id);
 	
-	public FeedTemplate[] deleteByIds(String[] ids);
+	FeedTemplate[] deleteByIds(String[] ids);
 	
-	public FeedTemplatePage getPage(int pageNo, int pageSize);
+	FeedTemplatePage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<FeedTemplate> findPage(Pageable pageable);
+	Page<FeedTemplate> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<FeedTemplate> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<FeedTemplate> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

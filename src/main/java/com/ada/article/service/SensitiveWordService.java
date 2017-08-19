@@ -10,20 +10,20 @@ import java.util.List;
 
 public interface SensitiveWordService {
 
-	public SensitiveWord findById(Long id);
+	SensitiveWord findById(Long id);
 
-	public SensitiveWord save(SensitiveWord bean);
+	SensitiveWord save(SensitiveWord bean);
 
-	public SensitiveWord update(SensitiveWord bean);
+	SensitiveWord update(SensitiveWord bean);
 
-	public SensitiveWord deleteById(Long id);
+	SensitiveWord deleteById(Long id);
 	
-	public SensitiveWord[] deleteByIds(Long[] ids);
+	SensitiveWord[] deleteByIds(Long[] ids);
 	
-	public Page<SensitiveWord> findPage(Pageable pageable);
+	Page<SensitiveWord> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<SensitiveWord> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<SensitiveWord> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

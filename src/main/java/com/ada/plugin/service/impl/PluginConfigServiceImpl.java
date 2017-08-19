@@ -93,11 +93,7 @@ public class PluginConfigServiceImpl implements PluginConfigService {
 	@Override
 	public boolean pluginIdExists(String id) {
 		Long count = dao.count(Filter.eq("pluginId", id));
-		if (count > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return count > 0;
 	}
 
 	@Override

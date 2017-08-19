@@ -169,7 +169,7 @@ public class UserWeiXinDaoImpl extends CriteriaDaoImpl<UserWeiXin, Long> impleme
 			weixin.setUnionid(getString(element, "unionid"));
 			weixin.setAccessToken(access_token);
 			weixin.setOpenid(openid);
-			if (weixin.getUnionid() != null&&weixin.getUnionid().length()>5) {
+			if (weixin.getUnionid() != null && weixin.getUnionid().length() > 5) {
 				UserOauthToken utoken = tokenDao.findByUid(weixin.getUnionid(), "weixin");
 				if (utoken == null) {
 					String username = "weixin_" + weixin.getUnionid();
@@ -179,7 +179,7 @@ public class UserWeiXinDaoImpl extends CriteriaDaoImpl<UserWeiXin, Long> impleme
 						user.setUsername(username);
 						user.setPlainPassword("123456");
 						user.setRegisterType("weixin");
-						user.setHeadimg(weixin.getHeadimgurl());
+						user.setAvatar(weixin.getHeadimgurl());
 						user.setName(weixin.getNickName());
 						entryptPassword(user);
 						user = userInfoDao.save(user);
@@ -203,12 +203,12 @@ public class UserWeiXinDaoImpl extends CriteriaDaoImpl<UserWeiXin, Long> impleme
 					utoken.setLastDate(new Date());
 					utoken.setAccess_token(access_token);
 					result = utoken.getUser();
-					Integer sizes = result.getLogintimes();
-					if (sizes==null) {
-						sizes=1;
+					Integer sizes = result.getLoginSize();
+					if (sizes == null) {
+						sizes = 1;
 					}
 					sizes++;
-					result.setLogintimes(sizes);
+					result.setLoginSize(sizes);
 					result.setLastDate(new Date());
 				}
 

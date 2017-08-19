@@ -8,26 +8,25 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-
 public interface UserNotificationNumService {
 
-	public UserNotificationNum findById(Long id);
+	UserNotificationNum findById(Long id);
 
-	public UserNotificationNum save(UserNotificationNum bean);
+	UserNotificationNum save(UserNotificationNum bean);
 
-	public UserNotificationNum update(UserNotificationNum bean);
+	UserNotificationNum update(UserNotificationNum bean);
 
-	public UserNotificationNum deleteById(Long id);
+	UserNotificationNum deleteById(Long id);
 	
-	public UserNotificationNum[] deleteByIds(Long[] ids);
+	UserNotificationNum[] deleteByIds(Long[] ids);
 	
-	public UserNotificationNumPage getPage(int pageNo, int pageSize);
+	UserNotificationNumPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserNotificationNum> findPage(Pageable pageable);
+	Page<UserNotificationNum> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserNotificationNum> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserNotificationNum> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

@@ -45,6 +45,7 @@ public class UserLoginLogServiceImpl implements UserLoginLogService {
     @Transactional
 	public UserLoginLog deleteById(Long id) {
 		UserLoginLog bean = dao.findById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

@@ -7,15 +7,15 @@ import com.ada.data.core.Pagination;
 import  com.ada.data.core.Updater;
 
 public interface AreaDao extends CriteriaDao<Area, Integer>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public Area findById(Integer id);
+	Area findById(Integer id);
 
-	public Area save(Area bean);
+	Area save(Area bean);
 
-	public Area updateByUpdater(Updater<Area> updater);
+	Area updateByUpdater(Updater<Area> updater);
 
-	public Area deleteById(Integer id);
+	Area deleteById(Integer id);
 
-	public Area findByName(String area);
+	Area findByName(String area);
 }

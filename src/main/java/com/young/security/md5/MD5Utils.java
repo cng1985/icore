@@ -70,7 +70,7 @@ public class MD5Utils {
 	public static void main(String[] args) {
 		MD5Utils md5 = new MD5Utils("123456");
 		String postString = md5.compute();
-		System.out.println("加密后的字符:" + postString);
+		System.out.println("加密后的字符:" + postString.length());
 		if (postString.equals("900150983cd24fb0d6963f7d28e17f72")) {
 			System.out.println("true");
 		} else

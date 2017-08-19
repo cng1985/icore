@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface TemplateNoticeService {
 
-	public TemplateNotice findById(String id);
+	TemplateNotice findById(String id);
 
-	public TemplateNotice save(TemplateNotice bean);
+	TemplateNotice save(TemplateNotice bean);
 
-	public TemplateNotice update(TemplateNotice bean);
+	TemplateNotice update(TemplateNotice bean);
 
-	public TemplateNotice deleteById(String id);
+	TemplateNotice deleteById(String id);
 	
-	public TemplateNotice[] deleteByIds(String[] ids);
+	TemplateNotice[] deleteByIds(String[] ids);
 	
-	public TemplateNoticePage getPage(int pageNo, int pageSize);
+	TemplateNoticePage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<TemplateNotice> findPage(Pageable pageable);
+	Page<TemplateNotice> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<TemplateNotice> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<TemplateNotice> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

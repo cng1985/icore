@@ -23,7 +23,7 @@ public class EncrypDES3 {
 	private byte[] cipherByte;
 
 	public EncrypDES3() throws NoSuchAlgorithmException, NoSuchPaddingException {
-		Security.addProvider(new com.sun.crypto.provider.SunJCE());
+		//Security.addProvider(new com.sun.crypto.provider.SunJCE());
 		// 实例化支持DES算法的密钥生成器(算法名称命名需按规定，否则抛出异常)
 		keygen = KeyGenerator.getInstance("DESede");
 		// 生成密钥

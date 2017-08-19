@@ -93,9 +93,14 @@ public class AreaServiceImpl implements AreaService {
 		Finder finder = Finder.create();
 		finder.append("select h.area from AreaHot h");
 		dao.find(finder, 0, id);
-		result = (List<Area>) dao.find(finder, 0, id).getList();
+		result = dao.find(finder, 0, id).getList();
 
 		return result;
+	}
+
+	@Override
+	public Page<Area> page(Pageable pageable) {
+		return dao.page(pageable);
 	}
 
 	@Transactional(readOnly = true)

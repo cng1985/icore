@@ -57,6 +57,7 @@ public class UserOauthWeiboServiceImpl implements UserOauthWeiboService {
 	@Transactional
 	public UserOauthWeibo deleteById(Long id) {
 		UserOauthWeibo bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 
@@ -145,7 +146,7 @@ public class UserOauthWeiboServiceImpl implements UserOauthWeiboService {
 			String uid = e.getAsJsonObject().get("uid").getAsString();
 
 			UserOauthToken utoken = tokenDao.findByUid(uid, "weibo");
-			if (utoken.getId() != null && utoken.getId() > 0) {
+			if (utoken!=null&&utoken.getId() != null && utoken.getId() > 0) {
 				utoken.setLastDate(new Date());
 				utoken.setAccess_token(token);
 				result = utoken.getUser();
@@ -175,7 +176,7 @@ public class UserOauthWeiboServiceImpl implements UserOauthWeiboService {
 					user.setPlainPassword("123456");
 					user.setRegisterType("weibo");
 					user.setName(weibo.getName());
-					user.setHeadimg(weibo.getAvatar_large());
+					user.setAvatar(weibo.getAvatar_large());
 					entryptPassword(user);
 					user = userInfoDao.save(user);
 				}

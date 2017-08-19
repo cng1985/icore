@@ -7,17 +7,17 @@ import com.ada.data.core.Pagination;
 import  com.ada.approve.entity.Flow;
 
 public interface FlowDao extends CriteriaDao<Flow, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public Flow findById(Long id);
+	Flow findById(Long id);
 	
-	public Flow findByOId(Integer catalog,Long id);
+	Flow findByOId(Integer catalog, Long id);
 
-	public int deleteForCatalog(Long oid,Integer catalog);
+	int deleteForCatalog(Long oid, Integer catalog);
 
-	public Flow save(Flow bean);
+	Flow save(Flow bean);
 
-	public Flow updateByUpdater(Updater<Flow> updater);
+	Flow updateByUpdater(Updater<Flow> updater);
 
-	public Flow deleteById(Long id);
+	Flow deleteById(Long id);
 }

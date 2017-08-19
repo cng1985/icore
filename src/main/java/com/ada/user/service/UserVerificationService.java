@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface UserVerificationService {
 
-	public UserVerification findById(Long id);
+	UserVerification findById(Long id);
 
-	public UserVerification save(UserVerification bean);
+	UserVerification save(UserVerification bean);
 
-	public UserVerification update(UserVerification bean);
+	UserVerification update(UserVerification bean);
 
-	public UserVerification deleteById(Long id);
+	UserVerification deleteById(Long id);
 	
-	public UserVerification[] deleteByIds(Long[] ids);
+	UserVerification[] deleteByIds(Long[] ids);
 	
-	public UserVerificationPage getPage(int pageNo, int pageSize);
+	UserVerificationPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserVerification> findPage(Pageable pageable);
+	Page<UserVerification> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserVerification> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserVerification> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

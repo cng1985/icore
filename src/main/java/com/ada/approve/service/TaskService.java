@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface TaskService {
 
-	public Task findById(Long id);
+	Task findById(Long id);
 
-	public Task save(Task bean);
+	Task save(Task bean);
 
-	public Task update(Task bean);
+	Task update(Task bean);
 
-	public Task deleteById(Long id);
+	Task deleteById(Long id);
 	
-	public Task[] deleteByIds(Long[] ids);
+	Task[] deleteByIds(Long[] ids);
 	
-	public TaskPage getPage(int pageNo, int pageSize);
+	TaskPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<Task> findPage(Pageable pageable);
+	Page<Task> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<Task> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<Task> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

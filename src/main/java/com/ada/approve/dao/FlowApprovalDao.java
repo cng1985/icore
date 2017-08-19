@@ -10,24 +10,24 @@ import java.util.List;
 import  com.ada.approve.entity.FlowApproval;
 
 public interface FlowApprovalDao extends CriteriaDao<FlowApproval, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public FlowApproval findById(Long id);
+	FlowApproval findById(Long id);
 
-	public FlowApproval save(FlowApproval bean);
+	FlowApproval save(FlowApproval bean);
 
-	public FlowApproval updateByUpdater(Updater<FlowApproval> updater);
+	FlowApproval updateByUpdater(Updater<FlowApproval> updater);
 
-	public FlowApproval deleteById(Long id);
+	FlowApproval deleteById(Long id);
 	
-	public Integer deleteByFlow(Long id);
+	Integer deleteByFlow(Long id);
 
 
-	public FlowApproval findNext(Long id, Integer hierarchy);
+	FlowApproval findNext(Long id, Integer hierarchy);
 	
-	public FlowApproval findCur(Long id, Integer hierarchy);
+	FlowApproval findCur(Long id, Integer hierarchy);
 
-	public FlowApproval findPre(Long id, Integer hierarchy);
+	FlowApproval findPre(Long id, Integer hierarchy);
 
-	public List<FlowApproval> findByFlow(Long id);
+	List<FlowApproval> findByFlow(Long id);
 }

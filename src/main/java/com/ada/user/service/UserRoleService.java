@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface UserRoleService {
 
-	public UserRole findById(Long id);
+	UserRole findById(Long id);
 
-	public UserRole save(UserRole bean);
+	UserRole save(UserRole bean);
 
-	public UserRole update(UserRole bean);
+	UserRole update(UserRole bean);
 
-	public UserRole deleteById(Long id);
+	UserRole deleteById(Long id);
 	
-	public UserRole[] deleteByIds(Long[] ids);
+	UserRole[] deleteByIds(Long[] ids);
 	
-	public UserRolePage getPage(int pageNo, int pageSize);
+	UserRolePage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserRole> findPage(Pageable pageable);
+	Page<UserRole> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserRole> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserRole> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

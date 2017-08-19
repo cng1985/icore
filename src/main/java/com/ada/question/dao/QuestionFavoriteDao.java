@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.question.entity.QuestionFavorite;
 
 public interface QuestionFavoriteDao extends BaseDao<QuestionFavorite, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public QuestionFavorite findById(Long id);
+	QuestionFavorite findById(Long id);
 
-	public QuestionFavorite save(QuestionFavorite bean);
+	QuestionFavorite save(QuestionFavorite bean);
 
-	public QuestionFavorite updateByUpdater(Updater<QuestionFavorite> updater);
+	QuestionFavorite updateByUpdater(Updater<QuestionFavorite> updater);
 
-	public QuestionFavorite deleteById(Long id);
+	QuestionFavorite deleteById(Long id);
 }

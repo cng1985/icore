@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.user.entity.UserFeedBack;
 
 public interface UserFeedBackDao extends CriteriaDao<UserFeedBack, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserFeedBack findById(Long id);
+	UserFeedBack findById(Long id);
 
-	public UserFeedBack save(UserFeedBack bean);
+	UserFeedBack save(UserFeedBack bean);
 
-	public UserFeedBack updateByUpdater(Updater<UserFeedBack> updater);
+	UserFeedBack updateByUpdater(Updater<UserFeedBack> updater);
 
-	public UserFeedBack deleteById(Long id);
+	UserFeedBack deleteById(Long id);
 }

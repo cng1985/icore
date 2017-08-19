@@ -1,10 +1,9 @@
 package com.ada.shiro.utils;
 
+import com.ada.shiro.realm.ShiroUser;
+import com.ada.user.entity.UserInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
-
-import com.ada.shiro.realm.UserRealm.ShiroUser;
-import com.ada.user.entity.UserInfo;
 
 public class UserUtil {
 	/**
@@ -60,8 +59,6 @@ public class UserUtil {
 		} else {
 			return null;
 		}
-
 	}
 
-	
 }

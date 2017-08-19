@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface TagService {
 
-	public Tag findById(String id);
+	Tag findById(String id);
 
-	public Tag save(Tag bean);
+	Tag save(Tag bean);
 
-	public Tag update(Tag bean);
+	Tag update(Tag bean);
 
-	public Tag deleteById(String id);
+	Tag deleteById(String id);
 	
-	public Tag[] deleteByIds(String[] ids);
+	Tag[] deleteByIds(String[] ids);
 	
-	public TagPage getPage(int pageNo, int pageSize);
+	TagPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<Tag> findPage(Pageable pageable);
+	Page<Tag> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<Tag> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<Tag> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

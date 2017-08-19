@@ -12,25 +12,25 @@ import java.util.List;
 
 public interface UserWeiXinService {
 
-	public UserWeiXin findById(Long id);
+	UserWeiXin findById(Long id);
 
-	public UserWeiXin save(UserWeiXin bean);
+	UserWeiXin save(UserWeiXin bean);
 
-	public UserWeiXin update(UserWeiXin bean);
+	UserWeiXin update(UserWeiXin bean);
 
-	public UserWeiXin deleteById(Long id);
+	UserWeiXin deleteById(Long id);
 	
-	public UserWeiXin[] deleteByIds(Long[] ids);
+	UserWeiXin[] deleteByIds(Long[] ids);
 	
-	public UserWeiXinPage getPage(int pageNo, int pageSize);
+	UserWeiXinPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserWeiXin> findPage(Pageable pageable);
+	Page<UserWeiXin> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserWeiXin> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserWeiXin> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
-	public UserQQ login(String access_token, String openid)throws Exception ;
+	UserQQ login(String access_token, String openid)throws Exception ;
 
 }

@@ -8,18 +8,18 @@ import com.ada.user.entity.UserInfo;
 import  com.ada.user.entity.UserNotificationTime;
 
 public interface UserNotificationTimeDao extends CriteriaDao<UserNotificationTime, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserNotificationTime findById(Long id);
+	UserNotificationTime findById(Long id);
 	
 	
-	public UserNotificationTime findByUser(Long id);
+	UserNotificationTime findByUser(Long id);
 
-	public UserNotificationTime findByUser(UserInfo user);
+	UserNotificationTime findByUser(UserInfo user);
 
-	public UserNotificationTime save(UserNotificationTime bean);
+	UserNotificationTime save(UserNotificationTime bean);
 
-	public UserNotificationTime updateByUpdater(Updater<UserNotificationTime> updater);
+	UserNotificationTime updateByUpdater(Updater<UserNotificationTime> updater);
 
-	public UserNotificationTime deleteById(Long id);
+	UserNotificationTime deleteById(Long id);
 }

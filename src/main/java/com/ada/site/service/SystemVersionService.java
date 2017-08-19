@@ -7,23 +7,22 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-
 public interface SystemVersionService {
 
-	public SystemVersion findById(Long id);
+	SystemVersion findById(Long id);
 
-	public SystemVersion save(SystemVersion bean);
+	SystemVersion save(SystemVersion bean);
 
-	public SystemVersion update(SystemVersion bean);
+	SystemVersion update(SystemVersion bean);
 
-	public SystemVersion deleteById(Long id);
+	SystemVersion deleteById(Long id);
 	
-	public SystemVersion[] deleteByIds(Long[] ids);
+	SystemVersion[] deleteByIds(Long[] ids);
 	
-	public Page<SystemVersion> findPage(Pageable pageable);
+	Page<SystemVersion> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<SystemVersion> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<SystemVersion> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

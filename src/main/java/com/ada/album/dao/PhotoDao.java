@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.album.entity.Photo;
 
 public interface PhotoDao extends CriteriaDao<Photo, String>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public Photo findById(String id);
+	Photo findById(String id);
 
-	public Photo save(Photo bean);
+	Photo save(Photo bean);
 
-	public Photo updateByUpdater(Updater<Photo> updater);
+	Photo updateByUpdater(Updater<Photo> updater);
 
-	public Photo deleteById(String id);
+	Photo deleteById(String id);
 }

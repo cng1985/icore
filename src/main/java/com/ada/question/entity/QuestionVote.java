@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
 
 /**
@@ -17,11 +18,8 @@ import com.ada.user.entity.UserInfo;
  */
 @Entity
 @Table(name = "question_vote")
-public class QuestionVote {
+public class QuestionVote extends AbstractEntity {
 
-	@Id
-	@GeneratedValue
-	private Long id;
 
 	/**
 	 * 用户
@@ -60,9 +58,6 @@ public class QuestionVote {
 		return flag;
 	}
 
-	public Long getId() {
-		return id;
-	}
 
 	public UserInfo getUser() {
 		return user;
@@ -78,9 +73,6 @@ public class QuestionVote {
 		this.flag = flag;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public void setUser(UserInfo user) {
 		this.user = user;

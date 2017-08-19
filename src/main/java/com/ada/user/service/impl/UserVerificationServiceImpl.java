@@ -46,6 +46,7 @@ public class UserVerificationServiceImpl implements UserVerificationService {
     @Transactional
 	public UserVerification deleteById(Long id) {
 		UserVerification bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

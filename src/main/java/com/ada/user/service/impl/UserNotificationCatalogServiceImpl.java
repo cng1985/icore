@@ -46,6 +46,7 @@ public class UserNotificationCatalogServiceImpl implements UserNotificationCatal
     @Transactional
 	public UserNotificationCatalog deleteById(Integer id) {
 		UserNotificationCatalog bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

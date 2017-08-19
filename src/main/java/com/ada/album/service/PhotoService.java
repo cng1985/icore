@@ -11,25 +11,25 @@ import java.util.List;
 
 public interface PhotoService {
 
-	public Photo findById(String id);
+	Photo findById(String id);
 
-	public Photo save(Photo bean);
+	Photo save(Photo bean);
 
-	public Photo update(Photo bean);
+	Photo update(Photo bean);
 
-	public Photo deleteById(String id);
+	Photo deleteById(String id);
 	
-	public Photo[] deleteByIds(String[] ids);
+	Photo[] deleteByIds(String[] ids);
 	
-	public PhotoPage getPage(int pageNo, int pageSize);
+	PhotoPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<Photo> findPage(Pageable pageable);
+	Page<Photo> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<Photo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<Photo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 
-	public PhotoPage pageByCatalog(String id, int curpage, int pagesize);
+	PhotoPage pageByCatalog(String id, int curpage, int pagesize);
 	
 }

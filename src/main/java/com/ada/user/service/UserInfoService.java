@@ -13,44 +13,45 @@ import com.ada.user.entity.UserRole;
 
 public interface UserInfoService {
 
+
 	/** 加密方法 */
-	public static final String HASH_ALGORITHM = "SHA-1";
-	public static final int HASH_INTERATIONS = 1024;
-	public static final int SALT_SIZE = 8; // 盐长度
+	String HASH_ALGORITHM = "SHA-1";
+	int HASH_INTERATIONS = 1024;
+	int SALT_SIZE = 8; // 盐长度
+	
+	Pagination getPage(int pageNo, int pageSize);
 
-	public Pagination getPage(int pageNo, int pageSize);
+	UserInfo findById(Long id);
 
-	public UserInfo findById(Long id);
+	UserInfo update(String username, String phone, String email);
 
-	public UserInfo update(String username, String phone, String email);
+	UserInfo save(UserInfo bean);
 
-	public UserInfo save(UserInfo bean);
+	UserInfo update(UserInfo bean);
 
-	public UserInfo update(UserInfo bean);
+	UserInfo deleteById(Long id);
 
-	public UserInfo deleteById(Long id);
+	UserInfo[] deleteByIds(Long[] ids);
 
-	public UserInfo[] deleteByIds(Long[] ids);
+	UserInfo login(String username, String password, String macaddress);
 
-	public UserInfo login(String username, String password, String macaddress);
+	UserInfo findByUsername(String username);
 
-	public UserInfo findByUsername(String username);
+	int register(String email, String username, String password);
 
-	public int register(String email, String username, String password);
+	UserInfo reg(String email, String username, String password);
 
-	public UserInfo reg(String email, String username, String password);
+	UserInfo reg(UserInfo user);
 
-	public UserInfo reg(UserInfo user);
+	UserInfo updateUserLogin(UserInfo user);
 
-	public UserInfo updateUserLogin(UserInfo user);
+	Pagination pageByRole(long roleid, int pageNo, int pageSize);
 
-	public Pagination pageByRole(long roleid, int pageNo, int pageSize);
+	Pagination pageByFollower(long userid, int pageNo, int pageSize);
 
-	public Pagination pageByFollower(long userid, int pageNo, int pageSize);
+	UserInfo addRole(long id, UserRole bean);
 
-	public UserInfo addRole(long id, UserRole bean);
-
-	public UserInfo addRole(long id, long roleid);
+	UserInfo addRole(long id, long roleid);
 
 	/**
 	 * 查找用户的权限
@@ -58,14 +59,19 @@ public interface UserInfoService {
 	 * @param id 用户id
 	 * @return 权限集合
 	 */
-	public List<String> findAuthorities(Long id);
+	List<String> findAuthorities(Long id);
 	
-	public Page<UserInfo> findPage(Pageable pageable);
+	Page<UserInfo> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	Page<UserInfo> page(Pageable pageable);
 
-	public List<UserInfo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+
+	long count(Filter... filters);
+
+	List<UserInfo> list(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+
+	List<UserInfo> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
-	public UserInfo loginqq(String openid, String nickname, String figureurl_qq_1);
+	UserInfo loginqq(String openid, String nickname, String figureurl_qq_1);
 
 }

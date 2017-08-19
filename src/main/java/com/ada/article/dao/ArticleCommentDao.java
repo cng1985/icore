@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.data.core.Updater;
 
 public interface ArticleCommentDao extends CriteriaDao<ArticleComment, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public ArticleComment findById(Long id);
+	ArticleComment findById(Long id);
 
-	public ArticleComment save(ArticleComment bean);
+	ArticleComment save(ArticleComment bean);
 
-	public ArticleComment updateByUpdater(Updater<ArticleComment> updater);
+	ArticleComment updateByUpdater(Updater<ArticleComment> updater);
 
-	public ArticleComment deleteById(Long id);
+	ArticleComment deleteById(Long id);
 }

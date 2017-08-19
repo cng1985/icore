@@ -10,31 +10,31 @@ import com.ada.user.entity.UserNotification;
 import com.ada.user.page.UserNotificationPage;
 
 public interface UserNotificationService {
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserNotification findById(Long id);
+	UserNotification findById(Long id);
 
-	public UserNotification save(UserNotification bean);
+	UserNotification save(UserNotification bean);
 	
-	public UserNotification notice(UserNotification bean);
+	UserNotification notice(UserNotification bean);
 
-	public UserNotification noticeAll(UserNotification bean);
+	UserNotification noticeAll(UserNotification bean);
 
 	
-	public UserNotification send(UserNotification bean,List<UserInfo> users);
+	UserNotification send(UserNotification bean, List<UserInfo> users);
 
-	public UserNotification send(Long nid,List<UserInfo> users);
+	UserNotification send(Long nid, List<UserInfo> users);
 
-	public UserNotification update(UserNotification bean);
+	UserNotification update(UserNotification bean);
 
-	public UserNotification deleteById(Long id);
+	UserNotification deleteById(Long id);
 	
-	public UserNotification[] deleteByIds(Long[] ids);
+	UserNotification[] deleteByIds(Long[] ids);
 	
 	
-	public	UserNotificationPage pageByUser(Long userid,int pageNo, int pageSize);
-	public	UserNotificationPage pageByUserUnRead(Long userid,int pageNo, int pageSize);
+	UserNotificationPage pageByUser(Long userid, int pageNo, int pageSize);
+	UserNotificationPage pageByUserUnRead(Long userid, int pageNo, int pageSize);
 
-	public Page<UserNotification> findPage(Pageable pageable);
+	Page<UserNotification> findPage(Pageable pageable);
 
 }

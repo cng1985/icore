@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface UserMessageMemberService {
 
-	public UserMessageMember findById(Long id);
+	UserMessageMember findById(Long id);
 
-	public UserMessageMember save(UserMessageMember bean);
+	UserMessageMember save(UserMessageMember bean);
 
-	public UserMessageMember update(UserMessageMember bean);
+	UserMessageMember update(UserMessageMember bean);
 
-	public UserMessageMember deleteById(Long id);
+	UserMessageMember deleteById(Long id);
 	
-	public UserMessageMember[] deleteByIds(Long[] ids);
+	UserMessageMember[] deleteByIds(Long[] ids);
 	
-	public UserMessageMemberPage getPage(int pageNo, int pageSize);
+	UserMessageMemberPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserMessageMember> findPage(Pageable pageable);
+	Page<UserMessageMember> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserMessageMember> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserMessageMember> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

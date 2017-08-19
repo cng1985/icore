@@ -51,6 +51,22 @@ public class App extends AbstractEntity {
 	 * 程序下载地址
 	 */
 	private String downUrl;
+
+	/**
+	 * 程序key
+	 */
+	private String appKey;
+
+
+	/**
+	 * 程序密钥
+	 */
+	private String appSecret;
+
+	/**
+	 * 访问数量
+	 */
+	private Long counts;
 	
 	
 	/**
@@ -126,4 +142,27 @@ public class App extends AbstractEntity {
 		this.versions = versions;
 	}
 
+	public String getAppKey() {
+		return appKey;
+	}
+
+	public void setAppKey(String appKey) {
+		this.appKey = appKey;
+	}
+
+	public String getAppSecret() {
+		return appSecret;
+	}
+
+	public void setAppSecret(String appSecret) {
+		this.appSecret = appSecret;
+	}
+
+	public Long getCounts() {
+		return counts;
+	}
+
+	public void setCounts(Long counts) {
+		this.counts = counts;
+	}
 }

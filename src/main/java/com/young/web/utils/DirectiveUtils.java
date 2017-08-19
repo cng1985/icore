@@ -121,8 +121,8 @@ public abstract class DirectiveUtils {
 	 */
 	public enum InvokeType {
 		body, custom, sysDefined, userDefined
-	};
-	
+	}
+
 	public static Integer getInt(String name, Map<String, TemplateModel> params)
 			throws TemplateException {
 		TemplateModel model = params.get(name);

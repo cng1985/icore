@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.album.entity.Tag;
 
 public interface TagDao extends CriteriaDao<Tag, String>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public Tag findById(String id);
+	Tag findById(String id);
 
-	public Tag save(Tag bean);
+	Tag save(Tag bean);
 
-	public Tag updateByUpdater(Updater<Tag> updater);
+	Tag updateByUpdater(Updater<Tag> updater);
 
-	public Tag deleteById(String id);
+	Tag deleteById(String id);
 }

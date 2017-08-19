@@ -11,25 +11,25 @@ import java.util.List;
 
 public interface SystemPaymentService {
 
-	public SystemPayment findById(Long id);
+	SystemPayment findById(Long id);
 
-	public SystemPayment save(SystemPayment bean);
+	SystemPayment save(SystemPayment bean);
 
-	public SystemPayment update(SystemPayment bean);
+	SystemPayment update(SystemPayment bean);
 
-	public SystemPayment deleteById(Long id);
+	SystemPayment deleteById(Long id);
 	
-	public SystemPayment[] deleteByIds(Long[] ids);
+	SystemPayment[] deleteByIds(Long[] ids);
 	
-	public SystemPaymentPage getPage(int pageNo, int pageSize);
+	SystemPaymentPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<SystemPayment> findPage(Pageable pageable);
+	Page<SystemPayment> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<SystemPayment> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<SystemPayment> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 
-	public SystemPayment findBySn(String sn);
+	SystemPayment findBySn(String sn);
 	
 }

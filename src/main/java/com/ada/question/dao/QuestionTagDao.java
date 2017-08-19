@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.question.entity.QuestionTag;
 
 public interface QuestionTagDao extends BaseDao<QuestionTag, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public QuestionTag findById(Long id);
+	QuestionTag findById(Long id);
 
-	public QuestionTag save(QuestionTag bean);
+	QuestionTag save(QuestionTag bean);
 
-	public QuestionTag updateByUpdater(Updater<QuestionTag> updater);
+	QuestionTag updateByUpdater(Updater<QuestionTag> updater);
 
-	public QuestionTag deleteById(Long id);
+	QuestionTag deleteById(Long id);
 }

@@ -7,23 +7,22 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-
 public interface UserLoginLogService {
 
-	public UserLoginLog findById(Long id);
+	UserLoginLog findById(Long id);
 
-	public UserLoginLog save(UserLoginLog bean);
+	UserLoginLog save(UserLoginLog bean);
 
-	public UserLoginLog update(UserLoginLog bean);
+	UserLoginLog update(UserLoginLog bean);
 
-	public UserLoginLog deleteById(Long id);
+	UserLoginLog deleteById(Long id);
 	
-	public UserLoginLog[] deleteByIds(Long[] ids);
+	UserLoginLog[] deleteByIds(Long[] ids);
 	
-	public Page<UserLoginLog> findPage(Pageable pageable);
+	Page<UserLoginLog> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserLoginLog> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserLoginLog> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

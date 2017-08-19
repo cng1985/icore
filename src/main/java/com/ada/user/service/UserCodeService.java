@@ -10,20 +10,20 @@ import java.util.List;
 
 public interface UserCodeService {
 
-	public UserCode findById(Long id);
+	UserCode findById(Long id);
 
-	public UserCode save(UserCode bean);
+	UserCode save(UserCode bean);
 
-	public UserCode update(UserCode bean);
+	UserCode update(UserCode bean);
 
-	public UserCode deleteById(Long id);
+	UserCode deleteById(Long id);
 	
-	public UserCode[] deleteByIds(Long[] ids);
+	UserCode[] deleteByIds(Long[] ids);
 	
-	public Page<UserCode> findPage(Pageable pageable);
+	Page<UserCode> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserCode> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserCode> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

@@ -6,28 +6,28 @@ import com.ada.question.entity.Question;
 import com.ada.question.page.QuestionPage;
 
 public interface QuestionService {
-	public QuestionPage getPage(int pageNo, int pageSize);
+	QuestionPage getPage(int pageNo, int pageSize);
 
-	public Question findById(Long id);
+	Question findById(Long id);
 
-	public Question save(Question bean);
+	Question save(Question bean);
 
-	public Question update(Question bean);
+	Question update(Question bean);
 
-	public Question deleteById(Long id);
+	Question deleteById(Long id);
 	
-	public Question[] deleteByIds(Long[] ids);
+	Question[] deleteByIds(Long[] ids);
 	
-	public QuestionPage pageByCatalog(int catalog,int pageNo, int pageSize);
+	QuestionPage pageByCatalog(int catalog, int pageNo, int pageSize);
 	
-	public QuestionPage pageByUser(long uid,int pageNo, int pageSize);
+	QuestionPage pageByUser(long uid, int pageNo, int pageSize);
 	
-	public QuestionPage pageByType(String type,int pageNo, int pageSize);
+	QuestionPage pageByType(String type, int pageNo, int pageSize);
 
 
-	public QuestionPage getPageByPid(Long id, int pageNo, int pageSize);
+	QuestionPage getPageByPid(Long id, int pageNo, int pageSize);
 
-	public Page<Question> findPage(Pageable pageable);
+	Page<Question> findPage(Pageable pageable);
 
 
 }

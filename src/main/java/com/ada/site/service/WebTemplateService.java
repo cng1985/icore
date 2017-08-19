@@ -10,20 +10,20 @@ import java.util.List;
 
 public interface WebTemplateService {
 
-	public WebTemplate findById(String id);
+	WebTemplate findById(String id);
 
-	public WebTemplate save(WebTemplate bean);
+	WebTemplate save(WebTemplate bean);
 
-	public WebTemplate update(WebTemplate bean);
+	WebTemplate update(WebTemplate bean);
 
-	public WebTemplate deleteById(String id);
+	WebTemplate deleteById(String id);
 	
-	public WebTemplate[] deleteByIds(String[] ids);
+	WebTemplate[] deleteByIds(String[] ids);
 	
-	public Page<WebTemplate> findPage(Pageable pageable);
+	Page<WebTemplate> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<WebTemplate> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<WebTemplate> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

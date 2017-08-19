@@ -10,20 +10,20 @@ import java.util.List;
 
 public interface SensitiveCategoryService {
 
-	public SensitiveCategory findById(Integer id);
+	SensitiveCategory findById(Integer id);
 
-	public SensitiveCategory save(SensitiveCategory bean);
+	SensitiveCategory save(SensitiveCategory bean);
 
-	public SensitiveCategory update(SensitiveCategory bean);
+	SensitiveCategory update(SensitiveCategory bean);
 
-	public SensitiveCategory deleteById(Integer id);
+	SensitiveCategory deleteById(Integer id);
 	
-	public SensitiveCategory[] deleteByIds(Integer[] ids);
+	SensitiveCategory[] deleteByIds(Integer[] ids);
 	
-	public Page<SensitiveCategory> findPage(Pageable pageable);
+	Page<SensitiveCategory> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<SensitiveCategory> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<SensitiveCategory> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

@@ -8,17 +8,17 @@ import com.ada.user.entity.UserInfo;
 import  com.ada.user.entity.UserOauthWeibo;
 
 public interface UserOauthWeiboDao extends CriteriaDao<UserOauthWeibo, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserOauthWeibo findById(Long id);
+	UserOauthWeibo findById(Long id);
 
-	public UserOauthWeibo save(UserOauthWeibo bean);
+	UserOauthWeibo save(UserOauthWeibo bean);
 
-	public UserOauthWeibo updateByUpdater(Updater<UserOauthWeibo> updater);
+	UserOauthWeibo updateByUpdater(Updater<UserOauthWeibo> updater);
 
-	public UserOauthWeibo deleteById(Long id);
+	UserOauthWeibo deleteById(Long id);
 	
 	
-	public UserInfo loginOauth(String  token);
+	UserInfo loginOauth(String token);
 
 }

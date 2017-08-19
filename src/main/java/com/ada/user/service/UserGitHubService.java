@@ -8,29 +8,28 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-
 public interface UserGitHubService {
 
-	public UserGitHub findById(Long id);
+	UserGitHub findById(Long id);
 	
-	public UserGitHub login(String token);
+	UserGitHub login(String token);
 
 
-	public UserGitHub save(UserGitHub bean);
+	UserGitHub save(UserGitHub bean);
 
-	public UserGitHub update(UserGitHub bean);
+	UserGitHub update(UserGitHub bean);
 
-	public UserGitHub deleteById(Long id);
+	UserGitHub deleteById(Long id);
 	
-	public UserGitHub[] deleteByIds(Long[] ids);
+	UserGitHub[] deleteByIds(Long[] ids);
 	
-	public UserGitHubPage getPage(int pageNo, int pageSize);
+	UserGitHubPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserGitHub> findPage(Pageable pageable);
+	Page<UserGitHub> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserGitHub> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserGitHub> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

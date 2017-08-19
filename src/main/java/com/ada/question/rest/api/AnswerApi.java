@@ -18,5 +18,5 @@ public interface AnswerApi {
 	 * @param pageSize 分页大小
 	 * @return 回答分页集合
 	 */
-	public AnswerPageVo pageByQuestion(Long questionid, Integer curPage, Integer pageSize);
+	AnswerPageVo pageByQuestion(Long questionid, Integer curPage, Integer pageSize);
 }

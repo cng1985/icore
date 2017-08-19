@@ -52,6 +52,7 @@ public class UserGitHubServiceImpl implements UserGitHubService {
 	@Transactional
 	public UserGitHub deleteById(Long id) {
 		UserGitHub bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 
@@ -146,7 +147,7 @@ public class UserGitHubServiceImpl implements UserGitHubService {
 					user.setUsername(username);
 					user.setPlainPassword("123456");
 					user.setRegisterType("github");
-					user.setHeadimg(result.getAvatar_url());
+					user.setAvatar(result.getAvatar_url());
 					user.setName(result.getName());
 					entryptPassword(user);
 					user = userInfoDao.save(user);

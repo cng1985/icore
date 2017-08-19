@@ -10,18 +10,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
 
 
 
 @Entity
 @Table(name = "question_favorite")
-public class QuestionFavorite implements Serializable {
+public class QuestionFavorite extends AbstractEntity {
 
-	@Id
-	@GeneratedValue
-	private Long id;
-	
+
 	
 	/**
 	 * 用户
@@ -35,20 +33,7 @@ public class QuestionFavorite implements Serializable {
 	private Question question;
 	
 	
-	/**
-	 * 添加时间
-	 */
-	private Date addDate;
 
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 
 	public UserInfo getUser() {
@@ -71,14 +56,6 @@ public class QuestionFavorite implements Serializable {
 	}
 
 
-	public Date getAddDate() {
-		return addDate;
-	}
 
-
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
-	}
-	
 	
 }

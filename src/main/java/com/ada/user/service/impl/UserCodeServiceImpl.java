@@ -45,6 +45,7 @@ public class UserCodeServiceImpl implements UserCodeService {
     @Transactional
 	public UserCode deleteById(Long id) {
 		UserCode bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

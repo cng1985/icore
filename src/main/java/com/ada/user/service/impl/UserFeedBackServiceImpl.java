@@ -46,6 +46,7 @@ public class UserFeedBackServiceImpl implements UserFeedBackService {
     @Transactional
 	public UserFeedBack deleteById(Long id) {
 		UserFeedBack bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

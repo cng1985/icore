@@ -47,6 +47,7 @@ public class UserWeiXinServiceImpl implements UserWeiXinService {
     @Transactional
 	public UserWeiXin deleteById(Long id) {
 		UserWeiXin bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

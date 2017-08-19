@@ -112,12 +112,12 @@ public class UserOauthWeiboDaoImpl extends CriteriaDaoImpl<UserOauthWeibo, Long>
 				utoken.setLastDate(new Date());
 				utoken.setAccess_token(token);
 				result = utoken.getUser();
-				Integer sizes = result.getLogintimes();
+				Integer sizes = result.getLoginSize();
 				if (sizes==null) {
 					sizes=1;
 				}
 				sizes++;
-				result.setLogintimes(sizes);
+				result.setLoginSize(sizes);
 				result.setLastDate(new Date());
 				result = utoken.getUser();
 
@@ -146,7 +146,7 @@ public class UserOauthWeiboDaoImpl extends CriteriaDaoImpl<UserOauthWeibo, Long>
 					user.setPlainPassword("123456");
 					user.setRegisterType("weibo");
 					user.setName(weibo.getName());
-					user.setHeadimg(weibo.getAvatar_large());
+					user.setAvatar(weibo.getAvatar_large());
 					entryptPassword(user);
 					user = userInfoDao.save(user);
 				}

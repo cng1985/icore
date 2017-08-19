@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.user.entity.UserLoginLog;
 
 public interface UserLoginLogDao extends CriteriaDao<UserLoginLog,Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserLoginLog findById(Long id);
+	UserLoginLog findById(Long id);
 
-	public UserLoginLog save(UserLoginLog bean);
+	UserLoginLog save(UserLoginLog bean);
 
-	public UserLoginLog updateByUpdater(Updater<UserLoginLog> updater);
+	UserLoginLog updateByUpdater(Updater<UserLoginLog> updater);
 
-	public UserLoginLog deleteById(Long id);
+	UserLoginLog deleteById(Long id);
 }

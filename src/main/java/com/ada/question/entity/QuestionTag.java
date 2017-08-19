@@ -1,5 +1,7 @@
 package com.ada.question.entity;
 
+import com.ada.data.entity.AbstractEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "question_tag")
-public class QuestionTag implements Serializable {
+public class QuestionTag extends AbstractEntity {
 
 	
 	@Override
@@ -41,36 +43,15 @@ public class QuestionTag implements Serializable {
 	}
 
 
-	@Id
-	@GeneratedValue
-	private Long id;
-	
 
 	@Column(unique=true)
 	private String name;
 	
-	/**
-	 * 添加时间
-	 */
-	private Date addDate;
-
-	/**
-	 * 更新时间
-	 */
-	private Date lastDate;
 
 
 	private int nums;
 
 
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 
 	public String getName() {
@@ -83,24 +64,6 @@ public class QuestionTag implements Serializable {
 	}
 
 
-	public Date getAddDate() {
-		return addDate;
-	}
-
-
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
-	}
-
-
-	public Date getLastDate() {
-		return lastDate;
-	}
-
-
-	public void setLastDate(Date lastDate) {
-		this.lastDate = lastDate;
-	}
 
 
 	public int getNums() {

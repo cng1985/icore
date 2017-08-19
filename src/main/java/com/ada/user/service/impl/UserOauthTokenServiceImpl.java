@@ -30,7 +30,17 @@ public class UserOauthTokenServiceImpl implements UserOauthTokenService {
 		return entity;
 	}
 
-    @Transactional
+	@Override
+	public UserOauthToken findByUid(String uid) {
+
+
+		Finder finder=Finder.create();
+		finder.append("from UserOauthToken u where u.uid=:uid");
+		finder.setParam("uid",uid);
+		return dao.findOne(finder);
+	}
+
+	@Transactional
 	public UserOauthToken save(UserOauthToken bean) {
 		dao.save(bean);
 		return bean;
@@ -46,6 +56,7 @@ public class UserOauthTokenServiceImpl implements UserOauthTokenService {
     @Transactional
 	public UserOauthToken deleteById(Long id) {
 		UserOauthToken bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

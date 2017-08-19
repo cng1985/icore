@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.site.entity.TemplateNotice;
 
 public interface TemplateNoticeDao extends CriteriaDao<TemplateNotice, String>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public TemplateNotice findById(String id);
+	TemplateNotice findById(String id);
 
-	public TemplateNotice save(TemplateNotice bean);
+	TemplateNotice save(TemplateNotice bean);
 
-	public TemplateNotice updateByUpdater(Updater<TemplateNotice> updater);
+	TemplateNotice updateByUpdater(Updater<TemplateNotice> updater);
 
-	public TemplateNotice deleteById(String id);
+	TemplateNotice deleteById(String id);
 }

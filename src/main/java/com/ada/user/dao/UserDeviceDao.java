@@ -7,16 +7,16 @@ import com.ada.data.core.Pagination;
 import  com.ada.user.entity.UserDevice;
 
 public interface UserDeviceDao extends CriteriaDao<UserDevice, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserDevice findById(Long id);
+	UserDevice findById(Long id);
 	
-	public UserDevice findByDevice(Long uid,String device);
+	UserDevice findByDevice(Long uid, String device);
 
 
-	public UserDevice save(UserDevice bean);
+	UserDevice save(UserDevice bean);
 
-	public UserDevice updateByUpdater(Updater<UserDevice> updater);
+	UserDevice updateByUpdater(Updater<UserDevice> updater);
 
-	public UserDevice deleteById(Long id);
+	UserDevice deleteById(Long id);
 }

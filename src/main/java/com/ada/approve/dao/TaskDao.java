@@ -11,20 +11,20 @@ import java.util.List;
 import  com.ada.approve.entity.Task;
 
 public interface TaskDao extends CriteriaDao<Task, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public Task findById(Long id);
+	Task findById(Long id);
 
-	public Task save(Task bean);
+	Task save(Task bean);
 	
-	public int deleteForCatalog(Long oid,Integer catalog);
+	int deleteForCatalog(Long oid, Integer catalog);
 
 
-	public Task updateByUpdater(Updater<Task> updater);
+	Task updateByUpdater(Updater<Task> updater);
 
-	public Task deleteById(Long id);
+	Task deleteById(Long id);
 	
-	public List<Date> list(long uid, int year, int month);
+	List<Date> list(long uid, int year, int month);
 	
 	
 }

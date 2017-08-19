@@ -78,35 +78,8 @@ public class UserRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-		UserInfo user = userService.findByUsername(shiroUser.loginName);
-		logger.info("doGetAuthorizationInfo:" + shiroUser.getName());
-		// 把principals放session中
-		UserUtil.getSession().setAttribute(String.valueOf(user.getId()), SecurityUtils.getSubject().getPrincipals());
-		UserUtil.setCurrentUser(user);
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-
-		Set<String> authorities = new HashSet<String>();
-
-		// 赋予角色
-		for (UserRole userRole : user.getRoles()) {
-			info.addRole(userRole.getName());
-			logger.info("role:" + userRole.getName());
-		}
-		if (user != null) {
-			authorities.addAll(userService.findAuthorities(user.getId()));
-		}
-		// //赋予权限
-		// for(Permission
-		// permission:permissionService.getPermissions(user.getId())){
-		// if(StringUtils.isNotBlank(permission.getPermCode()))
-		// info.addStringPermission(permission.getPermCode());
-		// }
-		//
-		// //设置登录次数、时间
-		info.addStringPermissions(authorities);
-		userService.updateUserLogin(user);
-		return info;
+		UserAuthorization authorization=new UserAuthorization(userService);
+		return authorization.doGetAuthorizationInfo(principals);
 	}
 
 	/**
@@ -120,74 +93,6 @@ public class UserRealm extends AuthorizingRealm {
 		setCredentialsMatcher(matcher);
 	}
 
-	/**
-	 * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
-	 */
-	public static class ShiroUser implements Serializable {
-		private static final long serialVersionUID = -1373760761780840081L;
-		public Long id;
-		public String loginName;
-		public String name;
-
-		public ShiroUser(Long id, String loginName, String name) {
-			this.id = id;
-			this.loginName = loginName;
-			this.name = name;
-		}
-
-		public Long getId() {
-			return id;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		/**
-		 * 本函数输出将作为默认的<shiro:principal/>输出.
-		 */
-		@Override
-		public String toString() {
-			return loginName;
-		}
-
-		/**
-		 * 重载hashCode,只计算loginName;
-		 */
-		@Override
-		public int hashCode() {
-			if (loginName != null) {
-				return loginName.hashCode();
-			} else {
-				return 0;
-			}
-		}
-
-		/**
-		 * 重载equals,只计算loginName;
-		 */
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj) {
-				return true;
-			}
-			if (obj == null) {
-				return false;
-			}
-			if (getClass() != obj.getClass()) {
-				return false;
-			}
-			ShiroUser other = (ShiroUser) obj;
-			if (loginName == null) {
-				if (other.loginName != null) {
-					return false;
-				}
-			} else if (!loginName.equals(other.loginName)) {
-				return false;
-			}
-			return true;
-		}
-	}
 
 	@Override
 	public void clearCachedAuthorizationInfo(PrincipalCollection principals) {

@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.article.entity.SensitiveWord;
 
 public interface SensitiveWordDao extends CriteriaDao<SensitiveWord,Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public SensitiveWord findById(Long id);
+	SensitiveWord findById(Long id);
 
-	public SensitiveWord save(SensitiveWord bean);
+	SensitiveWord save(SensitiveWord bean);
 
-	public SensitiveWord updateByUpdater(Updater<SensitiveWord> updater);
+	SensitiveWord updateByUpdater(Updater<SensitiveWord> updater);
 
-	public SensitiveWord deleteById(Long id);
+	SensitiveWord deleteById(Long id);
 }

@@ -46,6 +46,7 @@ public class UserNotificationMemberServiceImpl implements UserNotificationMember
     @Transactional
 	public UserNotificationMember deleteById(Long id) {
 		UserNotificationMember bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

@@ -7,13 +7,16 @@ import com.ada.data.core.Pagination;
 import  com.ada.approve.entity.FlowDefinitionItem;
 
 public interface FlowDefinitionItemDao extends CriteriaDao<FlowDefinitionItem,Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public FlowDefinitionItem findById(Long id);
+	FlowDefinitionItem findById(Long id);
 
-	public FlowDefinitionItem save(FlowDefinitionItem bean);
 
-	public FlowDefinitionItem updateByUpdater(Updater<FlowDefinitionItem> updater);
+	FlowDefinitionItem findByDefintion(Long flow,Integer hierarchy);
 
-	public FlowDefinitionItem deleteById(Long id);
+	FlowDefinitionItem save(FlowDefinitionItem bean);
+
+	FlowDefinitionItem updateByUpdater(Updater<FlowDefinitionItem> updater);
+
+	FlowDefinitionItem deleteById(Long id);
 }

@@ -7,14 +7,14 @@ import com.ada.data.core.Pagination;
 import  com.ada.user.entity.UserToken;
 
 public interface UserTokenDao extends CriteriaDao<UserToken, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public UserToken findById(Long id);
-	public UserToken findById(Long uid,Integer catalog);
+	UserToken findById(Long id);
+	UserToken findById(Long uid, Integer catalog);
 
-	public UserToken save(UserToken bean);
+	UserToken save(UserToken bean);
 
-	public UserToken updateByUpdater(Updater<UserToken> updater);
+	UserToken updateByUpdater(Updater<UserToken> updater);
 
-	public UserToken deleteById(Long id);
+	UserToken deleteById(Long id);
 }

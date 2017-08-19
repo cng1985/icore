@@ -1,5 +1,6 @@
 package com.ada.approve.dao.impl;
 
+import com.ada.data.core.Finder;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,15 @@ public class FlowDefinitionItemDaoImpl extends CriteriaDaoImpl<FlowDefinitionIte
 		}
 		FlowDefinitionItem entity = get(id);
 		return entity;
+	}
+
+	@Override
+	public FlowDefinitionItem findByDefintion(Long flow, Integer hierarchy) {
+		Finder finder=Finder.create();
+		finder.append("from FlowDefinitionItem f where f.flow.id=:flow and f.hierarchy=:hierarchy");
+		finder.setParam("flow",flow);
+		finder.setParam("hierarchy",hierarchy);
+		return findOne(finder);
 	}
 
 	public FlowDefinitionItem save(FlowDefinitionItem bean) {

@@ -11,23 +11,23 @@ import java.util.List;
 
 public interface UserTokenService {
 
-	public UserToken findById(Long id);
+	UserToken findById(Long id);
 
-	public UserToken save(UserToken bean);
+	UserToken save(UserToken bean);
 
-	public UserToken update(UserToken bean);
+	UserToken update(UserToken bean);
 
-	public UserToken deleteById(Long id);
+	UserToken deleteById(Long id);
 	
-	public UserToken[] deleteByIds(Long[] ids);
+	UserToken[] deleteByIds(Long[] ids);
 	
-	public UserTokenPage getPage(int pageNo, int pageSize);
+	UserTokenPage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserToken> findPage(Pageable pageable);
+	Page<UserToken> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserToken> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserToken> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }

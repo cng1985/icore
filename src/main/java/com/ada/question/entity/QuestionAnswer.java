@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ada.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
 
 
@@ -21,11 +22,8 @@ import com.ada.user.entity.UserInfo;
  */
 @Entity
 @Table(name = "question_answer")
-public class QuestionAnswer implements Serializable {
+public class QuestionAnswer extends AbstractEntity {
 	
-	@Id
-	@GeneratedValue
-	private Long id;
 
 	/**
 	 * 用户
@@ -59,17 +57,7 @@ public class QuestionAnswer implements Serializable {
 	 */
 	private Integer ups;
 	
-	/**
-	 * 添加时间
-	 */
-	private Date addDate;
 
-	/**
-	 * 更新时间
-	 */
-	private Date lastDate;
-	
-	
 	/**
 	 * 回答是否被采纳
 	 */
@@ -87,9 +75,6 @@ public class QuestionAnswer implements Serializable {
 		return contents;
 	}
 	
-	public Long getId() {
-		return id;
-	}
 
 	public String getImages() {
 		return images;
@@ -115,9 +100,6 @@ public class QuestionAnswer implements Serializable {
 		this.contents = contents;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public void setImages(String images) {
 		this.images = images;
@@ -139,21 +121,7 @@ public class QuestionAnswer implements Serializable {
 		this.user = user;
 	}
 
-	public Date getAddDate() {
-		return addDate;
-	}
 
-	public void setAddDate(Date addDate) {
-		this.addDate = addDate;
-	}
-
-	public Date getLastDate() {
-		return lastDate;
-	}
-
-	public void setLastDate(Date lastDate) {
-		this.lastDate = lastDate;
-	}
 
 	
 	

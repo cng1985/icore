@@ -20,7 +20,7 @@ public interface AreaApi {
 	 *            父id
 	 * @return 地区集合
 	 */
-	public List<AreaDto> findByPid(Integer id);
+	List<AreaDto> findByPid(Integer id);
 
 	/**
 	 * 查找某个层级的数据

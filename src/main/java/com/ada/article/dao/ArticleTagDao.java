@@ -7,16 +7,16 @@ import com.ada.data.core.Pagination;
 import  com.ada.article.entity.ArticleTag;
 
 public interface ArticleTagDao extends CriteriaDao<ArticleTag, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public ArticleTag findById(Long id);
+	ArticleTag findById(Long id);
 	
-	public ArticleTag tag(String tag);
+	ArticleTag tag(String tag);
 
 
-	public ArticleTag save(ArticleTag bean);
+	ArticleTag save(ArticleTag bean);
 
-	public ArticleTag updateByUpdater(Updater<ArticleTag> updater);
+	ArticleTag updateByUpdater(Updater<ArticleTag> updater);
 
-	public ArticleTag deleteById(Long id);
+	ArticleTag deleteById(Long id);
 }

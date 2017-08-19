@@ -7,13 +7,13 @@ import com.ada.data.core.Pagination;
 import  com.ada.feed.entity.FeedTemplate;
 
 public interface FeedTemplateDao extends CriteriaDao<FeedTemplate, String>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public FeedTemplate findById(String id);
+	FeedTemplate findById(String id);
 
-	public FeedTemplate save(FeedTemplate bean);
+	FeedTemplate save(FeedTemplate bean);
 
-	public FeedTemplate updateByUpdater(Updater<FeedTemplate> updater);
+	FeedTemplate updateByUpdater(Updater<FeedTemplate> updater);
 
-	public FeedTemplate deleteById(String id);
+	FeedTemplate deleteById(String id);
 }

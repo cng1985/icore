@@ -11,30 +11,30 @@ import com.ada.data.page.Pageable;
 
 
 public interface ArticleService {
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public Article findById(Long id);
-	public Article view(Long id);
+	Article findById(Long id);
+	Article view(Long id);
 
-	public Article save(Article bean,String... tag);
+	Article save(Article bean, String... tag);
 	
-	public Article addTag(Long id,String tag);
+	Article addTag(Long id, String tag);
 
-	public Article addTagS(Long id,List<String> tags);
+	Article addTagS(Long id, List<String> tags);
 	
-	public Article resetTagS(Long id,List<String> tags);
+	Article resetTagS(Long id, List<String> tags);
 
-	public Article update(Article bean);
+	Article update(Article bean);
 
-	public Article deleteById(Long id);
+	Article deleteById(Long id);
 	
-	public Article[] deleteByIds(Long[] ids);
+	Article[] deleteByIds(Long[] ids);
 	
-	public ArticlePage pageByCatalog(int catalog,int pageNo, int pageSize);
+	ArticlePage pageByCatalog(int catalog, int pageNo, int pageSize);
 	
-	public ArticlePage pageByCatalog(long uid,int catalog,int pageNo, int pageSize);
+	ArticlePage pageByCatalog(long uid, int catalog, int pageNo, int pageSize);
 	
-	public Page<Article> findPage(Pageable pageable);
+	Page<Article> findPage(Pageable pageable);
 
 
 

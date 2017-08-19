@@ -1,9 +1,5 @@
 package com.young.security;
 
-
-
-import com.young.security.utils.Base64;
-
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -19,8 +15,12 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import com.young.security.utils.Base64;
+
 
 public class ServerRSA {
+	
+
 	String privatekey  =  "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAN7S9ByCdSoQ6x01"
 			+ "7k4iRh1NFUsksJg1Jxrv68gwXU94Uzzgze0vwj6lut3QrWJEJD2aTRoqwxpSSGtf"
 			+ "tl4IjOJlybS1Lfrj91Dh5AECb3wzikSP0iO7CaGXgtscNcl7+eHXB3v7JwMH0va2"
@@ -55,7 +55,7 @@ public class ServerRSA {
 			RSAPrivateKey p = getPrivateKey(privatekey);
 			byte[] y;
 			y = encrypt(p, r.getBytes());
-			reslut = new String(Base64.encode(y));
+			reslut = Base64.encode(y);
 
 		} catch (InvalidKeyException e) {
 			// TODO Auto-generated catch block
@@ -87,7 +87,7 @@ public class ServerRSA {
 		try {
 			RSAPrivateKey p = getPrivateKey(privatekey);
 			byte[] y;
-			y = decrypt(p, com.young.security.utils.Base64.decode(r));
+			y = decrypt(p, Base64.decode(r));
 			reslut=new String(y);
 		} catch (InvalidKeyException e) {
 			// TODO Auto-generated catch block

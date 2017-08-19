@@ -9,15 +9,15 @@ import com.ada.data.core.Pagination;
 import  com.ada.data.core.Updater;
 
 public interface FlowRecordDao extends CriteriaDao<FlowRecord, Long>{
-	public Pagination getPage(int pageNo, int pageSize);
+	Pagination getPage(int pageNo, int pageSize);
 
-	public FlowRecord findById(Long id);
+	FlowRecord findById(Long id);
 
-	public FlowRecord save(FlowRecord bean);
+	FlowRecord save(FlowRecord bean);
 
-	public FlowRecord updateByUpdater(Updater<FlowRecord> updater);
+	FlowRecord updateByUpdater(Updater<FlowRecord> updater);
 
-	public FlowRecord deleteById(Long id);
+	FlowRecord deleteById(Long id);
 
-	public List<FlowRecord> findByFlow(Long id);
+	List<FlowRecord> findByFlow(Long id);
 }

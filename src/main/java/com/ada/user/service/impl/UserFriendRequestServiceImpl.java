@@ -59,6 +59,7 @@ public class UserFriendRequestServiceImpl implements UserFriendRequestService {
 	@Transactional
 	public UserFriendRequest deleteById(Long id) {
 		UserFriendRequest bean = dao.deleteById(id);
+		dao.deleteById(id);
 		return bean;
 	}
 

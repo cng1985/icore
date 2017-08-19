@@ -8,26 +8,25 @@ import com.ada.data.page.Page;
 import com.ada.data.page.Pageable;
 import java.util.List;
 
-
 public interface UserMessageService {
 
-	public UserMessage findById(Long id);
+	UserMessage findById(Long id);
 
-	public UserMessage save(UserMessage bean);
+	UserMessage save(UserMessage bean);
 
-	public UserMessage update(UserMessage bean);
+	UserMessage update(UserMessage bean);
 
-	public UserMessage deleteById(Long id);
+	UserMessage deleteById(Long id);
 	
-	public UserMessage[] deleteByIds(Long[] ids);
+	UserMessage[] deleteByIds(Long[] ids);
 	
-	public UserMessagePage getPage(int pageNo, int pageSize);
+	UserMessagePage getPage(int pageNo, int pageSize);
 	
 	
-	public Page<UserMessage> findPage(Pageable pageable);
+	Page<UserMessage> findPage(Pageable pageable);
 
-	public long count(Filter... filters);
+	long count(Filter... filters);
 
-	public List<UserMessage> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
+	List<UserMessage> findList(Integer first, Integer count, List<Filter> filters, List<Order> orders);
 	
 }
