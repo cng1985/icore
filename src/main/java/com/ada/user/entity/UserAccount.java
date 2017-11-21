@@ -1,6 +1,6 @@
 package com.ada.user.entity;
 
-import com.ada.data.entity.AbstractEntity;
+import com.quhaodian.data.entity.AbstractEntity;
 import com.ada.user.enums.AccountType;
 
 import javax.persistence.*;

@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.ada.data.entity.BaseEntity;
+import com.quhaodian.data.entity.BaseEntity;
 
 @Entity
 @Table(name = "user_friend_request")

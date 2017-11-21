@@ -1,7 +1,7 @@
 package com.ada.question.dao.impl;
 
-import com.ada.data.core.CriteriaDaoImpl;
-import com.ada.data.core.Finder;
+import com.quhaodian.data.core.CriteriaDaoImpl;
+import com.quhaodian.data.core.Finder;
 import com.ada.question.dao.QuestionCatalogDao;
 import com.ada.question.entity.QuestionCatalog;
 import org.hibernate.SessionFactory;

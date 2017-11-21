@@ -1,7 +1,7 @@
 package com.ada.question.service;
 
-import com.ada.data.page.Page;
-import com.ada.data.page.Pageable;
+import com.quhaodian.data.page.Page;
+import com.quhaodian.data.page.Pageable;
 import com.ada.question.entity.Question;
 import com.ada.question.page.QuestionPage;
 

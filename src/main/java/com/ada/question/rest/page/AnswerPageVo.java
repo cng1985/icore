@@ -1,6 +1,6 @@
 package com.ada.question.rest.page;
 
-import com.ada.data.rest.domain.AbstractPageVo;
+import com.quhaodian.data.rest.domain.AbstractPageVo;
 import com.ada.question.rest.vo.AnswerVo;
 
 /**

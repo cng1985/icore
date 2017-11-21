@@ -2,11 +2,11 @@ package com.ada.user.service;
 
 import java.util.List;
 
-import com.ada.data.core.Pagination;
-import com.ada.data.page.Filter;
-import com.ada.data.page.Order;
-import com.ada.data.page.Page;
-import com.ada.data.page.Pageable;
+import com.quhaodian.data.core.Pagination;
+import com.quhaodian.data.page.Filter;
+import com.quhaodian.data.page.Order;
+import com.quhaodian.data.page.Page;
+import com.quhaodian.data.page.Pageable;
 import com.ada.user.entity.UserDevice;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserRole;

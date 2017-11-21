@@ -5,9 +5,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ada.data.core.CriteriaDaoImpl;
-import com.ada.data.core.Finder;
-import com.ada.data.core.Pagination;
+import com.quhaodian.data.core.CriteriaDaoImpl;
+import com.quhaodian.data.core.Finder;
+import com.quhaodian.data.core.Pagination;
 import com.ada.site.dao.AppDao;
 import com.ada.site.entity.App;
 

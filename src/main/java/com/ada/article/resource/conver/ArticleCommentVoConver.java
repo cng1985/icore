@@ -2,7 +2,7 @@ package com.ada.article.resource.conver;
 
 import com.ada.article.entity.ArticleComment;
 import com.ada.article.rest.vo.ArticleCommentVo;
-import com.ada.data.rest.core.Conver;
+import com.quhaodian.data.rest.core.Conver;
 import com.ada.user.resource.conver.UserVoConver;
 import com.ada.user.rest.vo.UserVo;
 

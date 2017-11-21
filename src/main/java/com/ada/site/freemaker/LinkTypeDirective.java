@@ -1,8 +1,8 @@
 package com.ada.site.freemaker;
 
-import com.ada.data.page.Filter;
-import com.ada.data.page.Page;
-import com.ada.data.page.Pageable;
+import com.quhaodian.data.page.Filter;
+import com.quhaodian.data.page.Page;
+import com.quhaodian.data.page.Pageable;
 import com.ada.site.entity.LinkType;
 import com.ada.site.service.LinkTypeService;
 import com.young.web.utils.DirectiveUtils;

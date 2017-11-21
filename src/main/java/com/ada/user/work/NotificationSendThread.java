@@ -2,7 +2,7 @@ package com.ada.user.work;
 
 import java.util.List;
 
-import com.ada.data.core.Pagination;
+import com.quhaodian.data.core.Pagination;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.entity.UserNotification;
 import com.ada.user.entity.UserNotificationMember;

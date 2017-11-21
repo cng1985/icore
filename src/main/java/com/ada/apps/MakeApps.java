@@ -1,8 +1,8 @@
 package com.ada.apps;
 
-import com.ada.imake.ChainMake;
-import com.ada.imake.template.hibernate.TemplateHibernateDir;
-import com.ada.imake.templates.adminlte.TemplateAdminLTE;
+import com.quhaodian.imake.ChainMake;
+import com.quhaodian.imake.template.hibernate.TemplateHibernateDir;
+import com.quhaodian.imake.templates.adminlte.TemplateAdminLTE;
 import com.ada.site.entity.Link;
 import com.ada.site.entity.LinkType;
 

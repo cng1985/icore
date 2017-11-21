@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ada</groupId>
 	<artifactId>icore</artifactId>
-	<version>2.01</version>
+	<version>2.02</version>
 	<name>icore</name>
 	<url>http://maven.apache.org</url>
 	<repositories>
@@ -23,9 +23,14 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<artifactId>discover_hibernate_common</artifactId>
-			<groupId>com.tongna</groupId>
-			<version>1.1.7</version>
+			<groupId>com.quhaodian</groupId>
+			<artifactId>hibernate_common</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.quhaodian</groupId>
+			<artifactId>make</artifactId>
+			<version>1.6.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -128,10 +133,9 @@
 			<version>2.7</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ada</groupId>
-			<artifactId>imake</artifactId>
-			<version>1.2.7</version>
-			<optional>true</optional>
+			<groupId>com.quhaodian</groupId>
+			<artifactId>make</artifactId>
+			<version>1.2.9</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

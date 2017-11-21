@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ada.data.core.Finder;
+import com.quhaodian.data.core.Finder;
 import com.ada.user.dao.UserInfoDao;
 import com.ada.user.dto.UserDto;
 import com.ada.user.entity.UserInfo;

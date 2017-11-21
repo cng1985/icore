@@ -5,7 +5,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-import com.ada.data.entity.AbstractEntity;
+import com.quhaodian.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
 
 /**

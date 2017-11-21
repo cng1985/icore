@@ -2,7 +2,7 @@ package com.ada.question.entity;
 
 import javax.persistence.*;
 
-import com.ada.data.entity.AbstractEntity;
+import com.quhaodian.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
 
 /**

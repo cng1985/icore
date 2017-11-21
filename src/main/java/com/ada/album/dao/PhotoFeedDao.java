@@ -1,9 +1,9 @@
 package com.ada.album.dao;
 
 
-import  com.ada.data.core.CriteriaDao;
-import  com.ada.data.core.Updater;
-import com.ada.data.core.Pagination;
+import  com.quhaodian.data.core.CriteriaDao;
+import  com.quhaodian.data.core.Updater;
+import com.quhaodian.data.core.Pagination;
 import  com.ada.album.entity.PhotoFeed;
 
 public interface PhotoFeedDao extends CriteriaDao<PhotoFeed, String>{

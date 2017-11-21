@@ -4,18 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ada.data.core.Finder;
-import com.ada.data.core.Pagination;
-import com.ada.data.core.Updater;
+import com.quhaodian.data.core.Finder;
+import com.quhaodian.data.core.Pagination;
+import com.quhaodian.data.core.Updater;
 import com.ada.feed.dao.FeedTemplateDao;
 import com.ada.feed.entity.FeedTemplate;
 import com.ada.feed.service.FeedTemplateService;
 import com.ada.feed.page.FeedTemplatePage;
 
-import com.ada.data.page.Filter;
-import com.ada.data.page.Order;
-import com.ada.data.page.Page;
-import com.ada.data.page.Pageable;
+import com.quhaodian.data.page.Filter;
+import com.quhaodian.data.page.Order;
+import com.quhaodian.data.page.Page;
+import com.quhaodian.data.page.Pageable;
 import java.util.List;
 
 

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ada.article.dao.ArticleDao;
 import com.ada.article.entity.Article;
-import com.ada.data.core.CriteriaDaoImpl;
-import com.ada.data.core.Pagination;
+import com.quhaodian.data.core.CriteriaDaoImpl;
+import com.quhaodian.data.core.Pagination;
 
 @Repository
 public class ArticleDaoImpl extends CriteriaDaoImpl<Article, Long> implements ArticleDao {

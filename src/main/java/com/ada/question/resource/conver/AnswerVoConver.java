@@ -1,7 +1,7 @@
 package com.ada.question.resource.conver;
 
-import com.ada.data.rest.core.Conver;
-import com.ada.data.rest.core.ConverCodeMake;
+import com.quhaodian.data.rest.core.Conver;
+import com.quhaodian.data.rest.core.ConverCodeMake;
 import com.ada.question.entity.QuestionAnswer;
 import com.ada.question.rest.vo.AnswerVo;
 

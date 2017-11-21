@@ -6,7 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.ada.data.entity.AbstractEntity;
+import com.quhaodian.data.entity.AbstractEntity;
 
 @Entity
 @Table(name = "user_message_member")

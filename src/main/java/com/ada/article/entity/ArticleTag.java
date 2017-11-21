@@ -1,6 +1,6 @@
 package com.ada.article.entity;
 
-import com.ada.data.entity.AbstractEntity;
+import com.quhaodian.data.entity.AbstractEntity;
 
 import java.io.Serializable;
 

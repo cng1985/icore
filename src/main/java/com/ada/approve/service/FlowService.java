@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.ada.approve.entity.Flow;
 import com.ada.approve.page.FlowPage;
-import com.ada.data.page.Filter;
-import com.ada.data.page.Order;
-import com.ada.data.page.Page;
-import com.ada.data.page.Pageable;
-import com.ada.data.rest.domain.AbstractVo;
+import com.quhaodian.data.page.Filter;
+import com.quhaodian.data.page.Order;
+import com.quhaodian.data.page.Page;
+import com.quhaodian.data.page.Pageable;
+import com.quhaodian.data.rest.domain.AbstractVo;
 
 public interface FlowService {
 

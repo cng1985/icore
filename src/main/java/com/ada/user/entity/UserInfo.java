@@ -18,8 +18,8 @@
  */
 package com.ada.user.entity;
 
-import com.ada.data.entity.AbstractEntity;
-import com.ada.data.enums.State;
+import com.quhaodian.data.entity.AbstractEntity;
+import com.quhaodian.data.enums.State;
 
 import javax.persistence.*;
 import java.util.HashMap;

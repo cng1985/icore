@@ -3,8 +3,8 @@ package com.ada.feed.entity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.ada.data.entity.AbstractEntity;
-import com.ada.data.entity.UUIDEntity;
+import com.quhaodian.data.entity.AbstractEntity;
+import com.quhaodian.data.entity.UUIDEntity;
 
 /**
  * 

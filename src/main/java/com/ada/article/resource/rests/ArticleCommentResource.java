@@ -10,9 +10,9 @@ import com.ada.article.entity.ArticleComment;
 import com.ada.article.resource.conver.ArticleCommentVoConver;
 import com.ada.article.rest.api.ArticleCommentApi;
 import com.ada.article.rest.page.ArticleCommentPageVo;
-import com.ada.data.core.Finder;
-import com.ada.data.core.Pagination;
-import com.ada.data.rest.core.ConverUtils;
+import com.quhaodian.data.core.Finder;
+import com.quhaodian.data.core.Pagination;
+import com.quhaodian.data.rest.core.ConverUtils;
 
 @Transactional
 @Component

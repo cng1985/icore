@@ -1,8 +1,8 @@
 package com.ada.site.dao;
 
 
-import  com.ada.data.core.CriteriaDao;
-import  com.ada.data.core.Updater;
+import  com.quhaodian.data.core.CriteriaDao;
+import  com.quhaodian.data.core.Updater;
 import  com.ada.site.entity.Link;
 
 /**

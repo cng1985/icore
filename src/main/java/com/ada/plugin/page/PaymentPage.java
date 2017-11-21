@@ -1,7 +1,7 @@
 package com.ada.plugin.page;
 
-import com.ada.data.core.Pagination;
-import com.ada.data.dto.PageRpc;
+import com.quhaodian.data.core.Pagination;
+import com.quhaodian.data.dto.PageRpc;
 import com.ada.plugin.entity.SystemPayment;
 public class PaymentPage extends PageRpc<SystemPayment> {
 

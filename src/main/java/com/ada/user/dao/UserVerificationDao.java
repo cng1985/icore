@@ -1,8 +1,8 @@
 package com.ada.user.dao;
 
-import com.ada.data.core.CriteriaDao;
-import com.ada.data.core.Updater;
-import com.ada.data.core.Pagination;
+import com.quhaodian.data.core.CriteriaDao;
+import com.quhaodian.data.core.Updater;
+import com.quhaodian.data.core.Pagination;
 import com.ada.user.entity.UserVerification;
 
 public interface UserVerificationDao extends CriteriaDao<UserVerification, Long> {

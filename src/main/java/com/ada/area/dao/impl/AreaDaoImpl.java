@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.ada.area.dao.AreaDao;
 import com.ada.area.entity.Area;
-import com.ada.data.core.CriteriaDaoImpl;
-import com.ada.data.core.Finder;
-import com.ada.data.core.Pagination;
+import com.quhaodian.data.core.CriteriaDaoImpl;
+import com.quhaodian.data.core.Finder;
+import com.quhaodian.data.core.Pagination;
 
 @Repository
 public class AreaDaoImpl extends CriteriaDaoImpl<Area, Integer> implements AreaDao {

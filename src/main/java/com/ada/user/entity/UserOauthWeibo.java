@@ -3,7 +3,7 @@ package com.ada.user.entity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.ada.data.entity.BaseEntity;
+import com.quhaodian.data.entity.BaseEntity;
 
 /**
  * 微博登陆后的信息

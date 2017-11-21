@@ -16,7 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
-import com.ada.data.entity.SortEntity;
+import com.quhaodian.data.entity.SortEntity;
 
 /**
  * Entity - 插件配置

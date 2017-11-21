@@ -1,6 +1,6 @@
 package com.ada.site.entity;
 
-import com.ada.data.entity.AbstractEntity;
+import com.quhaodian.data.entity.AbstractEntity;
 
 import javax.persistence.*;
 

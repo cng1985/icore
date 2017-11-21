@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ada.data.core.Finder;
-import com.ada.data.core.Pagination;
-import com.ada.data.core.Updater;
-import com.ada.data.page.Page;
-import com.ada.data.page.Pageable;
+import com.quhaodian.data.core.Finder;
+import com.quhaodian.data.core.Pagination;
+import com.quhaodian.data.core.Updater;
+import com.quhaodian.data.page.Page;
+import com.quhaodian.data.page.Pageable;
 import com.ada.question.dao.QuestionCatalogDao;
 import com.ada.question.dao.QuestionDao;
 import com.ada.question.entity.Question;

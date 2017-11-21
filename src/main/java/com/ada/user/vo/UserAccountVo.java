@@ -1,6 +1,6 @@
 package com.ada.user.vo;
 
-import com.ada.data.rest.domain.AbstractVo;
+import com.quhaodian.data.rest.domain.AbstractVo;
 
 import java.io.Serializable;
 

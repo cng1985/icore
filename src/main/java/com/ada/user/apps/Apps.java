@@ -3,9 +3,9 @@ package com.ada.user.apps;
 
 import com.ada.activity.entity.ActivityCatalog;
 import com.ada.article.entity.ArticleCatalog;
-import com.ada.imake.ChainMake;
-import com.ada.imake.template.hibernate.TemplateHibernateDir;
-import com.ada.imake.templates.simple.TemplateSimpleDir;
+import com.quhaodian.imake.ChainMake;
+import com.quhaodian.imake.template.hibernate.TemplateHibernateDir;
+import com.quhaodian.imake.templates.simple.TemplateSimpleDir;
 import com.ada.question.entity.QuestionCatalog;
 
 import java.io.File;

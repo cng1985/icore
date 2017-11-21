@@ -2,7 +2,7 @@ package com.ada.user.dto;
 
 import javax.persistence.Column;
 
-import com.ada.data.dto.BaseDto;
+import com.quhaodian.data.dto.BaseDto;
 
 public class UserDto extends BaseDto{
 	

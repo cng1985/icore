@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.ada.data.entity.CatalogEntity;
+import com.quhaodian.data.entity.CatalogEntity;
 
 /**
  * 地区

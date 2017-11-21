@@ -2,10 +2,10 @@ package com.ada.article.service;
 
 import com.ada.article.entity.ArticleTag;
 import com.ada.article.page.ArticleTagPage;
-import com.ada.data.page.Filter;
-import com.ada.data.page.Order;
-import com.ada.data.page.Page;
-import com.ada.data.page.Pageable;
+import com.quhaodian.data.page.Filter;
+import com.quhaodian.data.page.Order;
+import com.quhaodian.data.page.Page;
+import com.quhaodian.data.page.Pageable;
 import java.util.List;
 
 

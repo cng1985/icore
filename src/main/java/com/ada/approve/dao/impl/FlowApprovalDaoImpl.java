@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import com.ada.approve.dao.FlowApprovalDao;
 import com.ada.approve.entity.FlowApproval;
-import com.ada.data.core.CriteriaDaoImpl;
-import com.ada.data.core.Finder;
-import com.ada.data.core.Pagination;
+import com.quhaodian.data.core.CriteriaDaoImpl;
+import com.quhaodian.data.core.Finder;
+import com.quhaodian.data.core.Pagination;
 
 @Repository
 public class FlowApprovalDaoImpl extends CriteriaDaoImpl<FlowApproval, Long> implements FlowApprovalDao {

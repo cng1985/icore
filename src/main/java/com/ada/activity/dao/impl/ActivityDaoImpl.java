@@ -5,8 +5,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ada.data.core.CriteriaDaoImpl;
-import com.ada.data.core.Pagination;
+import com.quhaodian.data.core.CriteriaDaoImpl;
+import com.quhaodian.data.core.Pagination;
 import com.ada.activity.dao.ActivityDao;
 import com.ada.activity.entity.Activity;
 

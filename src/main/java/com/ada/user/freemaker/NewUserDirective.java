@@ -1,6 +1,6 @@
 package com.ada.user.freemaker;
 
-import com.ada.data.page.Order;
+import com.quhaodian.data.page.Order;
 import com.ada.freemarker.ListDirective;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.service.UserInfoService;

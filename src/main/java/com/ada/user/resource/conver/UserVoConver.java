@@ -2,7 +2,7 @@ package com.ada.user.resource.conver;
 
 import org.springframework.beans.BeanUtils;
 
-import com.ada.data.rest.core.Conver;
+import com.quhaodian.data.rest.core.Conver;
 import com.ada.user.entity.UserInfo;
 import com.ada.user.rest.vo.UserVo;
 

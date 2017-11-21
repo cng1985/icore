@@ -2,9 +2,9 @@ package com.ada.admin.dao;
 
 
 import com.ada.admin.entity.Menu;
-import com.ada.data.core.CriteriaDao;
-import com.ada.data.core.Pagination;
-import com.ada.data.core.Updater;
+import com.quhaodian.data.core.CriteriaDao;
+import com.quhaodian.data.core.Pagination;
+import com.quhaodian.data.core.Updater;
 
 public interface MenuDao extends CriteriaDao<Menu, Integer>{
 	Pagination getPage(int pageNo, int pageSize);

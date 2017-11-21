@@ -1,6 +1,6 @@
 package com.ada.user.service;
 
-import com.ada.data.core.Pagination;
+import com.quhaodian.data.core.Pagination;
 import com.ada.user.entity.UserFriend;
 import com.ada.user.page.UserFriendPage;
 

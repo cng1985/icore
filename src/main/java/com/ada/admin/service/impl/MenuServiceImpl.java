@@ -14,13 +14,13 @@ import com.ada.admin.dao.MenuDao;
 import com.ada.admin.entity.Menu;
 import com.ada.admin.service.MenuService;
 import com.ada.article.entity.ArticleCatalog;
-import com.ada.data.core.Finder;
-import com.ada.data.core.Pagination;
-import com.ada.data.core.Updater;
-import com.ada.data.page.Filter;
-import com.ada.data.page.Order;
-import com.ada.data.page.Page;
-import com.ada.data.page.Pageable;
+import com.quhaodian.data.core.Finder;
+import com.quhaodian.data.core.Pagination;
+import com.quhaodian.data.core.Updater;
+import com.quhaodian.data.page.Filter;
+import com.quhaodian.data.page.Order;
+import com.quhaodian.data.page.Page;
+import com.quhaodian.data.page.Pageable;
 
 @Service
 @Transactional

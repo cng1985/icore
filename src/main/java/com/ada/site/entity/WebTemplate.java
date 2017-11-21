@@ -3,7 +3,7 @@ package com.ada.site.entity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.ada.data.entity.UUIDEntity;
+import com.quhaodian.data.entity.UUIDEntity;
 
 @Entity
 @Table(name = "site_template_web")

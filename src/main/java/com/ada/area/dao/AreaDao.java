@@ -2,9 +2,9 @@ package com.ada.area.dao;
 
 
 import  com.ada.area.entity.Area;
-import com.ada.data.core.CriteriaDao;
-import com.ada.data.core.Pagination;
-import  com.ada.data.core.Updater;
+import com.quhaodian.data.core.CriteriaDao;
+import com.quhaodian.data.core.Pagination;
+import  com.quhaodian.data.core.Updater;
 
 public interface AreaDao extends CriteriaDao<Area, Integer>{
 	Pagination getPage(int pageNo, int pageSize);

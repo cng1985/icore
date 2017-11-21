@@ -12,7 +12,7 @@ import com.ada.area.dao.AreaDao;
 import com.ada.area.dto.AreaDto;
 import com.ada.area.entity.Area;
 import com.ada.area.rest.AreaApi;
-import com.ada.data.core.Finder;
+import com.quhaodian.data.core.Finder;
 
 
 

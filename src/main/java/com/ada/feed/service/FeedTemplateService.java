@@ -2,10 +2,10 @@ package com.ada.feed.service;
 
 import com.ada.feed.entity.FeedTemplate;
 import com.ada.feed.page.FeedTemplatePage;
-import com.ada.data.page.Filter;
-import com.ada.data.page.Order;
-import com.ada.data.page.Page;
-import com.ada.data.page.Pageable;
+import com.quhaodian.data.page.Filter;
+import com.quhaodian.data.page.Order;
+import com.quhaodian.data.page.Page;
+import com.quhaodian.data.page.Pageable;
 import java.util.List;
 
 

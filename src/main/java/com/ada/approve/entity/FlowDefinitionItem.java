@@ -1,6 +1,6 @@
 package com.ada.approve.entity;
 
-import com.ada.data.entity.AbstractEntity;
+import com.quhaodian.data.entity.AbstractEntity;
 import com.ada.user.entity.UserInfo;
 
 import javax.persistence.*;

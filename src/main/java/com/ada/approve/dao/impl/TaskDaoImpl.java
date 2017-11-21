@@ -12,9 +12,9 @@ import org.springframework.stereotype.Repository;
 
 import com.ada.approve.dao.TaskDao;
 import com.ada.approve.entity.Task;
-import com.ada.data.core.CriteriaDaoImpl;
-import com.ada.data.core.Pagination;
-import com.ada.data.page.Filter;
+import com.quhaodian.data.core.CriteriaDaoImpl;
+import com.quhaodian.data.core.Pagination;
+import com.quhaodian.data.page.Filter;
 
 @Repository
 public class TaskDaoImpl extends CriteriaDaoImpl<Task, Long> implements TaskDao {
