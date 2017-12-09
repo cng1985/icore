@@ -8,6 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * 审批记录
+ */
 @Entity
 @Table(name = "approve_flow_record")
 public class FlowRecord extends AbstractEntity {

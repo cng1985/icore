@@ -33,7 +33,7 @@ public interface FlowService {
 	 *            审批状态
 	 * @param note
 	 *            审批意见
-	 * @param workid
+	 * @param user
 	 *            员工id
 	 * 
 	 * @return 审批状态
